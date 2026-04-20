@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bx3kv3un2jsmn"]
+
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_cyf21"]
+[ext_resource type="Script" uid="uid://cyxtkkk65vjbv" path="res://Scripts/Widgets/Inspector Widgets/Widget_ObjectInspectorMain.gd" id="1_mb4xq"]
+[ext_resource type="Script" uid="uid://cd8yfxqc4yltq" path="res://Scripts/UnitComponents/CWoundable.gd" id="2_hbito"]
+[ext_resource type="PackedScene" uid="uid://5v1guhcr21hq" path="res://Prefabs/Widgets/Widget_ActorView.tscn" id="2_mb4xq"]
+[ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="3_fjt0s"]
+[ext_resource type="PackedScene" uid="uid://c3csv0mlikwav" path="res://Prefabs/Widgets/Widget_WoundView.tscn" id="3_hbito"]
+[ext_resource type="PackedScene" uid="uid://dt1end2nmaijq" path="res://Prefabs/Widgets/Widget_InventoryView.tscn" id="4_fjt0s"]
+[ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="4_j7ygb"]
+[ext_resource type="PackedScene" uid="uid://bwv385nbhrraq" path="res://Prefabs/Widgets/Widget_AttributeView.tscn" id="5_353ih"]
+[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="5_eojcl"]
+[ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
+bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[node name="Inspector" type="PanelContainer" unique_id=454653937 node_paths=PackedStringArray("widget_registry")]
+show_behind_parent = true
+texture_filter = 1
+size_flags_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jp3g8")
+script = ExtResource("1_mb4xq")
+widget_registry = {
+ExtResource("2_hbito"): NodePath("MarginContainer/VBoxContainer/Widget_WoundView"),
+ExtResource("3_fjt0s"): NodePath("MarginContainer/VBoxContainer/Widget_AttributeView"),
+ExtResource("4_j7ygb"): NodePath("MarginContainer/VBoxContainer/Widget_ExecutorView"),
+ExtResource("5_eojcl"): NodePath("MarginContainer/VBoxContainer/Widget_InventoryView")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=517814802]
+texture_filter = 3
+layout_mode = 2
+theme = ExtResource("1_cyf21")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1215381375]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Widget_ActorView" parent="MarginContainer/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Widget_ExecutorView" parent="MarginContainer/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
+layout_mode = 2
+
+[node name="Widget_WoundView" parent="MarginContainer/VBoxContainer" unique_id=1596486453 instance=ExtResource("3_hbito")]
+layout_mode = 2
+
+[node name="Widget_InventoryView" parent="MarginContainer/VBoxContainer" unique_id=1364715684 instance=ExtResource("4_fjt0s")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1895444628]
+layout_mode = 2
+
+[node name="Widget_AttributeView" parent="MarginContainer/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
+layout_mode = 2
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1577900208]
+layout_mode = 2
+
+[node name="Widget_Status" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1365834016]
+layout_mode = 2
+theme_override_constants/h_separation = 19
+columns = 2

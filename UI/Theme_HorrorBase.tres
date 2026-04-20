@@ -1,0 +1,23 @@
+[gd_resource type="Theme" format=3 uid="uid://ccd2tkrpe0pi1"]
+
+[ext_resource type="FontFile" uid="uid://cq2r1n2c13jm0" path="res://UI/quaver.ttf" id="1_n4akp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4akp"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 2
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[resource]
+default_font = ExtResource("1_n4akp")
+default_font_size = 24
+MarginContainer/constants/margin_bottom = 8
+MarginContainer/constants/margin_left = 8
+MarginContainer/constants/margin_right = 8
+MarginContainer/constants/margin_top = 8
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_n4akp")

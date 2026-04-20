@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bpq8to7u51urx"]
+
+[ext_resource type="Script" uid="uid://6yjsacewkcs3" path="res://Scripts/Grid/grid_object.gd" id="1_dns1d"]
+[ext_resource type="Script" uid="uid://bw7gmcs1m2g7d" path="res://Scripts/UnitComponents/CStateDraw.gd" id="1_id5nw"]
+[ext_resource type="Material" uid="uid://s0sdycvibqwv" path="res://Sprites/MT_SpriteOutline.tres" id="2_dns1d"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_ob644"]
+[ext_resource type="Texture2D" uid="uid://d1s6haxtmafnq" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Idle.tres" id="4_igciv"]
+
+[node name="GridObject" type="Node2D" unique_id=1179883337]
+script = ExtResource("1_dns1d")
+
+[node name="ViewPivot" type="Node2D" parent="." unique_id=1593318972]
+unique_name_in_owner = true
+position = Vector2(0, 16)
+script = ExtResource("1_id5nw")
+
+[node name="Sprite" type="Sprite2D" parent="ViewPivot" unique_id=862196751]
+unique_name_in_owner = true
+texture_filter = 1
+material = ExtResource("2_dns1d")
+texture = ExtResource("3_ob644")
+offset = Vector2(0, -16)
+
+[node name="StateDraw" type="Sprite2D" parent="." unique_id=2131647066]
+unique_name_in_owner = true
+z_index = 99
+texture_filter = 1
+position = Vector2(0, -32)
+scale = Vector2(2, 2)
+texture = ExtResource("4_igciv")

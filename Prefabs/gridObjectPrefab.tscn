@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://bpq8to7u51urx"]
+
+[ext_resource type="Script" uid="uid://6yjsacewkcs3" path="res://Scripts/Grid/grid_object.gd" id="1_dns1d"]
+[ext_resource type="Material" uid="uid://s0sdycvibqwv" path="res://Sprites/MT_SpriteOutline.tres" id="1_lo6vi"]
+[ext_resource type="Shader" uid="uid://ldyy5tpqxf5v" path="res://Prefabs/UnitShader_Player.gdshader" id="2_ob644"]
+[ext_resource type="Shader" uid="uid://cfvc4atvbxihs" path="res://Prefabs/UnitShader_Neutral.gdshader" id="3_igciv"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_ob644"]
+[ext_resource type="Shader" uid="uid://cbke8xgib07xu" path="res://Prefabs/UnitShader_Enemy.gdshader" id="4_2r43e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vdyrt"]
+shader = ExtResource("2_ob644")
+shader_parameter/outline_color = Color(1, 1, 1, 1)
+shader_parameter/width = 1.0
+shader_parameter/add_diagonals = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohe14"]
+shader = ExtResource("3_igciv")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/add_diagonals = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b04uw"]
+shader = ExtResource("4_2r43e")
+shader_parameter/outline_color = Color(1, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/add_diagonals = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e8fuu"]
+shader = ExtResource("3_igciv")
+shader_parameter/outline_color = Color(1, 1, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/add_diagonals = true
+
+[node name="GridObject" type="Node2D" unique_id=1179883337]
+y_sort_enabled = true
+script = ExtResource("1_dns1d")
+material_map = Dictionary[int, ShaderMaterial]({
+0: SubResource("ShaderMaterial_vdyrt"),
+1: SubResource("ShaderMaterial_ohe14"),
+2: SubResource("ShaderMaterial_e8fuu"),
+3: SubResource("ShaderMaterial_b04uw")
+})
+
+[node name="ViewPivot" type="Node2D" parent="." unique_id=1593318972]
+unique_name_in_owner = true
+y_sort_enabled = true
+
+[node name="Sprite" type="Sprite2D" parent="ViewPivot" unique_id=862196751]
+unique_name_in_owner = true
+y_sort_enabled = true
+texture_filter = 1
+material = ExtResource("1_lo6vi")
+texture = ExtResource("3_ob644")

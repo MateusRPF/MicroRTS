@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameResource" format=3 uid="uid://cmsru4uv2c2e0"]
+
+[ext_resource type="Texture2D" uid="uid://q36dxogfsqng" path="res://Sprites/UI/SPR_Wood.tres" id="1_7hogh"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_p5nxy"]
+
+[resource]
+script = ExtResource("1_p5nxy")
+proper_name = "Wood"
+description = "Timber and logs for construction."
+icon = ExtResource("1_7hogh")
+metadata/_custom_type_script = "uid://b21ghjgaar2q5"

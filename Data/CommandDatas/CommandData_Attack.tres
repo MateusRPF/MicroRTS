@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://cg805kwk31uw5"]
+
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="1_2d8yn"]
+[ext_resource type="Script" uid="uid://crk5bh74fjx82" path="res://Scripts/UnitComponents/Commands/Command_Attack.gd" id="1_488p4"]
+[ext_resource type="Texture2D" uid="uid://coavdl61xii7p" path="res://Sprites/UI/CommandIcons/SPR_Command_Attack.tres" id="1_f46rg"]
+[ext_resource type="Script" uid="uid://kp8klk0s4mpi" path="res://Scripts/UnitComponents/CAttacker.gd" id="2_62h00"]
+
+[resource]
+script = ExtResource("1_2d8yn")
+description = "Attack a hostile target in range. If the selected target cannot be attacked, attempts another nearby enemy."
+icon = ExtResource("1_f46rg")
+target_mode = 3
+priority = 3
+required_components = Array[Script]([ExtResource("2_62h00")])
+command_script = ExtResource("1_488p4")
+metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

@@ -1,0 +1,58 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://cdpvanfbewh2e"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_5dne6"]
+[ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="2_tncqv"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_52gxn"]
+[ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="3_84lkx"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="4_q5ogi"]
+[ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="5_3nxyt"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="6_d26gj"]
+[ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="7_y1rtw"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="8_qe243"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="9_3lsy6"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="9_764we"]
+
+[sub_resource type="Resource" id="Resource_70dr3"]
+script = ExtResource("2_tncqv")
+attrs = Dictionary[int, int]({
+0: 45,
+1: 1,
+2: 1,
+3: 3,
+4: 3,
+5: 1,
+6: 3
+})
+metadata/_custom_type_script = "uid://b40p573hfvm6v"
+
+[sub_resource type="Resource" id="Resource_xecmj"]
+script = ExtResource("3_52gxn")
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Resource_52gxn"]
+script = ExtResource("3_84lkx")
+metadata/_custom_type_script = "uid://bmuke1nuwo0qc"
+
+[sub_resource type="Resource" id="Resource_4r6ql"]
+script = ExtResource("5_3nxyt")
+metadata/_custom_type_script = "uid://cyj0feijn3m44"
+
+[sub_resource type="Resource" id="Resource_0vw1c"]
+script = ExtResource("6_d26gj")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[sub_resource type="Resource" id="Resource_mo2yl"]
+script = ExtResource("7_y1rtw")
+metadata/_custom_type_script = "uid://40q3s0vdavqw"
+
+[sub_resource type="Resource" id="Resource_764we"]
+script = ExtResource("6_d26gj")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[resource]
+script = ExtResource("8_qe243")
+actor_name = "Adept"
+description = "Trained member of the Harbingers, able to conduct basic magic."
+sprite = ExtResource("9_764we")
+modules = Array[ExtResource("1_5dne6")]([SubResource("Resource_70dr3"), SubResource("Resource_xecmj"), SubResource("Resource_52gxn"), SubResource("Resource_4r6ql"), SubResource("Resource_0vw1c"), SubResource("Resource_mo2yl"), SubResource("Resource_764we")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

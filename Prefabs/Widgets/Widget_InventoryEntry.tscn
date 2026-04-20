@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://d22nwhlh3q4c"]
+
+[ext_resource type="Script" uid="uid://wgid2whqhbey" path="res://Scripts/Widgets/Inspector Widgets/Widget_InventoryEntry.gd" id="1_7js0q"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_uj7ew"]
+[ext_resource type="Texture2D" uid="uid://q36dxogfsqng" path="res://Sprites/UI/SPR_Wood.tres" id="2_7js0q"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnwpq"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Widget_InventoryEntry" type="PanelContainer" unique_id=1236962088]
+self_modulate = Color(1, 1, 1, 0)
+script = ExtResource("1_7js0q")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=418798824]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=842436878]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_uj7ew")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnwpq")
+
+[node name="Image_ResourceSprite" type="TextureRect" parent="HBoxContainer/PanelContainer" unique_id=1014928291]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("2_7js0q")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_Value" type="Label" parent="HBoxContainer" unique_id=1146684254]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "2"

@@ -1,0 +1,51 @@
+[gd_resource type="TileSet" format=3 uid="uid://dmrvivvr1lsxp"]
+
+[ext_resource type="Texture2D" uid="uid://ckc11e1vblji8" path="res://Sprites/Structures/SPR_Stockpile.png" id="1_rykax"]
+[ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="2_7tb2v"]
+[ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="3_7tb2v"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_rykax"]
+[ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="5_km5fj"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
+texture = ExtResource("1_rykax")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(-16, 16)
+0:0/0/custom_data_0 = "Structure_Stockpile"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_km5fj"]
+texture = ExtResource("2_7tb2v")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Harbingers_Shambler"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ghj2b"]
+texture = ExtResource("3_rykax")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Harbingers_Adept"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rykax"]
+texture = ExtResource("3_7tb2v")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(1, 2)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, 16)
+0:0/0/custom_data_0 = "Resource_Tree"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea704"]
+texture = ExtResource("5_km5fj")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Resource_Sarcophagus"
+
+[resource]
+tile_size = Vector2i(32, 32)
+custom_data_layer_0/name = "DataEntry"
+custom_data_layer_0/type = 4
+sources/1 = SubResource("TileSetAtlasSource_km5fj")
+sources/2 = SubResource("TileSetAtlasSource_ghj2b")
+sources/3 = SubResource("TileSetAtlasSource_rykax")
+sources/0 = SubResource("TileSetAtlasSource_jhoso")
+sources/4 = SubResource("TileSetAtlasSource_ea704")

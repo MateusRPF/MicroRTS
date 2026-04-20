@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://hfnkep1c0tcc"]
+
+[ext_resource type="Script" uid="uid://dykv7w1tp5cke" path="res://Scripts/Widgets/Inspector Widgets/Widget_ExecutorView.gd" id="1_cja6m"]
+
+[node name="Widget_ExecutorView" type="PanelContainer" unique_id=1022687051]
+self_modulate = Color(1, 1, 1, 0)
+script = ExtResource("1_cja6m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2039579376]
+layout_mode = 2
+
+[node name="Label_Intelligence" type="Label" parent="HBoxContainer" unique_id=95134886]
+visible = false
+modulate = Color(0, 0.9882353, 0, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
+theme_override_font_sizes/font_size = 16
+text = "Worker"
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=790658260]
+visible = false
+layout_mode = 2
+
+[node name="Label_Command" type="Label" parent="HBoxContainer" unique_id=1525219184]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
+theme_override_font_sizes/font_size = 16
+text = "SWIGGITY SWOOTY"
+horizontal_alignment = 3

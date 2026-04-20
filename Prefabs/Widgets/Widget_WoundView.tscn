@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://c3csv0mlikwav"]
+
+[ext_resource type="Script" uid="uid://ch83a8eiw4ro1" path="res://Scripts/Widgets/Inspector Widgets/Widget_WoundView.gd" id="1_76qtk"]
+[ext_resource type="PackedScene" uid="uid://bdtw2wie3x4js" path="res://Prefabs/Widgets/Widget_WoundPanel.tscn" id="2_o4aov"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3o1q"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jln6d"]
+bg_color = Color(0, 0.6745098, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_detail = 9
+
+[node name="Widget_WoundView" type="PanelContainer" unique_id=1596486453]
+custom_minimum_size = Vector2(20, 16)
+theme_override_styles/panel = SubResource("StyleBoxFlat_w3o1q")
+script = ExtResource("1_76qtk")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=308687799]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="WoundContainer" type="HBoxContainer" parent="MarginContainer" unique_id=540191605]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="WoundPanel" parent="MarginContainer/WoundContainer" unique_id=799501355 instance=ExtResource("2_o4aov")]
+layout_mode = 2
+
+[node name="Panel2" type="Panel" parent="MarginContainer/WoundContainer" unique_id=470038750]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jln6d")
+
+[node name="Panel3" type="Panel" parent="MarginContainer/WoundContainer" unique_id=1656700202]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jln6d")
+
+[node name="Panel4" type="Panel" parent="MarginContainer/WoundContainer" unique_id=1836833505]
+layout_mode = 2

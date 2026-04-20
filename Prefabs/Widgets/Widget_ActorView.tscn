@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://5v1guhcr21hq"]
+
+[ext_resource type="Script" uid="uid://b5jvjnowxcn4m" path="res://Scripts/Widgets/Inspector Widgets/Widget_ObjectID.gd" id="1_0a7lr"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_6q1t3"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="2_siewa"]
+[ext_resource type="Texture2D" uid="uid://d1s6haxtmafnq" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Idle.tres" id="3_0a7lr"]
+[ext_resource type="FontFile" uid="uid://cq2r1n2c13jm0" path="res://UI/quaver.ttf" id="3_siewa"]
+
+[node name="Widget_ActorView" type="PanelContainer" unique_id=883937192]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+offset_right = 202.0
+offset_bottom = 60.0
+size_flags_vertical = 0
+script = ExtResource("1_0a7lr")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=154241155]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer" unique_id=1904988625]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_6q1t3")
+
+[node name="Image_ActorSprite" type="TextureRect" parent="HBoxContainer/PanelContainer" unique_id=1903708621]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("2_siewa")
+stretch_mode = 5
+
+[node name="Label_Name" type="Label" parent="HBoxContainer" unique_id=1077920290]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 30)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("3_siewa")
+theme_override_font_sizes/font_size = 24
+text = "The Acolyte"
+vertical_alignment = 1
+autowrap_mode = 3
+justification_flags = 0
+clip_text = true
+text_overrun_behavior = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer" unique_id=1826304741]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer2" unique_id=761780948]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer/PanelContainer2/MarginContainer" unique_id=477271412]
+visible = false
+custom_minimum_size = Vector2(10, 10)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("3_0a7lr")
+stretch_mode = 2

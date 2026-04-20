@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://b040ygjoar8hg"]
+
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="1_2d8yn"]
+[ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="1_qrn5f"]
+[ext_resource type="Script" uid="uid://jdytvmr0ox58" path="res://Scripts/UnitComponents/Commands/Command_Move.gd" id="1_ygndn"]
+[ext_resource type="Script" uid="uid://dm2ly44wwf48c" path="res://Scripts/UnitComponents/CMover.gd" id="2_62h00"]
+
+[resource]
+script = ExtResource("1_2d8yn")
+description = "Directs the unit to move towards a location."
+icon = ExtResource("1_qrn5f")
+required_components = Array[Script]([ExtResource("2_62h00")])
+command_script = ExtResource("1_ygndn")
+metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

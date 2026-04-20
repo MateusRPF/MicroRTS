@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://v8qby4fwyvmd"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_of86o"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_yiely"]
+[ext_resource type="Resource" uid="uid://dudqhrprdnfic" path="res://Data/GameResources/Resource_Bones.tres" id="3_of86o"]
+[ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_4dn3p"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_y43fb"]
+[ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="6_of86o"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_2t01r"]
+
+[sub_resource type="Resource" id="Resource_axvgi"]
+script = ExtResource("2_yiely")
+max_storage = 999
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Resource_4gnky"]
+script = ExtResource("4_4dn3p")
+resource = ExtResource("3_of86o")
+metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
+
+[resource]
+script = ExtResource("5_y43fb")
+actor_name = "Sarcophagus"
+description = "Full of bones and made of stone."
+sprite = ExtResource("6_of86o")
+modules = Array[ExtResource("1_of86o")]([SubResource("Resource_axvgi"), SubResource("Resource_4gnky")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

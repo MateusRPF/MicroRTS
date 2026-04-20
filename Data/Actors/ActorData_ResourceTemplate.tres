@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://dbau57blfxdny"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_5ukc3"]
+[ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="2_i1xc4"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_aq5t0"]
+[ext_resource type="Texture2D" uid="uid://q36dxogfsqng" path="res://Sprites/UI/SPR_Wood.tres" id="4_4gnky"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="8_7o0f5"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="9_m6cdc"]
+
+[sub_resource type="Resource" id="Resource_75166"]
+script = ExtResource("3_aq5t0")
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Resource_4gnky"]
+script = ExtResource("2_i1xc4")
+metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
+
+[resource]
+script = ExtResource("8_7o0f5")
+actor_name = "Unnamed Resource Node"
+description = "Get some stuff?"
+sprite = ExtResource("4_4gnky")
+modules = Array[ExtResource("1_5ukc3")]([SubResource("Resource_75166"), SubResource("Resource_4gnky")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

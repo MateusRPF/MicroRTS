@@ -1,0 +1,116 @@
+[gd_scene format=3 uid="uid://ukqepnrxhbvw"]
+
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_1bhi0"]
+[ext_resource type="Script" uid="uid://du0juc1471tlg" path="res://Scripts/Widgets/Widget_ControlPanel.gd" id="1_jkeuj"]
+[ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="2_6vp56"]
+[ext_resource type="Texture2D" uid="uid://coavdl61xii7p" path="res://Sprites/UI/CommandIcons/SPR_Command_Attack.tres" id="2_kav63"]
+[ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="2_m2dj5"]
+[ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="3_aur6s"]
+[ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="4_5ntrw"]
+[ext_resource type="Texture2D" uid="uid://cdv8a0b8hpl5v" path="res://Sprites/UI/CommandIcons/SPR_Command_FollowDefend.tres" id="5_jkeuj"]
+[ext_resource type="Texture2D" uid="uid://b7igpo75s83tk" path="res://Sprites/UI/CommandIcons/SPR_Command_Halt.tres" id="6_qe80y"]
+[ext_resource type="Texture2D" uid="uid://d1b8pp8vhe8le" path="res://Sprites/UI/CommandIcons/SPR_Command_Repair.tres" id="7_m2dj5"]
+[ext_resource type="Texture2D" uid="uid://cx4dv6jdfu2c5" path="res://Sprites/UI/CommandIcons/SPR_Command_SwitchDraft.tres" id="8_aur6s"]
+[ext_resource type="Texture2D" uid="uid://cf58hpjtskr7k" path="res://Sprites/UI/CommandIcons/SPR_Command_Harvest.tres" id="9_aur6s"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
+bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+border_blend = true
+
+[node name="CommandPanel" type="PanelContainer" unique_id=1232269199 node_paths=PackedStringArray("button_command_map")]
+show_behind_parent = true
+texture_filter = 1
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_jp3g8")
+script = ExtResource("1_jkeuj")
+button_command_map = {
+NodePath("MarginContainer/GridContainer/Button_AbilityQ"): null,
+NodePath("MarginContainer/GridContainer/Button_AbilityW"): null,
+NodePath("MarginContainer/GridContainer/Button_AbilityE"): null,
+NodePath("MarginContainer/GridContainer/Button_Ability_R"): null,
+NodePath("MarginContainer/GridContainer/Button_Attack"): null,
+NodePath("MarginContainer/GridContainer/Button_Move"): ExtResource("2_m2dj5"),
+NodePath("MarginContainer/GridContainer/Button_FollowDefend"): null,
+NodePath("MarginContainer/GridContainer/Button_Halt"): null,
+NodePath("MarginContainer/GridContainer/Button_Build"): null,
+NodePath("MarginContainer/GridContainer/Button_Repair"): null,
+NodePath("MarginContainer/GridContainer/Button_SwitchDraft"): null,
+NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("3_aur6s")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=197816126]
+texture_filter = 3
+layout_mode = 2
+theme = ExtResource("1_1bhi0")
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer" unique_id=1810224225]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+columns = 4
+
+[node name="Button_AbilityQ" parent="MarginContainer/GridContainer" unique_id=1077922482 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = null
+
+[node name="Button_AbilityW" parent="MarginContainer/GridContainer" unique_id=920265323 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = null
+
+[node name="Button_AbilityE" parent="MarginContainer/GridContainer" unique_id=1662484924 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = null
+
+[node name="Button_Ability_R" parent="MarginContainer/GridContainer" unique_id=920708086 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = null
+
+[node name="Button_Attack" parent="MarginContainer/GridContainer" unique_id=1565404559 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("2_kav63")
+
+[node name="Button_Move" parent="MarginContainer/GridContainer" unique_id=881060123 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("4_5ntrw")
+
+[node name="Button_FollowDefend" parent="MarginContainer/GridContainer" unique_id=396417549 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("5_jkeuj")
+
+[node name="Button_Halt" parent="MarginContainer/GridContainer" unique_id=1019940710 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("6_qe80y")
+
+[node name="Button_Build" parent="MarginContainer/GridContainer" unique_id=523203411 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+
+[node name="Button_Harvest" parent="MarginContainer/GridContainer" unique_id=1414370379 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("9_aur6s")
+
+[node name="Button_Repair" parent="MarginContainer/GridContainer" unique_id=1075293606 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("7_m2dj5")
+
+[node name="Button_SwitchDraft" parent="MarginContainer/GridContainer" unique_id=820062575 instance=ExtResource("2_6vp56")]
+layout_mode = 2
+disabled_tint = null
+icon = ExtResource("8_aur6s")

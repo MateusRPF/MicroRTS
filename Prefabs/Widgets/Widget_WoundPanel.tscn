@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://bdtw2wie3x4js"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jln6d"]
+bg_color = Color(0, 0.6745098, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_detail = 9
+
+[node name="WoundPanel" type="Panel" unique_id=799501355]
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_jln6d")

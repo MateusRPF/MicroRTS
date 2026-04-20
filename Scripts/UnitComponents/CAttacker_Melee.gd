@@ -1,0 +1,2 @@
+extends CAttacker
+class_name CAttacker_Melee

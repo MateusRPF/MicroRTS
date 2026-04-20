@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://cu60k5qe8hr83"]
+
+[ext_resource type="Script" uid="uid://bqrb5g863pptj" path="res://Scripts/UnitComponents/Commands/Command_Harvest.gd" id="1_2yent"]
+[ext_resource type="Texture2D" uid="uid://cf58hpjtskr7k" path="res://Sprites/UI/CommandIcons/SPR_Command_Harvest.tres" id="2_2yent"]
+[ext_resource type="Script" uid="uid://dm2ly44wwf48c" path="res://Scripts/UnitComponents/CMover.gd" id="3_e8o73"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="4_1c36o"]
+
+[resource]
+script = ExtResource("4_1c36o")
+display_name = "Harvest"
+description = "Unit will collect resources from a node."
+icon = ExtResource("2_2yent")
+target_mode = 3
+priority = 2
+required_components = Array[Script]([ExtResource("3_e8o73")])
+command_script = ExtResource("1_2yent")
+metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"
