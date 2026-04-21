@@ -7,6 +7,7 @@ var harvester: CHarvester = null
 var state_machine: CStateMachine = null
 
 var ideal_resource:GameResource
+var cached_path: Array[Vector2i] = []
 
 const SEARCH_RADIUS = 20
 
@@ -42,27 +43,31 @@ func tick() -> void:
 			else:
 				finish_command()
 		HarvestSteps.APPROACHING:
-			if (target_resource):
+			if is_instance_valid(target_resource) and is_instance_valid(target_resource.owner_object):
 				if harvester.can_harvest(target_resource):
 					state_machine.request_state(CStateMachine.StateID.HARVEST, {"target_resource": target_resource})
 					current_step = HarvestSteps.HARVESTING
 					return
-	
+
 				if not owner_executor.owner_object.get_component(CMover).is_moving():
-					var target_interact_coord = get_best_coord_to_enact(target_resource.owner_object)
-					if target_interact_coord == Vector2i(-1, -1): # No path found
-							target_resource = null
-							current_step = HarvestSteps.FINDING_RESOURCE
-							return
-					state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile":target_interact_coord })
+					var target_interact_coord: Vector2i = get_best_coord_to_enact(target_resource.owner_object)
+					if target_interact_coord == Vector2i(-1, -1):
+						target_resource = null
+						cached_path = []
+						current_step = HarvestSteps.FINDING_RESOURCE
+						return
+					_request_move_state(target_interact_coord)
 					return
 			else:
+				target_resource = null
+				cached_path = []
 				current_step = HarvestSteps.FINDING_RESOURCE
 		HarvestSteps.HARVESTING:
 			if not harvester.inventory.has_room_for(harvester.currently_harvesting_resource):
 				current_step = HarvestSteps.DELIVERING
 				return
-			if not target_resource:
+			if not is_instance_valid(target_resource):
+				target_resource = null
 				current_step = HarvestSteps.FINDING_RESOURCE
 		HarvestSteps.DELIVERING:
 			if target_delivery_stockpile:
@@ -72,37 +77,47 @@ func tick() -> void:
 					current_step = HarvestSteps.FINDING_RESOURCE
 				else:
 					if not owner_executor.owner_object.get_component(CMover).is_moving():
-						state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": get_best_coord_to_enact(target_delivery_stockpile.owner_object)})
+						var delivery_coord = get_best_coord_to_enact(target_delivery_stockpile.owner_object)
+						if delivery_coord == Vector2i(-1, -1):
+							cached_path = []
+							return
+						_request_move_state(delivery_coord)
 			else:
 				get_next_stockpile()
 				if not target_delivery_stockpile:
 						finish_command()
 
 
-func get_best_coord_to_enact(target:GridObject)->Vector2i:
-
-	var target_interact_coords:Array[Vector2i] = get_valid_coords_to_enact(target)
-	var best_coord:Vector2i = Vector2i(-1,-1)
-	var best_distance = INF
-	var mover:CMover = owner_executor.owner_object.get_component(CMover)
-	for coord in target_interact_coords:
-		if (mover.can_path_to(coord)):
-			var distance = owner_executor.owner_object.grid_manager.calculate_distance_sqr(coord,owner_executor.owner_object.current_coord)
-			if distance < best_distance:
-				best_coord = coord
-				best_distance = distance
-	return best_coord
-	
-
-func can_path_to_target(target:GridObject):
-	var target_interact_coords:Array[Vector2i] = get_valid_coords_to_enact(target)
-	var mover:CMover = owner_executor.owner_object.get_component(CMover)
-	for coord in target_interact_coords:
-		if mover.can_path_to(coord):
-			return true
+func _request_move_state(target_tile: Vector2i) -> void:
+	var params: Dictionary = {"target_tile": target_tile}
+	if cached_path.size() > 0:
+		params["cached_path"] = cached_path
+	state_machine.request_state(CStateMachine.StateID.MOVE, params)
 
 
-	return false
+func get_best_coord_to_enact(target: GridObject) -> Vector2i:
+	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target)
+	if candidates.is_empty():
+		cached_path = []
+		return Vector2i(-1, -1)
+
+	var actor: GridObject = owner_executor.owner_object
+	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
+	if result.is_empty():
+		cached_path = []
+		return Vector2i(-1, -1)
+
+	cached_path = result["path"]
+	return result["best_goal"]
+
+
+func can_path_to_target(target: GridObject) -> bool:
+	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target)
+	if candidates.is_empty():
+		return false
+	var actor: GridObject = owner_executor.owner_object
+	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
+	return not result.is_empty()
 
 
 func get_status() -> int:

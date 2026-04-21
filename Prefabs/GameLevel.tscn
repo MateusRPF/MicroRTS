@@ -1,14 +1,24 @@
 [gd_scene format=4 uid="uid://c0umrcpgjtmi1"]
 
 [ext_resource type="Script" uid="uid://c0kjp7i585mh7" path="res://Scripts/Managers/grid_manager.gd" id="1_uqqmm"]
-[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="2_ao6la"]
 [ext_resource type="TileSet" uid="uid://baontrc7qla2f" path="res://Tilesets/tileset_A.tres" id="3_osnka"]
 [ext_resource type="TileSet" uid="uid://dmrvivvr1lsxp" path="res://Tilesets/tileset_Spawnables.tres" id="4_jympa"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/Units/Actor_Harbingers_Adept.tscn" id="5_adept"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/Units/Actor_Harbingers_Shambler.tscn" id="6_shambler"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="7_stockpile"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Tree.tscn" id="8_tree"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Sarcophagus.tscn" id="9_sarc"]
 
 [node name="GameLevel" type="Node2D" unique_id=1620061272]
 texture_filter = 1
 script = ExtResource("1_uqqmm")
-grid_object_scene = ExtResource("2_ao6la")
+spawn_scenes = Dictionary[String, PackedScene]({
+"Harbingers_Adept": ExtResource("5_adept"),
+"Harbingers_Shambler": ExtResource("6_shambler"),
+"Resource_Sarcophagus": ExtResource("9_sarc"),
+"Resource_Tree": ExtResource("8_tree"),
+"Structure_Stockpile": ExtResource("7_stockpile")
+})
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=2091239766]
 unique_name_in_owner = true
@@ -22,7 +32,7 @@ rendering_quadrant_size = 32
 [node name="Spawnables_Player" type="TileMapLayer" parent="." unique_id=779288486]
 unique_name_in_owner = true
 modulate = Color(0, 1, 1, 1)
-tile_map_data = PackedByteArray("AAAKAAQAAgAAAAAAAAAeAAsAAAAAAAAAAAAXAAwAAQAAAAAAAAAXAAkAAQAAAAAAAAAZAA0AAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAKAAQAAgAAAAAAAAAeAAsAAAAAAAAAAAAXAAwAAQAAAAAAAAAXAAkAAQAAAAAAAAAZAA0AAQAAAAAAAAAZAAsAAQAAAAAAAAAWAAoAAQAAAAAAAAAUAAsAAQAAAAAAAAAVAA0AAQAAAAAAAAASAAwAAQAAAAAAAAATAAsAAQAAAAAAAAATAAoAAQAAAAAAAAASAAkAAQAAAAAAAAAYAAsAAQAAAAAAAAA=")
 tile_set = ExtResource("4_jympa")
 
 [node name="Spawnables_Enemy" type="TileMapLayer" parent="." unique_id=1953164313]
