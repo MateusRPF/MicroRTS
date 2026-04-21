@@ -2,7 +2,22 @@ extends Node2D
 
 @onready var controller = get_parent()
 
+func get_color_for_side(side: ActorData.Sides) -> Color:
+	match side:
+		ActorData.Sides.PLAYER:
+			return Color(1, 1, 1, 0.5)  # White
+		ActorData.Sides.ENEMY:
+			return Color(1, 0, 0, 0.5)  # Red
+		ActorData.Sides.NEUTRAL:
+			return Color(1, 1, 0, 0.5)  # Yellow
+		ActorData.Sides.ALLY:
+			return Color(0, 1, 1, 0.5)  # Cyan (assuming ally like player)
+		_:
+			return Color(1, 1, 0, 0.5)  # Default to yellow
+
 func draw_rect_corners(rect: Rect2, color: Color, width: float = 1.0, corner_length: float = 10.0) -> void:
+	# Normalize rect to ensure positive width and height
+	rect = rect.abs()
 	var tl = rect.position
 	var tr = rect.position + Vector2(rect.size.x, 0)
 	var bl = rect.position + Vector2(0, rect.size.y)
@@ -28,8 +43,8 @@ func _draw() -> void:
 	# 1. Draw the marquee box while dragging
 	if controller.is_dragging:
 		var rect = Rect2(controller.drag_start_pos, controller.drag_end_pos - controller.drag_start_pos)
-		draw_rect_corners(rect, Color(0, 1, 0, 0.2), 1.0) # Fill replaced with corners
-		draw_rect_corners(rect, Color(0, 1, 0, 0.5), 2.0) # Border
+		draw_rect(rect, Color(0, 1, 0, 0.2), true) # Fill
+		draw_rect_corners(rect, Color(0, 1, 0, 0.5), 2.0) # Border corners on top
 
 	# 2. Draw highlights for all selected units
 	for unit in controller.selected_objects:
@@ -38,7 +53,8 @@ func _draw() -> void:
 		var view_child = unit.get_child(0).get_child(0) as Node2D
 		var tile_size = controller.grid_manager.TILE_SIZE
 		var rect = Rect2(view_child.global_position - Vector2(tile_size / 2, tile_size / 2), Vector2(tile_size, tile_size))
-		draw_rect_corners(rect, Color(1, 1, 0, 0.5), 1.0)
+		var color = get_color_for_side(unit.side)
+		draw_rect_corners(rect, color, 1.0)
 	_draw_hover_rect()
 
 func _draw_hover_rect() -> void:
@@ -51,7 +67,8 @@ func _process(_delta: float) -> void:
 func _draw_selection_ui() -> void:
 	var object: GridObject = controller.selectedObject
 	var rect = Rect2(object.get_child(0).get_child(0).global_position - Vector2(16, 16), Vector2(32, 32))
-	draw_rect_corners(rect, Color.YELLOW, 3.0)
+	var color = get_color_for_side(object.side)
+	draw_rect_corners(rect, color, 3.0)
 
 
 func get_rect_for_tile(tile: Vector2i) -> Rect2:

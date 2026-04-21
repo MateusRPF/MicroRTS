@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3]
+[gd_scene format=3 uid="uid://o73b6kuim2qn"]
 
 [ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="5_wood"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="6_actor"]
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="7_sprite"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="8_cubfp"]
 
 [sub_resource type="Resource" id="Mod_Inventory"]
 script = ExtResource("3_inv")
@@ -28,5 +29,5 @@ view_offset = Vector2i(0, -16)
 modules = Array[ExtResource("2_cd")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
-[node name="Actor_Resource_Tree" instance=ExtResource("1_base")]
+[node name="Actor_Resource_Tree" unique_id=2031240608 instance=ExtResource("1_base")]
 data = SubResource("Actor_Tree_Data")

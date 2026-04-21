@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://d7u65ka60wn1"]
 
 [ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://s0sdycvibqwv" path="res://Sprites/MT_SpriteOutline.tres" id="2_1jyif"]
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="3_attrs"]
+[ext_resource type="Material" uid="uid://cjjjmb5ourjas" path="res://Sprites/MT_SpriteOutline_Neutral.tres" id="3_x1exa"]
+[ext_resource type="Material" uid="uid://ddstotuhpjadp" path="res://Sprites/MT_SpriteOutline_Enemy.tres" id="4_0mx7g"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="4_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="5_mover"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="6_7akmv"]
@@ -55,7 +58,9 @@ modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Harbingers_Adept" unique_id=187744114 instance=ExtResource("1_base")]
+material_map = Dictionary[int, ShaderMaterial]({
+0: ExtResource("2_1jyif"),
+1: ExtResource("3_x1exa"),
+3: ExtResource("4_0mx7g")
+})
 data = SubResource("Actor_Adept_Data")
-
-[node name="Sprite" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="0" unique_id=862196751]
-material = null

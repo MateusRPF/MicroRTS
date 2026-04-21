@@ -45,10 +45,10 @@ func assemble_from_data(newData:ActorData):
 
 func _update_outline_color() -> void:
 	pass
-	# if material_map.has(side):
-	# 	%Sprite.material = material_map[side]
-	# else:
-	# 	%Sprite.material = material_map[ActorData.Sides.NEUTRAL]
+	if material_map.has(side):
+		%Sprite.material = material_map[side]
+	else:
+		%Sprite.material = material_map[ActorData.Sides.NEUTRAL]
 
 
 

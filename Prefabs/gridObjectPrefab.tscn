@@ -1,11 +1,19 @@
 [gd_scene format=3 uid="uid://bpq8to7u51urx"]
 
 [ext_resource type="Script" uid="uid://6yjsacewkcs3" path="res://Scripts/Grid/grid_object.gd" id="1_dns1d"]
+[ext_resource type="Material" uid="uid://s0sdycvibqwv" path="res://Sprites/MT_SpriteOutline.tres" id="2_dns1d"]
+[ext_resource type="Material" uid="uid://cjjjmb5ourjas" path="res://Sprites/MT_SpriteOutline_Neutral.tres" id="3_igciv"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_ob644"]
+[ext_resource type="Material" uid="uid://ddstotuhpjadp" path="res://Sprites/MT_SpriteOutline_Enemy.tres" id="4_2r43e"]
 
 [node name="GridObject" type="Node2D" unique_id=1179883337]
 y_sort_enabled = true
 script = ExtResource("1_dns1d")
+material_map = Dictionary[int, ShaderMaterial]({
+0: ExtResource("2_dns1d"),
+1: ExtResource("3_igciv"),
+3: ExtResource("4_2r43e")
+})
 
 [node name="ViewPivot" type="Node2D" parent="." unique_id=1593318972]
 unique_name_in_owner = true

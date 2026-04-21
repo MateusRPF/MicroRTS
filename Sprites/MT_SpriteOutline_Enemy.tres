@@ -1,0 +1,10 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://ddstotuhpjadp"]
+
+[ext_resource type="Shader" uid="uid://ldyy5tpqxf5v" path="res://Prefabs/UnitShader_Player.gdshader" id="1_v82lf"]
+
+[resource]
+shader = ExtResource("1_v82lf")
+shader_parameter/outline_color = Color(1, 0, 0, 1)
+shader_parameter/width = 1.0
+shader_parameter/add_diagonals = false
+shader_parameter/gap_suppression = 1.0
