@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3]
+[gd_scene format=3 uid="uid://bnnnhxq14ac5f"]
 
 [ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
@@ -6,11 +6,13 @@
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="4_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="5_mover"]
 [ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="6_harv"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="6_huhh2"]
 [ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="7_exec"]
 [ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="8_sm"]
 [ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="9_wound"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="10_actor"]
 [ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="11_sprite"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_13dc0"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("3_attrs")
@@ -57,5 +59,8 @@ sprite = ExtResource("11_sprite")
 modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
-[node name="Actor_Harbingers_Shambler" instance=ExtResource("1_base")]
+[node name="Actor_Harbingers_Shambler" unique_id=1628272071 instance=ExtResource("1_base")]
 data = SubResource("Actor_Shambler_Data")
+
+[node name="Sprite" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="0" unique_id=862196751]
+material = null

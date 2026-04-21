@@ -44,10 +44,11 @@ func assemble_from_data(newData:ActorData):
 		_component_cache[newComp.get_script()] = newComp
 
 func _update_outline_color() -> void:
-	if material_map.has(side):
-		%Sprite.material = material_map[side]
-	else:
-		%Sprite.material = material_map[ActorData.Sides.NEUTRAL]
+	pass
+	# if material_map.has(side):
+	# 	%Sprite.material = material_map[side]
+	# else:
+	# 	%Sprite.material = material_map[ActorData.Sides.NEUTRAL]
 
 
 
