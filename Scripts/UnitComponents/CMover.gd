@@ -14,6 +14,12 @@ var blocker_object:GridObject = null
 
 var default_speed: int = 1
 
+const HOP_HEIGHT: float = 10.0
+const HOP_LEAN: float = 0.22
+
+var _pos_tween: Tween = null
+var _rot_tween: Tween = null
+
 
 func is_moving() -> bool:
 	return current_path.size() > 0 and current_step < current_path.size()
@@ -44,11 +50,14 @@ func start_move(target_coord: Vector2i) -> bool:
 
 	return true
 
-func can_path_to(target_coord:Vector2i)->bool:
-	if not (target_coord):
+func start_move_with_path(path: Array[Vector2i], target_coord: Vector2i) -> bool:
+	if path.is_empty():
 		return false
-	var testPath = owner_object.grid_manager.find_path(owner_object.current_coord,target_coord,owner_object).size() >0
-	return testPath
+	current_goal = target_coord
+	current_path = path
+	current_step = 0
+	tick_counter = 99
+	return true
 
 func _on_tick_received() -> void:
 	if not is_moving():
@@ -75,22 +84,25 @@ func _on_tick_received() -> void:
 
 
 func _advance_move_step() -> bool:
-	#DebugSettings.debug_print("Mover", "Advancing Move")
 	blocker_object = null
 	if not is_moving():
 		return false
 
 	var next_coord: Vector2i = current_path[current_step]
 	if not perform_move(owner_object.current_coord, next_coord):
-		if (blocker_object):
-			if (blocker_object.randomizedPriority > owner_object.randomizedPriority or blocker_object.get_component(CMover).is_moving()):
-				blocked_repath_counter += 1 
-			if blocked_repath_counter >= blocked_repath_delay:
-				blocked_repath_counter = 0
-			else:
-				start_move(current_goal)  # Recalculate path after waiting a tick
-		else:
-			tick_counter = ticks_per_step - 1  # retry on next tick
+		if blocker_object == null:
+			tick_counter = ticks_per_step - 1
+			return false
+
+		var blocker_mover: CMover = blocker_object.get_component(CMover)
+		if blocker_mover == null or not blocker_mover.is_moving():
+			start_move(current_goal)
+			return false
+
+		blocked_repath_counter += 1
+		if blocked_repath_counter >= blocked_repath_delay:
+			blocked_repath_counter = 0
+			start_move(current_goal)
 		return false
 
 	blocked_repath_counter = 0
@@ -100,66 +112,55 @@ func _advance_move_step() -> bool:
 		return false
 	return true
 
-# var _move_tween: Tween
-func perform_move(_from_coord: Vector2i, to_coord: Vector2i) -> bool:
+func perform_move(from_coord: Vector2i, to_coord: Vector2i) -> bool:
 	if not owner_object or not owner_object.grid_manager:
 		push_error("CMover: Cannot perform move without grid_manager")
 		return false
 	if not owner_object.grid_manager.map_tiles.has(to_coord):
 		DebugSettings.debug_print("Mover", "Target tile %s is invalid" % to_coord)
 		return false
-	
+
 	if not can_move_to(to_coord):
 		return false
 
-	# # 1. Kill any ongoing movement to prevent "fighting" tweens
-	# if _move_tween and _move_tween.is_running():
-	# 	_move_tween.kill()
-
 	var grid = owner_object.grid_manager
-
-
-
-	# 2. Update Logic: Move the parent immediately
-
-
-	# var view_child = owner_object.get_child(0)
-	# var old_visual_pos: Vector2
-	
-	# if view_child:
-	# 	old_visual_pos = view_child.global_position
-	# 	if _move_tween: _move_tween.kill()
-
 	grid.UpdatePosition(owner_object, to_coord)
-	owner_object.settle_position() # This snaps the parent to to_world_pos
-
-	
-	# if view_child:
-	# 	# Instantly teleport the child BACK to where it was globally.
-	# 	# This negates the parent's snap, so the player sees no change yet.
-	# 	view_child.global_position = old_visual_pos
-
-	# 	# 4. Animate local position back to (0,0) 
-	# 	# (Zero is now the new parent position)
-	# 	var duration = GlobalTicker.tick_rate * ticks_per_step
-
-	# 	_move_tween = owner_object.create_tween()
-	# 	_move_tween.set_trans(Tween.TRANS_LINEAR) 
-	# 	_move_tween.tween_property(view_child, "position", Vector2.ZERO, duration)
+	owner_object.settle_position()
+	_play_hop(to_coord - from_coord)
 	return true
 
-func _on_move_tween_completed() -> void:
-	owner_object.get_child(0).position = Vector2.ZERO
 
-# func find_valid_interaction_tile(target_obj: GridObject) -> Vector2i:
-# 	# TODO: Find an adjacent tile to interact with the target object
-# 	# Returns a coordinate adjacent to the target that the owner_object can stand on
-# 	if not owner_object or not target_obj:
-# 		push_error("CMover: Invalid parameters for find_valid_interaction_tile")
-# 		return Vector2i.ZERO
-	
-# 	DebugSettings.debug_print("Mover", "Finding interaction tile for target at %s" % target_obj.currentCoord)
-# 	return Vector2i.ZERO
+func _play_hop(direction: Vector2i) -> void:
+	var sprite: Node2D = owner_object.get_node_or_null("%Sprite")
+	if not sprite:
+		return
+	if _pos_tween and _pos_tween.is_running():
+		_pos_tween.kill()
+	if _rot_tween and _rot_tween.is_running():
+		_rot_tween.kill()
+
+	var duration: float = GlobalTicker.tick_rate * ticks_per_step
+	var half: float = duration * 0.5
+	var start_local: Vector2 = -Vector2(direction) * GridManager.TILE_SIZE
+	var start_y: float = start_local.y
+
+	sprite.position = start_local
+
+	_pos_tween = sprite.create_tween().set_parallel(true)
+	_pos_tween.tween_property(sprite, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)
+	_pos_tween.tween_method(
+		func(t: float) -> void:
+			sprite.position.y = lerp(start_y, 0.0, t) - HOP_HEIGHT * sin(t * PI),
+		0.0, 1.0, duration
+	)
+
+	if direction.x != 0:
+		var lean: float = -sign(direction.x) * HOP_LEAN
+		_rot_tween = sprite.create_tween()
+		_rot_tween.tween_property(sprite, "rotation", lean, half).set_trans(Tween.TRANS_SINE)
+		_rot_tween.tween_property(sprite, "rotation", 0.0, half).set_trans(Tween.TRANS_SINE)
+	else:
+		sprite.rotation = 0.0
 
 func can_move_to(target_coord: Vector2i) -> bool:
 	if not owner_object or not owner_object.grid_manager:

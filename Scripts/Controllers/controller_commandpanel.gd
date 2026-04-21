@@ -49,15 +49,15 @@ func issue_aimed_command(selected_objects:Array[GridObject],commandData:CommandD
 				var new_command:Command = create_command_from_data(commandData,executor,target_coord)
 				if (new_command):
 					executor.queue_command(new_command)
-				
-				
+
+
 func create_command_from_data(data:CommandData,executor:CCommandExecutor, target_pos:Vector2i)->Command:
 	var tile = controller.grid_manager.map_tiles[target_pos]
 	var target_object:GridObject = tile.occupant
 
 	var new_command = data.command_script.new(data,executor,target_pos,target_object)
 
-	
+
 	return new_command
 
 func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i, command:CommandData) -> bool:

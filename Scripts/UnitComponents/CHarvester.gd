@@ -9,6 +9,10 @@ var inventory:CInventory
 
 
 const TICKS_PER_HARVEST:int = 3
+const PUNCH_DISTANCE: float = 14.0
+const PUNCH_DURATION: float = 0.16
+
+var _punch_tween: Tween = null
 
 
 func initialize_component(actor: GridObject) -> void:
@@ -39,11 +43,29 @@ func perform_harvest(node:CResourceNode) -> void:
 		var attribute_set:CAttributeSet = owner_object.get_component(CAttributeSet)
 		if attribute_set:
 			harvestQuantity = attribute_set.get_attr(CAttributeSet.ATTR_ID.ATTR_HARVEST_POWER)
-		
+
 		var storageLeft = max(0,inventory.max_storage_per_entry- inventory.get_stored_qty(currently_harvesting_resource))
 		harvestQuantity = min(harvestQuantity,storageLeft)
 
+		_play_punch(node)
+		node.shake()
 		inventory.deposit(currently_harvesting_resource, node.grant_resource(harvestQuantity))
+
+
+func _play_punch(node: CResourceNode) -> void:
+	var sprite: Node2D = owner_object.get_node_or_null("%Sprite")
+	if not sprite or not is_instance_valid(node) or not is_instance_valid(node.owner_object):
+		return
+	var delta: Vector2 = Vector2(node.owner_object.current_coord - owner_object.current_coord)
+	if delta.length_squared() == 0:
+		return
+	if _punch_tween and _punch_tween.is_running():
+		_punch_tween.kill()
+	var punch_offset: Vector2 = delta.normalized() * PUNCH_DISTANCE
+	sprite.position = Vector2.ZERO
+	_punch_tween = sprite.create_tween()
+	_punch_tween.tween_property(sprite, "position", punch_offset, PUNCH_DURATION * 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_punch_tween.tween_property(sprite, "position", Vector2.ZERO, PUNCH_DURATION * 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
 func deliver_to(stockpile: CStockpile) -> void:

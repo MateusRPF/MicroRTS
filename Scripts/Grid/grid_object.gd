@@ -11,7 +11,7 @@ var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 @export var material_map:Dictionary[ActorData.Sides, ShaderMaterial]
 
 
-var data:ActorData = null
+@export var data:ActorData = null
 
 @onready var randomizedPriority = randi()
 
@@ -20,13 +20,13 @@ var _component_cache: Dictionary = {}
 
 signal OnTickReceived
 
-func Initialize(manager: GridManager, coord: Vector2i, actorData:ActorData, newSide:ActorData.Sides) -> void:
+func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides) -> void:
 	grid_manager = manager
 	current_coord = coord
 	side = newSide
 
 	GlobalTicker.TickSignal.connect(_on_global_tick)
-	assemble_from_data(actorData)
+	assemble_from_data(data)
 	_update_outline_color()
 
 	grid_manager.UpdatePosition(self, current_coord)

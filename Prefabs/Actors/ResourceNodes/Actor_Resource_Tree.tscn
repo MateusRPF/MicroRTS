@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_inv"]
+[ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_rn"]
+[ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="5_wood"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="6_actor"]
+[ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="7_sprite"]
+
+[sub_resource type="Resource" id="Mod_Inventory"]
+script = ExtResource("3_inv")
+max_storage = 999
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Mod_ResourceNode"]
+script = ExtResource("4_rn")
+resource = ExtResource("5_wood")
+amount = 30
+metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
+
+[sub_resource type="Resource" id="Actor_Tree_Data"]
+script = ExtResource("6_actor")
+actor_name = "Tree"
+description = "Source of Wood."
+sprite = ExtResource("7_sprite")
+view_offset = Vector2i(0, -16)
+modules = Array[ExtResource("2_cd")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"
+
+[node name="Actor_Resource_Tree" instance=ExtResource("1_base")]
+data = SubResource("Actor_Tree_Data")

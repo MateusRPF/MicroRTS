@@ -51,4 +51,4 @@ func get_status() -> command_states:
 
 
 func get_valid_coords_to_enact(object:GridObject,interactRange:int = 1) -> Array[Vector2i]:
-	return owner_executor.owner_object.grid_manager.get_interaction_positions( object, interactRange)
+	return owner_executor.owner_object.grid_manager.get_interaction_positions(object, interactRange, true)

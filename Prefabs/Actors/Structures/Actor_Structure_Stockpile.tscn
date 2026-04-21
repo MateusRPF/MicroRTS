@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
+[ext_resource type="Script" uid="uid://b12sbao0o4pnt" path="res://Scripts/DataStructures/ComponentData/ComponentData_Stockpile.gd" id="3_stock"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="4_actor"]
+[ext_resource type="Texture2D" uid="uid://ckc11e1vblji8" path="res://Sprites/Structures/SPR_Stockpile.png" id="5_sprite"]
+
+[sub_resource type="Resource" id="Mod_Stockpile"]
+script = ExtResource("3_stock")
+metadata/_custom_type_script = "uid://b12sbao0o4pnt"
+
+[sub_resource type="Resource" id="Actor_Stockpile_Data"]
+script = ExtResource("4_actor")
+actor_name = "Stockpile"
+description = "Delivery spot for basic materials."
+sprite = ExtResource("5_sprite")
+view_offset = Vector2i(16, -16)
+grid_size = Vector2i(2, 2)
+modules = Array[ExtResource("2_cd")]([SubResource("Mod_Stockpile")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"
+
+[node name="Actor_Structure_Stockpile" instance=ExtResource("1_base")]
+data = SubResource("Actor_Stockpile_Data")
