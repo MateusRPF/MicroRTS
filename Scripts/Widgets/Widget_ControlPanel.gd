@@ -29,6 +29,10 @@ func _configure_panels():
 
 	for command_entry in command_entries:
 		command_entry.button.on_pressed.connect(trigger_command_request.bind(command_entry.data))
+		if (command_entry.data):
+			command_entry.button.tooltip_config = TooltipConfiguration.new()
+			command_entry.button.tooltip_config.title = command_entry.data.display_name
+			command_entry.button.tooltip_config.description = command_entry.data.description
 
 
 func _clear_view() -> void:

@@ -24,14 +24,26 @@ border_blend = true
 [node name="Inspector" type="PanelContainer" unique_id=454653937 node_paths=PackedStringArray("widget_registry")]
 show_behind_parent = true
 texture_filter = 1
-size_flags_horizontal = 2
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -124.0
+offset_top = -190.0
+offset_right = 124.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_jp3g8")
 script = ExtResource("1_mb4xq")
 widget_registry = {
-ExtResource("2_hbito"): NodePath("MarginContainer/VBoxContainer/Widget_WoundView"),
-ExtResource("3_fjt0s"): NodePath("MarginContainer/VBoxContainer/Widget_AttributeView"),
-ExtResource("4_j7ygb"): NodePath("MarginContainer/VBoxContainer/Widget_ExecutorView"),
-ExtResource("5_eojcl"): NodePath("MarginContainer/VBoxContainer/Widget_InventoryView")
+ExtResource("2_hbito"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_WoundView"),
+ExtResource("3_fjt0s"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_AttributeView"),
+ExtResource("4_j7ygb"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_ExecutorView"),
+ExtResource("5_eojcl"): NodePath("MarginContainer/HBoxContainer/VBoxContainer2/Widget_InventoryView")
 }
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=517814802]
@@ -39,33 +51,39 @@ texture_filter = 3
 layout_mode = 2
 theme = ExtResource("1_cyf21")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1215381375]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=870948775]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1215381375]
 layout_mode = 2
 size_flags_horizontal = 0
+size_flags_vertical = 0
 
-[node name="Widget_ActorView" parent="MarginContainer/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
+[node name="Widget_ActorView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Widget_ExecutorView" parent="MarginContainer/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
+[node name="Widget_ExecutorView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Widget_WoundView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1596486453 instance=ExtResource("3_hbito")]
 layout_mode = 2
 
-[node name="Widget_WoundView" parent="MarginContainer/VBoxContainer" unique_id=1596486453 instance=ExtResource("3_hbito")]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1895444628]
 layout_mode = 2
 
-[node name="Widget_InventoryView" parent="MarginContainer/VBoxContainer" unique_id=1364715684 instance=ExtResource("4_fjt0s")]
+[node name="Widget_AttributeView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1895444628]
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=304232959]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Widget_InventoryView" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
 layout_mode = 2
 
-[node name="Widget_AttributeView" parent="MarginContainer/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
-layout_mode = 2
-
-[node name="HSeparator2" type="HSeparator" parent="MarginContainer/VBoxContainer" unique_id=1577900208]
-layout_mode = 2
-
-[node name="Widget_Status" type="GridContainer" parent="MarginContainer/VBoxContainer" unique_id=1365834016]
+[node name="Widget_Status" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=769494974]
 layout_mode = 2
 theme_override_constants/h_separation = 19
 columns = 2

@@ -5,6 +5,7 @@ class_name BasicButton
 signal on_pressed()
 signal on_hovered()
 signal on_released()
+var tooltip_config:TooltipConfiguration
 
 # -- Visual States --
 @export var normal_tint: Color = Color(1, 1, 1, 0):
@@ -65,11 +66,15 @@ func _on_mouse_entered() -> void:
 	var bg = get_node_or_null("%ColorRect")
 	bg.color = hover_tint
 	print("Hovered button")
+	if (tooltip_config):
+		GameplayEvents.UI_tooltip_requested.emit(tooltip_config)
 	on_hovered.emit()
 
 func _on_mouse_exited() -> void:
 	var bg = get_node_or_null("%ColorRect")
 	print("Exited button")
+	if (tooltip_config):
+		GameplayEvents.UI_tooltip_closed.emit()
 	if bg: bg.color = normal_tint
 
 func _gui_input(event: InputEvent) -> void:

@@ -31,8 +31,6 @@ func update_view():
 	
 	var health:int = wound_component.get_current_health()
 
-	print("Updating wound view: health=",health," / ",wound_component.get_max_wounds())
-
 	for childIndex in range(entry_container.get_child_count()):
 		if childIndex+1 > health:
 			entry_container.get_child(childIndex).modulate.a = 0

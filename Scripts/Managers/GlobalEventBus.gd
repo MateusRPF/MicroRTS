@@ -11,6 +11,8 @@ signal selection_cleared()
 signal UI_controller_ready(controller:PlayerController)
 signal UI_command_requested(controller:PlayerController)
 signal UI_tile_hovered(controller:PlayerController, coord:Vector2i)
+signal UI_tooltip_requested(config:TooltipConfiguration)
+signal UI_tooltip_closed()
 
 # -- Movement & Logic --
 # Useful for the UI to know when to update position-based widgets

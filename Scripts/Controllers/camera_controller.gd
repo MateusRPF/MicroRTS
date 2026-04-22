@@ -1,7 +1,7 @@
 extends Camera2D
 class_name CameraController
 
-@export var edge_pan_margin: int = 64
+@export var edge_pan_margin: int = 16
 @export var edge_pan_speed: float = 600.0
 @export var zoom_step_pixels: float = 32.0
 @export var min_zoom_factor: float = 0.25
@@ -17,9 +17,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		match event.button_index:
 			MOUSE_BUTTON_WHEEL_UP:
-				_zoom_by_scroll(-1)
-			MOUSE_BUTTON_WHEEL_DOWN:
 				_zoom_by_scroll(1)
+			MOUSE_BUTTON_WHEEL_DOWN:
+				_zoom_by_scroll(-1)
 
 func _process(delta: float) -> void:
 	if not player_controller or not get_viewport():

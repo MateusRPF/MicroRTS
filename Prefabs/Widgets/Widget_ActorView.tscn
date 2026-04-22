@@ -48,6 +48,7 @@ clip_text = true
 text_overrun_behavior = 3
 
 [node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer" unique_id=1826304741]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0

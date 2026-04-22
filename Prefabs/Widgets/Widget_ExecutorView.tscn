@@ -4,6 +4,7 @@
 
 [node name="Widget_ExecutorView" type="PanelContainer" unique_id=1022687051]
 self_modulate = Color(1, 1, 1, 0)
+size_flags_horizontal = 0
 script = ExtResource("1_cja6m")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=2039579376]
@@ -23,8 +24,9 @@ layout_mode = 2
 
 [node name="Label_Command" type="Label" parent="HBoxContainer" unique_id=1525219184]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.27752772, 0.27752772, 0.27752772, 1)
 theme_override_font_sizes/font_size = 16
 text = "SWIGGITY SWOOTY"
-horizontal_alignment = 3
+clip_text = true
