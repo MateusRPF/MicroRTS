@@ -3,6 +3,7 @@ class_name PlayerController
 enum ControlState { IDLE, AIMING, BUILDING }
 
 @export var grid_manager: GridManager
+@export var camera_bounds: Area2D
 @onready var draw_node = $ControllerDraw
 @onready var command_controller: CommandController = %CommandController
 @onready var aim_preview:Sprite2D = %AimingVisual

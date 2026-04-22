@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="12_jp3g8"]
 [ext_resource type="PackedScene" uid="uid://ukqepnrxhbvw" path="res://Prefabs/Widgets/Widget_CommandPanel.tscn" id="17_c44cc"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3o1q"]
+size = Vector2(2272, 1312)
+
 [node name="CoreGame" type="Control" unique_id=1295566834]
 texture_filter = 1
 layout_mode = 3
@@ -75,7 +78,14 @@ offset_bottom = 575.0
 text = "23,15"
 script = ExtResource("9_upx6b")
 
-[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("grid_manager") instance=ExtResource("11_rlgon")]
+[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("grid_manager", "camera_bounds") instance=ExtResource("11_rlgon")]
 grid_manager = NodePath("../GameLevel")
+camera_bounds = NodePath("../CameraBounds")
 
 [node name="GameLevel" parent="." unique_id=1620061272 instance=ExtResource("1_dnwpq")]
+
+[node name="CameraBounds" type="Area2D" parent="." unique_id=643080287]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=907139458]
+position = Vector2(1136, 656)
+shape = SubResource("RectangleShape2D_w3o1q")
