@@ -34,8 +34,9 @@ stretch_mode = 5
 
 [node name="Label_Name" type="Label" parent="HBoxContainer" unique_id=1077920290]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 30)
+custom_minimum_size = Vector2(150, 30)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 0
 theme_override_fonts/font = ExtResource("3_siewa")
 theme_override_font_sizes/font_size = 16

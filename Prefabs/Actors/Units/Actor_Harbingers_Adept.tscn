@@ -1,11 +1,8 @@
 [gd_scene format=3 uid="uid://d7u65ka60wn1"]
 
 [ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_base"]
-[ext_resource type="Material" uid="uid://s0sdycvibqwv" path="res://Sprites/MT_SpriteOutline.tres" id="2_1jyif"]
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_cd"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="3_attrs"]
-[ext_resource type="Material" uid="uid://cjjjmb5ourjas" path="res://Sprites/MT_SpriteOutline_Neutral.tres" id="3_x1exa"]
-[ext_resource type="Material" uid="uid://ddstotuhpjadp" path="res://Sprites/MT_SpriteOutline_Enemy.tres" id="4_0mx7g"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="4_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="5_mover"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="6_7akmv"]
@@ -13,6 +10,7 @@
 [ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="7_exec"]
 [ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="8_sm"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="9_actor"]
+[ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_cj6jy"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="10_sprite"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="12_cj6jy"]
 
@@ -25,7 +23,8 @@ attrs = Dictionary[int, int]({
 3: 3,
 4: 3,
 5: 1,
-6: 3
+6: 3,
+7: 3
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 
@@ -49,18 +48,18 @@ metadata/_custom_type_script = "uid://b55uwkn44eef2"
 script = ExtResource("8_sm")
 metadata/_custom_type_script = "uid://40q3s0vdavqw"
 
+[sub_resource type="Resource" id="Resource_beslk"]
+resource_local_to_scene = true
+script = ExtResource("10_cj6jy")
+metadata/_custom_type_script = "uid://b75xfdnwu8eig"
+
 [sub_resource type="Resource" id="Actor_Adept_Data"]
 script = ExtResource("9_actor")
 actor_name = "Adept"
 description = "Trained member of the Harbingers, able to conduct basic magic."
 sprite = ExtResource("10_sprite")
-modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM")])
+modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Resource_beslk")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Harbingers_Adept" unique_id=187744114 instance=ExtResource("1_base")]
-material_map = Dictionary[int, ShaderMaterial]({
-0: ExtResource("2_1jyif"),
-1: ExtResource("3_x1exa"),
-3: ExtResource("4_0mx7g")
-})
 data = SubResource("Actor_Adept_Data")
