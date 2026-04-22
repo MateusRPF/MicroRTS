@@ -61,10 +61,10 @@ NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("11_c44cc"
 [node name="Inspector" parent="PlayerHUDLayer/HUD" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
 layout_mode = 2
 widget_registry = {
-ExtResource("9_mgthj"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_WoundView"),
-ExtResource("10_rlgon"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_AttributeView"),
-ExtResource("11_jln6d"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_ExecutorView"),
-ExtResource("12_jp3g8"): NodePath("MarginContainer/HBoxContainer/VBoxContainer2/Widget_InventoryView")
+ExtResource("9_mgthj"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
+ExtResource("10_rlgon"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
+ExtResource("11_jln6d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
+ExtResource("12_jp3g8"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView")
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]

@@ -14,6 +14,8 @@ func _load_view():
 
 
 func _recreate_wound_views():
+	if not entry_container:
+		entry_container = %WoundContainer
 	for child in entry_container.get_children():
 		child.queue_free()
 

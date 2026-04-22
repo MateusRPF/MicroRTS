@@ -2,7 +2,9 @@ extends PanelContainer
 class_name MainInspector
 
 @export var widget_registry:Dictionary[Script,Widget_ComponentViewBase]
+@export var multiple_selection_view:PackedScene
 var _viewing_actor:GridObject
+var _viewing_actors:Array[GridObject]
 
 func _ready() -> void:
 	GameplayEvents.object_selected.connect(_single_object_view)
@@ -18,12 +20,32 @@ func _clear_view():
 func _single_object_view(object: GridObject):
 	print("UI Viewing object: %s" % [object.data.actor_name] )
 	self.visible = true
+	%SingleObject.visible = true
+	%MultiObject.visible = false
 	_inspect_actor(object)
+	_viewing_actors.clear()
 
 func _multiple_object_view(objects:Array[GridObject]):
 	print("UI Viewing %s objects" % [objects.size()] )
 	self.visible = true
-	pass
+	%SingleObject.visible = false
+	%MultiObject.visible = true
+	_viewing_actors = objects
+	_viewing_actor = null
+
+	for child in %MultiObject.get_children():
+		child.queue_free()
+
+	for object in objects:
+		var new_view = multiple_selection_view.instantiate() as Widget_ActorViewRedux
+		if object.get_component(CWoundable):
+			new_view.initialize(object, object.get_component(CWoundable))
+		else:
+			new_view.initialize(object, null)
+		%MultiObject.add_child(new_view)
+		print("Added %s to multi view" % [object.data.actor_name])
+
+
 
 func _inspect_actor(object:GridObject):
 	_viewing_actor = object
@@ -40,9 +62,15 @@ func _inspect_actor(object:GridObject):
 
 
 func _process(_delta: float) -> void:
-	if (self.visible && _viewing_actor):
+	if (_viewing_actor):
+		self.visible = true
 		for script in widget_registry:
 			if _viewing_actor.get_component(script):
 				widget_registry[script].update_view()
-	else:
+		
+	elif (_viewing_actors):
+		self.visible = true
+		for child in %MultiObject.get_children():
+			child.update_view()
+	else:	
 		self.visible = false

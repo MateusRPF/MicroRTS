@@ -59,6 +59,16 @@ func _single_object_view(object: GridObject) -> void:
 func _multiple_object_view(objects:Array[GridObject]) -> void:
 	_disable_all_buttons()
 	self.visible = true
+	if objects.is_empty():
+		return
+	var common_commands = command_controller.get_enabled_commands_for_actor(objects[0])
+	for i in range(1, objects.size()):
+		var actor_commands = command_controller.get_enabled_commands_for_actor(objects[i])
+		common_commands = common_commands.filter(func(cmd): return cmd in actor_commands)
+	for cmd in common_commands:
+		for button in button_command_map:
+			if button_command_map[button] == cmd:
+				button.enable_button()
 
 
 

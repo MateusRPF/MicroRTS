@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://b2r18xvsp8g7d"]
+
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_33a3t"]
+[ext_resource type="Script" uid="uid://c826ungx6t5rd" path="res://Scripts/Widgets/Inspector Widgets/Widget_ActorViewRedux.gd" id="1_nlowh"]
+[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="2_nlowh"]
+[ext_resource type="PackedScene" uid="uid://c3csv0mlikwav" path="res://Prefabs/Widgets/Widget_WoundView.tscn" id="4_peycs"]
+
+[node name="Widget_ActorViewRedux" type="PanelContainer" unique_id=1278156026]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 34.0
+offset_bottom = 45.0
+script = ExtResource("1_nlowh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1652920281]
+layout_mode = 2
+theme_override_constants/separation = -2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer" unique_id=986442767]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme = ExtResource("1_33a3t")
+
+[node name="Image_ActorSprite" type="TextureRect" parent="VBoxContainer/PanelContainer" unique_id=1864863652]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("2_nlowh")
+stretch_mode = 5
+
+[node name="Widget_WoundView" parent="VBoxContainer" unique_id=1596486453 instance=ExtResource("4_peycs")]
+unique_name_in_owner = true
+layout_mode = 2

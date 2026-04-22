@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bwv385nbhrraq" path="res://Prefabs/Widgets/Widget_AttributeView.tscn" id="5_353ih"]
 [ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="5_eojcl"]
 [ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
+[ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
 bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
@@ -40,50 +41,114 @@ size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_jp3g8")
 script = ExtResource("1_mb4xq")
 widget_registry = {
-ExtResource("2_hbito"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_WoundView"),
-ExtResource("3_fjt0s"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_AttributeView"),
-ExtResource("4_j7ygb"): NodePath("MarginContainer/HBoxContainer/VBoxContainer/Widget_ExecutorView"),
-ExtResource("5_eojcl"): NodePath("MarginContainer/HBoxContainer/VBoxContainer2/Widget_InventoryView")
+ExtResource("2_hbito"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
+ExtResource("3_fjt0s"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
+ExtResource("4_j7ygb"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
+ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView")
 }
+multiple_selection_view = ExtResource("12_ow81a")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=517814802]
 texture_filter = 3
 layout_mode = 2
 theme = ExtResource("1_cyf21")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=870948775]
+[node name="SingleObject" type="HBoxContainer" parent="MarginContainer" unique_id=870948775]
+unique_name_in_owner = true
+visible = false
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1215381375]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SingleObject" unique_id=1215381375]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Widget_ActorView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
+[node name="Widget_ActorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Widget_ExecutorView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
+[node name="Widget_ExecutorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
+layout_mode = 2
+
+[node name="Widget_WoundView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1596486453 instance=ExtResource("3_hbito")]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1895444628]
+layout_mode = 2
+
+[node name="Widget_AttributeView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/SingleObject" unique_id=304232959]
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Widget_WoundView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1596486453 instance=ExtResource("3_hbito")]
+[node name="Widget_InventoryView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
 layout_mode = 2
 
-[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=1895444628]
-layout_mode = 2
-
-[node name="Widget_AttributeView" parent="MarginContainer/HBoxContainer/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
-layout_mode = 2
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=304232959]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Widget_InventoryView" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
-layout_mode = 2
-
-[node name="Widget_Status" type="GridContainer" parent="MarginContainer/HBoxContainer/VBoxContainer2" unique_id=769494974]
+[node name="Widget_Status" type="GridContainer" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=769494974]
 layout_mode = 2
 theme_override_constants/h_separation = 19
 columns = 2
+
+[node name="Node" type="Node" parent="MarginContainer/SingleObject" unique_id=947131525]
+
+[node name="MultiObject" type="GridContainer" parent="MarginContainer" unique_id=1398479506]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/v_separation = 4
+columns = 6
+
+[node name="Widget_ActorViewRedux" parent="MarginContainer/MultiObject" unique_id=1849006756 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux2" parent="MarginContainer/MultiObject" unique_id=1278156026 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux3" parent="MarginContainer/MultiObject" unique_id=1707337660 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux4" parent="MarginContainer/MultiObject" unique_id=965480318 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux5" parent="MarginContainer/MultiObject" unique_id=226509690 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux6" parent="MarginContainer/MultiObject" unique_id=1470193478 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux7" parent="MarginContainer/MultiObject" unique_id=1976520676 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux8" parent="MarginContainer/MultiObject" unique_id=1274591263 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux9" parent="MarginContainer/MultiObject" unique_id=1910042476 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux10" parent="MarginContainer/MultiObject" unique_id=756341424 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux11" parent="MarginContainer/MultiObject" unique_id=1231722111 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux12" parent="MarginContainer/MultiObject" unique_id=332356174 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux13" parent="MarginContainer/MultiObject" unique_id=1311054428 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux14" parent="MarginContainer/MultiObject" unique_id=702021969 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux15" parent="MarginContainer/MultiObject" unique_id=1847264969 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux16" parent="MarginContainer/MultiObject" unique_id=1430912032 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux17" parent="MarginContainer/MultiObject" unique_id=965177874 instance=ExtResource("12_ow81a")]
+layout_mode = 2
+
+[node name="Widget_ActorViewRedux18" parent="MarginContainer/MultiObject" unique_id=806357145 instance=ExtResource("12_ow81a")]
+layout_mode = 2

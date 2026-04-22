@@ -7,6 +7,8 @@ enum ControlState { IDLE, AIMING, BUILDING }
 @onready var command_controller: CommandController = %CommandController
 @onready var aim_preview:Sprite2D = %AimingVisual
 
+const MAX_GROUP_SIZE = 18
+
 var current_state: ControlState = ControlState.IDLE
 var selected_objects: Array[GridObject] = []
 var hovered_coord: Vector2i = Vector2i.ZERO
@@ -150,8 +152,10 @@ func _filter_multiple_selection(objects:Array[GridObject]) -> Array[GridObject]:
 			movers.append(object)
 
 	if movers.size() > 0:
-		return movers
+		player_objects = movers
 
+	if player_objects.size() > MAX_GROUP_SIZE:
+		return player_objects.slice(0,MAX_GROUP_SIZE)
 	return player_objects
 
 func _emit_selection():
