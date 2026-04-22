@@ -19,7 +19,7 @@ signal tick_rate_changed(new_rate: float)
 var tick_rate: float
 var tick_timer: float = 0.0
 var current_rate_index: int = 2  # Start at DEFAULT (index 2)
-
+var is_paused: bool = false
 
 func _ready() -> void:
 	# Set initial tick rate from default index
@@ -27,6 +27,13 @@ func _ready() -> void:
 	DebugSettings.debug_print("Tick", "TickManager initialized with rate: %f" % tick_rate)
 
 func _process(delta: float) -> void:
+
+	if Input.is_action_just_pressed("pause"):
+		DebugSettings.debug_print("Tick", "Pause input detected")
+		toggle_pause()
+
+	if is_paused:
+		return
 	tick_timer += delta
 	if tick_timer >= tick_rate:
 		tick_timer = 0.0
@@ -40,6 +47,11 @@ func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("speed_down"):
 		DebugSettings.debug_print("Tick", "Speed down input detected")
 		decrease_tick_rate()
+
+
+func toggle_pause():
+	is_paused = !is_paused
+	DebugSettings.debug_print("Tick", "Pause toggled. Now paused: %s" % is_paused)
 
 func increase_tick_rate() -> void:
 	if current_rate_index < TICK_RATES.size() - 1:

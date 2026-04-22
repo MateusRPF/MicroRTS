@@ -70,7 +70,7 @@ func _draw() -> void:
 	_draw_hover_rect()
 
 func _draw_hover_rect() -> void:
-	draw_rect_corners(get_rect_for_tile(controller.hovered_coord), Color(1, 1, 1, 0.5), 1.0)
+	draw_rect_corners(get_rect_for_tile(controller.hovered_coord), Color(1, 1, 1, 0.5), 2.0)
 
 func _process(_delta: float) -> void:
 	
