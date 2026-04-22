@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b8qys08msbix2"]
+
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_ng8v2"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_l6ayp"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="3_xtyy4"]
+[ext_resource type="Script" uid="uid://b12sbao0o4pnt" path="res://Scripts/DataStructures/ComponentData/ComponentData_Stockpile.gd" id="4_bkvp3"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_f7by5"]
+[ext_resource type="Texture2D" uid="uid://cvkcjmcalwue0" path="res://Sprites/Structures/SPR_Slaughterhouse.tres" id="6_ng8v2"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_6gjvx"]
+
+[sub_resource type="Resource" id="Mod_Stockpile"]
+script = ExtResource("4_bkvp3")
+metadata/_custom_type_script = "uid://b12sbao0o4pnt"
+
+[sub_resource type="Resource" id="Actor_Stockpile_Data"]
+script = ExtResource("5_f7by5")
+actor_name = "Slaughterhouse"
+description = "Converts Corpses into flesh and bones."
+sprite = ExtResource("6_ng8v2")
+view_offset = Vector2i(32, -32)
+grid_size = Vector2i(3, 3)
+modules = Array[ExtResource("2_l6ayp")]([SubResource("Mod_Stockpile")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"
+
+[node name="Actor_Structure_Slaughterhouse" unique_id=1280668460 instance=ExtResource("1_ng8v2")]
+data = SubResource("Actor_Stockpile_Data")

@@ -31,17 +31,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Inspector" parent="PlayerHUDLayer/HUD" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-widget_registry = {
-ExtResource("9_mgthj"): NodePath("MarginContainer/VBoxContainer/Widget_WoundView"),
-ExtResource("10_rlgon"): NodePath("MarginContainer/VBoxContainer/Widget_AttributeView"),
-ExtResource("11_jln6d"): NodePath("MarginContainer/VBoxContainer/Widget_ExecutorView"),
-ExtResource("12_jp3g8"): NodePath("MarginContainer/VBoxContainer/Widget_InventoryView")
-}
-
 [node name="CommandPanel" parent="PlayerHUDLayer/HUD" unique_id=1232269199 node_paths=PackedStringArray("button_command_map") instance=ExtResource("17_c44cc")]
 layout_mode = 2
 button_command_map = {
@@ -57,6 +46,17 @@ NodePath("MarginContainer/GridContainer/Button_Build"): null,
 NodePath("MarginContainer/GridContainer/Button_Repair"): null,
 NodePath("MarginContainer/GridContainer/Button_SwitchDraft"): null,
 NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("11_c44cc")
+}
+
+[node name="Inspector" parent="PlayerHUDLayer/HUD" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+widget_registry = {
+ExtResource("9_mgthj"): NodePath("MarginContainer/VBoxContainer/Widget_WoundView"),
+ExtResource("10_rlgon"): NodePath("MarginContainer/VBoxContainer/Widget_AttributeView"),
+ExtResource("11_jln6d"): NodePath("MarginContainer/VBoxContainer/Widget_ExecutorView"),
+ExtResource("12_jp3g8"): NodePath("MarginContainer/VBoxContainer/Widget_InventoryView")
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]

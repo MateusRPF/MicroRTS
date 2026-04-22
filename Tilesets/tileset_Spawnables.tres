@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_rykax"]
 [ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="5_km5fj"]
 [ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="6_ghj2b"]
+[ext_resource type="Texture2D" uid="uid://cvkcjmcalwue0" path="res://Sprites/Structures/SPR_Slaughterhouse.tres" id="7_jhoso"]
+[ext_resource type="Texture2D" uid="uid://c4i681h2wh8qk" path="res://Sprites/Structures/SPR_BoneCarver.tres" id="8_ea704"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
 texture = ExtResource("1_rykax")
@@ -48,6 +50,18 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_0 = "Structure_CircleOfRaising"
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp8ca"]
+texture = ExtResource("7_jhoso")
+texture_region_size = Vector2i(96, 96)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Structure_Slaughterhouse"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8c5ix"]
+texture = ExtResource("8_ea704")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Structure_BoneCarver"
+
 [resource]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "DataEntry"
@@ -58,3 +72,5 @@ sources/3 = SubResource("TileSetAtlasSource_rykax")
 sources/0 = SubResource("TileSetAtlasSource_jhoso")
 sources/4 = SubResource("TileSetAtlasSource_ea704")
 sources/5 = SubResource("TileSetAtlasSource_4dgue")
+sources/6 = SubResource("TileSetAtlasSource_dp8ca")
+sources/7 = SubResource("TileSetAtlasSource_8c5ix")
