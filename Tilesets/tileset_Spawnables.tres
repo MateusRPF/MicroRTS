@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="3_7tb2v"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_rykax"]
 [ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="5_km5fj"]
+[ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="6_ghj2b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
 texture = ExtResource("1_rykax")
@@ -40,6 +41,13 @@ texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/custom_data_0 = "Resource_Sarcophagus"
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dgue"]
+texture = ExtResource("6_ghj2b")
+texture_region_size = Vector2i(32, 32)
+0:0/size_in_atlas = Vector2i(2, 2)
+0:0/0 = 0
+0:0/0/custom_data_0 = "Structure_CircleOfRaising"
+
 [resource]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "DataEntry"
@@ -49,3 +57,4 @@ sources/2 = SubResource("TileSetAtlasSource_ghj2b")
 sources/3 = SubResource("TileSetAtlasSource_rykax")
 sources/0 = SubResource("TileSetAtlasSource_jhoso")
 sources/4 = SubResource("TileSetAtlasSource_ea704")
+sources/5 = SubResource("TileSetAtlasSource_4dgue")
