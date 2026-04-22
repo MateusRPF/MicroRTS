@@ -126,7 +126,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
-disabled_tint = Color(0.29, 0.29, 0.29, 0.85490197)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
 icon = ExtResource("14_upx6b")
 
 [node name="Button_Pause" parent="PlayerHUDLayer/Widget_TickControl/MarginContainer/HBoxContainer" unique_id=1640281419 instance=ExtResource("11_jp3g8")]
@@ -134,7 +134,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
-disabled_tint = Color(0.29219002, 0.29219005, 0.29219002, 1)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
 icon = ExtResource("13_gab08")
 
 [node name="Button_Faster" parent="PlayerHUDLayer/Widget_TickControl/MarginContainer/HBoxContainer" unique_id=764818265 instance=ExtResource("11_jp3g8")]
@@ -142,7 +142,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
-disabled_tint = Color(0.29, 0.29, 0.29, 0.8627451)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
 icon = ExtResource("12_c44cc")
 
 [node name="Label_TimeIndicator" type="Label" parent="PlayerHUDLayer/Widget_TickControl/MarginContainer/HBoxContainer" unique_id=429081517]
