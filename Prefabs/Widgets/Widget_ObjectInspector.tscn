@@ -12,6 +12,8 @@
 [ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="5_eojcl"]
 [ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
 [ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
+[ext_resource type="Script" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="13_cuc"]
+[ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_ConstructionView.tscn" id="14_cvw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
 bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
@@ -44,7 +46,8 @@ widget_registry = {
 ExtResource("2_hbito"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
 ExtResource("3_fjt0s"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
 ExtResource("4_j7ygb"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
-ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView")
+ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView"),
+ExtResource("13_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView")
 }
 multiple_selection_view = ExtResource("12_ow81a")
 
@@ -65,6 +68,9 @@ size_flags_vertical = 0
 
 [node name="Widget_ActorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Widget_ConstructionView" parent="MarginContainer/SingleObject/VBoxContainer" instance=ExtResource("14_cvw")]
 layout_mode = 2
 
 [node name="Widget_ExecutorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]

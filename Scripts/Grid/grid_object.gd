@@ -33,6 +33,39 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides) 
 
 	settle_position()
 
+
+func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, target_data: ActorData) -> void:
+	grid_manager = manager
+	current_coord = coord
+	side = newSide
+	data = target_data
+	%Sprite.texture = data.sprite
+	%Sprite.offset = data.view_offset
+	%Sprite.material = null
+	size = data.grid_size
+
+	GlobalTicker.TickSignal.connect(_on_global_tick)
+
+	var construction := CUnderConstruction.new()
+	add_child(construction)
+	construction.initialize_component(self)
+	_component_cache[construction.get_script()] = construction
+
+	grid_manager.UpdatePosition(self, current_coord)
+	settle_position()
+
+
+func complete_construction() -> void:
+	var construction: CUnderConstruction = get_component(CUnderConstruction)
+	if construction:
+		_component_cache.erase(construction.get_script())
+		construction.queue_free()
+	modulate.a = 1.0
+	_update_outline_color()
+	for module in data.modules:
+		var newComp = module.assemble_component(self)
+		_component_cache[newComp.get_script()] = newComp
+
 func assemble_from_data(newData:ActorData):
 	data = newData
 	%Sprite.texture = data.sprite

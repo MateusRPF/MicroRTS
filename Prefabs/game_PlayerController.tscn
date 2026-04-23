@@ -7,6 +7,8 @@
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="5_5434e"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="6_s8s4i"]
 [ext_resource type="Resource" uid="uid://cg805kwk31uw5" path="res://Data/CommandDatas/CommandData_Attack.tres" id="7_attack"]
+[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="8_build"]
+[ext_resource type="Resource" path="res://Data/CommandDatas/CommandData_AssistBuild.tres" id="9_assist"]
 [ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="7_qos5v"]
 [ext_resource type="Script" uid="uid://dvj3d6vrjhgbc" path="res://Scripts/Controllers/camera_controller.gd" id="8_zx9ab"]
 
@@ -26,7 +28,7 @@ script = ExtResource("8_zx9ab")
 [node name="CommandController" type="Node" parent="." unique_id=1173374077]
 unique_name_in_owner = true
 script = ExtResource("3_rfp6a")
-_command_registry = Array[ExtResource("4_k6ym1")]([ExtResource("5_5434e"), ExtResource("6_s8s4i"), ExtResource("7_attack")])
+_command_registry = Array[ExtResource("4_k6ym1")]([ExtResource("5_5434e"), ExtResource("6_s8s4i"), ExtResource("7_attack"), ExtResource("8_build"), ExtResource("9_assist")])
 
 [node name="AimingVisual" type="Sprite2D" parent="." unique_id=1350001677]
 unique_name_in_owner = true

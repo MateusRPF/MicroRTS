@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CommandData_BuildStructure" format=3 uid="uid://bppw8r3iwyl24"]
+
+[ext_resource type="Script" path="res://Scripts/DataStructures/CommandData_BuildStructure.gd" id="1_bs"]
+[ext_resource type="Texture2D" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
+[ext_resource type="Script" path="res://Scripts/UnitComponents/Commands/Command_BuildStructure.gd" id="3_cmd"]
+[ext_resource type="PackedScene" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="4_scene"]
+
+[resource]
+script = ExtResource("1_bs")
+display_name = "Stockpile"
+description = "Build a Stockpile to deliver basic materials."
+icon = ExtResource("2_icon")
+target_mode = 5
+priority = 1
+command_script = ExtResource("3_cmd")
+structure_scene = ExtResource("4_scene")
