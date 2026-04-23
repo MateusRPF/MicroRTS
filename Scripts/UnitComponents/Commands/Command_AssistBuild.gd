@@ -76,6 +76,7 @@ func tick() -> void:
 				current_step = AssistBuildSteps.APPROACHING
 				return
 			_play_punch()
+			target_construction.shake()
 			if target_construction.add_progress(1):
 				current_step = AssistBuildSteps.COMPLETED
 				finish_command()

@@ -65,7 +65,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			aim_preview.global_position = grid_manager.tile_to_world(hovered_coord)
 			_update_aiming_visual()
 		if ghost_preview:
-			ghost_preview.global_position = grid_manager.tile_to_world(hovered_coord)
+			ghost_preview.global_position = grid_manager.tile_to_world(_get_effective_target_coord())
 		draw_node.queue_redraw()
 	
 	if event is InputEventMouseButton:
@@ -95,11 +95,18 @@ func _handle_mouse_click(event: InputEventMouseButton):
 func _confirm_aimed_command():
 	print("Valid Target!")
 	if _is_command_target_valid():
-		command_controller.issue_aimed_command(selected_objects, aiming_command, hovered_coord)
-		
+		command_controller.issue_aimed_command(selected_objects, aiming_command, _get_effective_target_coord())
+
 		_cancel_aiming()
 	else:
 		print("Invalid Target!")
+
+
+func _get_effective_target_coord() -> Vector2i:
+	if aiming_command is CommandData_BuildStructure:
+		var size: Vector2i = (aiming_command as CommandData_BuildStructure).get_footprint_size()
+		return hovered_coord + Vector2i(-((size.x - 1) / 2), size.y / 2)
+	return hovered_coord
 
 func _cancel_aiming():
 	aiming_command = null
@@ -116,7 +123,7 @@ func _update_aiming_visual():
 	var tint: Color = Color(1, 1, 1, 0.7) if _is_command_target_valid() else Color.RED
 	if ghost_preview:
 		aim_preview.texture = null
-		ghost_preview.global_position = grid_manager.tile_to_world(hovered_coord)
+		ghost_preview.global_position = grid_manager.tile_to_world(_get_effective_target_coord())
 		ghost_preview.modulate = tint
 	else:
 		aim_preview.texture = aiming_command.icon
@@ -131,7 +138,7 @@ func _clear_ghost():
 
 func _is_command_target_valid() -> bool:
 	if (aiming_command && selected_objects.size() >0):
-		return command_controller.validate_command_on_coord(selected_objects[0].get_component(CCommandExecutor),hovered_coord,aiming_command)
+		return command_controller.validate_command_on_coord(selected_objects[0].get_component(CCommandExecutor),_get_effective_target_coord(),aiming_command)
 
 	return false
 
