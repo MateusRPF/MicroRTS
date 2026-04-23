@@ -8,6 +8,8 @@
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="10_c44cc"]
 [ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_rlgon"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="11_c44cc"]
+[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
+[ext_resource type="Script" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="18_cuc"]
 [ext_resource type="Script" uid="uid://wyn24v7ygtom" path="res://Scripts/Widgets/Widget_TickControl.gd" id="11_gab08"]
 [ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_jln6d"]
 [ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="11_jp3g8"]
@@ -78,7 +80,7 @@ NodePath("MarginContainer/GridContainer/Button_Attack"): null,
 NodePath("MarginContainer/GridContainer/Button_Move"): ExtResource("10_c44cc"),
 NodePath("MarginContainer/GridContainer/Button_FollowDefend"): null,
 NodePath("MarginContainer/GridContainer/Button_Halt"): null,
-NodePath("MarginContainer/GridContainer/Button_Build"): null,
+NodePath("MarginContainer/GridContainer/Button_Build"): ExtResource("lvl_build"),
 NodePath("MarginContainer/GridContainer/Button_Repair"): null,
 NodePath("MarginContainer/GridContainer/Button_SwitchDraft"): null,
 NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("11_c44cc")
@@ -90,7 +92,8 @@ widget_registry = {
 ExtResource("9_mgthj"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
 ExtResource("10_rlgon"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
 ExtResource("11_jln6d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
-ExtResource("12_jp3g8"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView")
+ExtResource("12_jp3g8"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView"),
+ExtResource("18_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView")
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]
