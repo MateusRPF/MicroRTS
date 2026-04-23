@@ -14,6 +14,7 @@ const MOVER_WEIGHT: float = 10.0
 var map_tiles: Dictionary[Vector2i, GameTile] = {}
 var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
 @export var spawn_scenes: Dictionary[String, PackedScene]
+@export var player_state: PlayerState
 
 var astar_grid: AStarGrid2D = null
 
@@ -21,9 +22,9 @@ var astar_grid: AStarGrid2D = null
 
 func _ready() -> void:
 	LoadFromTileSet()
-	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER)
-	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY)
-	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL)
+	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
+	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY,null)
+	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL,null)
 
 
 func LoadFromTileSet() -> void:
@@ -85,7 +86,7 @@ func _refresh_astar_for(coord: Vector2i, tile: GameTile) -> void:
 		astar_grid.set_point_solid(coord, false)
 		astar_grid.set_point_weight_scale(coord, 1.0)
 
-func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides) -> void:
+func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:PlayerState) -> void:
 
 	for tile in tileset.get_used_cells():
 		var data = tileset.get_cell_tile_data(tile)
@@ -95,7 +96,7 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides) -> void:
 			continue
 		var newActor = spawn_scenes[resourceName].instantiate() as GridObject
 		add_child(newActor)
-		newActor.Initialize(self, tile, side)
+		newActor.Initialize(self, tile, side,newState)
 
 	tileset.clear()
 

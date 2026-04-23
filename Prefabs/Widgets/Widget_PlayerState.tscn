@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://lhy4cor5tj44"]
+
+[ext_resource type="Texture2D" uid="uid://cngdkwshff8ja" path="res://Sprites/UI/SPR_Control.tres" id="1_2r0hn"]
+[ext_resource type="Script" uid="uid://lp57vwcsfwmh" path="res://Scripts/Widgets/Widget_PlayerState.gd" id="1_7s3ui"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="2_814ko"]
+[ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="2_rkrit"]
+[ext_resource type="Texture2D" uid="uid://dr2pyf66yku84" path="res://Sprites/UI/SPR_Essence.tres" id="3_7s3ui"]
+[ext_resource type="PackedScene" uid="uid://d22nwhlh3q4c" path="res://Prefabs/Widgets/Widget_InventoryEntry.tscn" id="4_rkrit"]
+
+[node name="Widget_Inventory" type="PanelContainer" unique_id=542947281]
+custom_minimum_size = Vector2(100, 0)
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 116.0
+offset_bottom = -600.0
+grow_vertical = 2
+size_flags_vertical = 0
+script = ExtResource("1_7s3ui")
+player_state = ExtResource("2_rkrit")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=2103433525]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=483717947]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer" unique_id=637121657]
+layout_mode = 2
+
+[node name="Entry_Pop" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=804675776]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Pop" unique_id=1668034487]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("1_2r0hn")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label_PopValue" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Pop" unique_id=1975126781]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_814ko")
+text = "06/99"
+
+[node name="Entry_Mana" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1717292133]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Mana" unique_id=357437705]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("3_7s3ui")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label_ManaValue" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Mana" unique_id=935442776]
+unique_name_in_owner = true
+self_modulate = Color(0, 0.92941177, 1, 1)
+layout_mode = 2
+theme = ExtResource("2_814ko")
+text = "3203"
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=1513295603]
+layout_mode = 2
+
+[node name="Container_ItemEntries" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer" unique_id=333897759]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Widget_InventoryEntry" parent="PanelContainer/MarginContainer/VBoxContainer/Container_ItemEntries" unique_id=1236962088 instance=ExtResource("4_rkrit")]
+layout_mode = 2

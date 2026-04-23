@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://o73b6kuim2qn" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Tree.tscn" id="8_tree"]
 [ext_resource type="PackedScene" uid="uid://b67cuim2l1xef" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Sarcophagus.tscn" id="9_sarc"]
 [ext_resource type="PackedScene" uid="uid://b8qys08msbix2" path="res://Prefabs/Actors/Structures/Actor_Structure_Slaughterhouse.tscn" id="9_xr8k8"]
+[ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="10_d7f3w"]
 
 [node name="GameLevel" type="Node2D" unique_id=1620061272]
 texture_filter = 1
@@ -25,6 +26,7 @@ spawn_scenes = Dictionary[String, PackedScene]({
 "Structure_Slaughterhouse": ExtResource("9_xr8k8"),
 "Structure_Stockpile": ExtResource("7_stockpile")
 })
+player_state = ExtResource("10_d7f3w")
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=2091239766]
 unique_name_in_owner = true

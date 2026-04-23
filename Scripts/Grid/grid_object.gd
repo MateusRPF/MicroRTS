@@ -1,10 +1,13 @@
 extends Node2D
 class_name GridObject
 
+
 @export var size: Vector2i = Vector2i(1, 1)
 var current_coord: Vector2i = Vector2i.ZERO
 
 var grid_manager: GridManager = null
+
+var player_state: PlayerState = null
 
 var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 
@@ -20,11 +23,11 @@ var _component_cache: Dictionary = {}
 
 signal OnTickReceived
 
-func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides) -> void:
+func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, state:PlayerState) -> void:
 	grid_manager = manager
 	current_coord = coord
 	side = newSide
-
+	player_state = state
 	GlobalTicker.TickSignal.connect(_on_global_tick)
 	assemble_from_data(data)
 	_update_outline_color()

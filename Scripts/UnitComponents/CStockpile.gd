@@ -4,12 +4,9 @@ class_name CStockpile
 
 @export var accepted_resources:Array[GameResource]
 
-var inventory:CInventory
 
 func initialize_component(actor: GridObject) -> void:
 	super.initialize_component(actor)
-	inventory =  actor.get_component(CInventory)
-
 
 
 func can_deposit_resource(harvester: CHarvester) -> bool:
@@ -18,11 +15,8 @@ func can_deposit_resource(harvester: CHarvester) -> bool:
 
 
 func deposit_resource(_harvester:CHarvester, gameResource:GameResource, value:int) -> bool:
-	if (accepted_resources.has(gameResource)):
-		inventory.deposit(gameResource,value)
-		return true
-	return false
-	
+	owner_object.player_state.add_resource(gameResource, value)
+	return true
 
 func is_harvester_in_range(harvester: CHarvester) -> bool:
 	if not owner_object or not owner_object.grid_manager:
