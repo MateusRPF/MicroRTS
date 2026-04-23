@@ -5,6 +5,7 @@ extends PanelContainer
 func _ready() -> void:
 	GameplayEvents.UI_tooltip_requested.connect(_show_tooltip)
 	GameplayEvents.UI_tooltip_closed.connect(_hide_tooltip)
+	GameplayEvents.selection_cleared.connect(_hide_tooltip)
 	self.visible = false
 
 

@@ -15,6 +15,8 @@ func _ready() -> void:
 func _clear_view():
 	print("UI clearing inspector")
 	self.visible = false
+	_viewing_actor = null
+	_viewing_actors = []
 
 
 func _single_object_view(object: GridObject):
