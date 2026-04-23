@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://jocy56jfxe0c"]
+
+[ext_resource type="Script" uid="uid://wyn24v7ygtom" path="res://Scripts/Widgets/Widget_TickControl.gd" id="1_mmvtd"]
+[ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="2_7u6gd"]
+[ext_resource type="Texture2D" uid="uid://bkpv1hcxnk13c" path="res://Sprites/UI/UIControls/SPR_UI_Slower.tres" id="3_f7qmp"]
+[ext_resource type="Texture2D" uid="uid://c7o27giyi5rvf" path="res://Sprites/UI/UIControls/SPR_UI_Pause.tres" id="4_18j5a"]
+[ext_resource type="Texture2D" uid="uid://fx57nse38xm4" path="res://Sprites/UI/UIControls/SPR_UI_Faster.tres" id="5_asoa3"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="6_p6bmv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+draw_center = false
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="Widget_TickControl" type="PanelContainer" unique_id=440578481]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_v8ofk")
+script = ExtResource("1_mmvtd")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1201411279]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=1221729427]
+layout_mode = 2
+
+[node name="Button_Slower" parent="MarginContainer/HBoxContainer" unique_id=1077922482 instance=ExtResource("2_7u6gd")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
+icon = ExtResource("3_f7qmp")
+
+[node name="Button_Pause" parent="MarginContainer/HBoxContainer" unique_id=2045590698 instance=ExtResource("2_7u6gd")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
+icon = ExtResource("4_18j5a")
+
+[node name="Button_Faster" parent="MarginContainer/HBoxContainer" unique_id=1974571912 instance=ExtResource("2_7u6gd")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+pressed_tint = Color(0, 0.590396, 0.67543584, 0.77254903)
+disabled_tint = Color(0.26, 0.26, 0.26, 1)
+icon = ExtResource("5_asoa3")
+
+[node name="Label_TimeIndicator" type="Label" parent="MarginContainer/HBoxContainer" unique_id=1441506049]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("6_p6bmv")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 12
+text = "x1"
