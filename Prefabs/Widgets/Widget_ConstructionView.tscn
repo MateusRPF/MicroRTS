@@ -1,0 +1,35 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inspector Widgets/Widget_ConstructionView.gd" id="1_cv"]
+[ext_resource type="PackedScene" uid="uid://bdtw2wie3x4js" path="res://Prefabs/Widgets/Widget_WoundPanel.tscn" id="2_panel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[node name="Widget_ConstructionView" type="PanelContainer"]
+custom_minimum_size = Vector2(60, 8)
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+script = ExtResource("1_cv")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 2
+theme_override_constants/margin_top = 1
+theme_override_constants/margin_right = 2
+theme_override_constants/margin_bottom = 1
+
+[node name="ConstructionProgressContainer" type="HBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="WoundPanel" parent="MarginContainer/ConstructionProgressContainer" instance=ExtResource("2_panel")]
+layout_mode = 2

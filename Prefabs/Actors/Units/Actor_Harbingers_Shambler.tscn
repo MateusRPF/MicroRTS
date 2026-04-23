@@ -13,6 +13,9 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="10_actor"]
 [ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="11_sprite"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_13dc0"]
+[ext_resource type="Script" uid="uid://rt43ydbdv6x4" path="res://Scripts/DataStructures/ComponentData/ComponentData_Builder.gd" id="14_builder"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="15_cmddata"]
+[ext_resource type="Resource" uid="uid://bppw8r3iwyl24" path="res://Data/CommandDatas/CommandData_Build_Stockpile.tres" id="16_buildstockpile"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("3_attrs")
@@ -52,12 +55,16 @@ metadata/_custom_type_script = "uid://40q3s0vdavqw"
 script = ExtResource("9_wound")
 metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 
+[sub_resource type="Resource" id="Mod_Builder"]
+script = ExtResource("14_builder")
+buildable = Array[ExtResource("15_cmddata")]([ExtResource("16_buildstockpile")])
+
 [sub_resource type="Resource" id="Actor_Shambler_Data"]
 script = ExtResource("10_actor")
 actor_name = "Risen"
 description = "A corpse, reanimated for some nefarious purpose."
 sprite = ExtResource("11_sprite")
-modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound")])
+modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Harbingers_Shambler" unique_id=1628272071 instance=ExtResource("1_base")]

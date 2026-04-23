@@ -174,6 +174,26 @@ func ClearPosition(object: GridObject) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 
 
+func get_footprint_coords(origin: Vector2i, size: Vector2i) -> Array[Vector2i]:
+	var coords: Array[Vector2i] = []
+	for x in range(size.x):
+		for y in range(size.y):
+			coords.append(Vector2i(origin.x + x, origin.y - y))
+	return coords
+
+
+func can_place_footprint(origin: Vector2i, size: Vector2i) -> bool:
+	for coord in get_footprint_coords(origin, size):
+		if not map_tiles.has(coord):
+			return false
+		var tile: GameTile = map_tiles[coord]
+		if tile.is_occupied:
+			return false
+		if tile.tile_type != GameTile.TileType.FLOOR:
+			return false
+	return true
+
+
 func find_path(start: Vector2i, end: Vector2i, moving_unit: GridObject = null) -> Array[Vector2i]:
 	if not astar_grid:
 		push_error("GridManager: AStarGrid2D not initialized")

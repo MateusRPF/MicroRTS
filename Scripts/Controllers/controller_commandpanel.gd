@@ -40,15 +40,25 @@ func issue_aimed_command(selected_objects:Array[GridObject],commandData:CommandD
 	for object in selected_objects:
 		if object.side != ActorData.Sides.PLAYER:
 			continue
-		var command_pool:Array[CommandData] = get_enabled_commands_for_actor(object)
 		var executor:CCommandExecutor = object.get_component(CCommandExecutor)
 		if not executor:
 			continue
-		if (command_pool.has(commandData)):
-			if (validate_command_on_coord(executor,target_coord,commandData)):
-				var new_command:Command = create_command_from_data(commandData,executor,target_coord)
-				if (new_command):
-					executor.queue_command(new_command)
+		if not _actor_can_issue(object, commandData):
+			continue
+		if (validate_command_on_coord(executor,target_coord,commandData)):
+			var new_command:Command = create_command_from_data(commandData,executor,target_coord)
+			if (new_command):
+				executor.queue_command(new_command)
+
+
+func _actor_can_issue(actor: GridObject, commandData: CommandData) -> bool:
+	if get_enabled_commands_for_actor(actor).has(commandData):
+		return true
+	if commandData is CommandData_BuildStructure:
+		var builder: CBuilder = actor.get_component(CBuilder)
+		if builder and builder.buildable.has(commandData):
+			return true
+	return false
 
 
 func create_command_from_data(data:CommandData,executor:CCommandExecutor, target_pos:Vector2i)->Command:
@@ -84,6 +94,15 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 					return true
 			CommandData.Targetting.RESOURCE_NODE:
 				if (hovered_object && hovered_object.get_component(CResourceNode)):
+					return true
+			CommandData.Targetting.BUILD_SETUP:
+				if command is CommandData_BuildStructure:
+					var size: Vector2i = (command as CommandData_BuildStructure).get_footprint_size()
+					return controller.grid_manager.can_place_footprint(target_coord, size)
+				if (hovered_object == null and tile.tile_type == GameTile.TileType.FLOOR):
+					return true
+			CommandData.Targetting.CONSTRUCTION_SITE:
+				if hovered_object and hovered_object.get_component(CUnderConstruction):
 					return true
 	return false
 

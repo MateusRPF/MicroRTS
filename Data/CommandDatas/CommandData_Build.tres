@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://bn7x3krawrpf4"]
+
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="1_cd"]
+[ext_resource type="Texture2D" uid="uid://2jm2vong2tqx" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
+[ext_resource type="Script" uid="uid://bxch5wvyj520v" path="res://Scripts/UnitComponents/CBuilder.gd" id="3_builder"]
+
+[resource]
+script = ExtResource("1_cd")
+display_name = "Build"
+description = "Show available structures to build."
+icon = ExtResource("2_icon")
+target_mode = 6
+required_components = Array[Script]([ExtResource("3_builder")])
+metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

@@ -21,6 +21,7 @@ var drag_end_pos: Vector2 = Vector2.ZERO
 
 # Command & Build Data
 var aiming_command: CommandData = null
+var ghost_preview: Node2D = null
 
 
 func _ready() -> void:
@@ -30,16 +31,30 @@ func _ready() -> void:
 func on_command_aim_request(new_command: CommandData):
 	print("Command was requested! %s" %[new_command.display_name])
 	aiming_command = new_command
-	
+
 	# Clear existing ghosts if any
 	_clear_ghost()
-	
+
+	if aiming_command is CommandData_BuildStructure:
+		_spawn_ghost_preview(aiming_command as CommandData_BuildStructure)
+
 	if aiming_command.target_mode == CommandData.Targetting.BUILD_SETUP:
 		current_state = ControlState.BUILDING
-		_update_aiming_visual()
 	else:
-		_update_aiming_visual()
 		current_state = ControlState.AIMING
+	_update_aiming_visual()
+
+func _spawn_ghost_preview(build_data: CommandData_BuildStructure) -> void:
+	if not build_data.structure_scene:
+		return
+	var instance := build_data.structure_scene.instantiate() as GridObject
+	if not instance:
+		return
+	add_child(instance)
+	ghost_preview = instance
+	var sprite: Sprite2D = instance.get_node("%Sprite")
+	sprite.texture = instance.data.sprite
+	sprite.offset = instance.data.view_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -49,6 +64,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if aim_preview:
 			aim_preview.global_position = grid_manager.tile_to_world(hovered_coord)
 			_update_aiming_visual()
+		if ghost_preview:
+			ghost_preview.global_position = grid_manager.tile_to_world(hovered_coord)
 		draw_node.queue_redraw()
 	
 	if event is InputEventMouseButton:
@@ -93,18 +110,24 @@ func _cancel_aiming():
 # --- Build Mode Terrain ---
 
 func _update_aiming_visual():
-	if (aiming_command):
-		aim_preview.texture = aiming_command.icon # Placeholder for the building sprite
-		if (_is_command_target_valid()):
-			aim_preview.modulate = Color(1, 1, 1, 0.7) # Semi-transparent
-		else:
-			aim_preview.modulate = Color.RED # big bad red
-	else:
+	if not aiming_command:
 		aim_preview.texture = null
+		return
+	var tint: Color = Color(1, 1, 1, 0.7) if _is_command_target_valid() else Color.RED
+	if ghost_preview:
+		aim_preview.texture = null
+		ghost_preview.global_position = grid_manager.tile_to_world(hovered_coord)
+		ghost_preview.modulate = tint
+	else:
+		aim_preview.texture = aiming_command.icon
+		aim_preview.modulate = tint
 
 func _clear_ghost():
 	if aim_preview:
 		aim_preview.texture = null
+	if ghost_preview:
+		ghost_preview.queue_free()
+		ghost_preview = null
 
 func _is_command_target_valid() -> bool:
 	if (aiming_command && selected_objects.size() >0):

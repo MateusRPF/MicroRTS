@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://coavdl61xii7p" path="res://Sprites/UI/CommandIcons/SPR_Command_Attack.tres" id="2_kav63"]
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="2_m2dj5"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="3_aur6s"]
+[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="cd_build"]
 [ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="4_5ntrw"]
 [ext_resource type="Texture2D" uid="uid://cdv8a0b8hpl5v" path="res://Sprites/UI/CommandIcons/SPR_Command_FollowDefend.tres" id="5_jkeuj"]
 [ext_resource type="Texture2D" uid="uid://b7igpo75s83tk" path="res://Sprites/UI/CommandIcons/SPR_Command_Halt.tres" id="6_qe80y"]
@@ -38,7 +39,7 @@ NodePath("MarginContainer/GridContainer/Button_Attack"): null,
 NodePath("MarginContainer/GridContainer/Button_Move"): ExtResource("2_m2dj5"),
 NodePath("MarginContainer/GridContainer/Button_FollowDefend"): null,
 NodePath("MarginContainer/GridContainer/Button_Halt"): null,
-NodePath("MarginContainer/GridContainer/Button_Build"): null,
+NodePath("MarginContainer/GridContainer/Button_Build"): ExtResource("cd_build"),
 NodePath("MarginContainer/GridContainer/Button_Repair"): null,
 NodePath("MarginContainer/GridContainer/Button_SwitchDraft"): null,
 NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("3_aur6s")

@@ -65,9 +65,15 @@ func _process(_delta: float) -> void:
 	if (_viewing_actor):
 		self.visible = true
 		for script in widget_registry:
-			if _viewing_actor.get_component(script):
+			var component = _viewing_actor.get_component(script)
+			if component:
+				if widget_registry[script].viewing_component != component:
+					widget_registry[script].initialize(_viewing_actor, component)
+				widget_registry[script].visible = true
 				widget_registry[script].update_view()
-		
+			else:
+				widget_registry[script].visible = false
+
 	elif (_viewing_actors):
 		self.visible = true
 		for child in %MultiObject.get_children():
