@@ -18,7 +18,8 @@ func _recreate_progress_views():
 		entry_container = %ConstructionProgressContainer
 	for child in entry_container.get_children():
 		child.queue_free()
-	for i in range(0, CUnderConstruction.MAX_PROGRESS):
+	var segments: int = construction_component.max_progress if construction_component else 0
+	for i in range(0, segments):
 		var newPanel: Panel = entry_prefab.instantiate()
 		entry_container.add_child(newPanel)
 
@@ -27,7 +28,7 @@ func update_view():
 	if not construction_component:
 		return
 	var current_panels: int = entry_container.get_child_count()
-	if current_panels != CUnderConstruction.MAX_PROGRESS:
+	if current_panels != construction_component.max_progress:
 		_recreate_progress_views()
 	var progress: int = construction_component.current_progress
 	for i in range(entry_container.get_child_count()):

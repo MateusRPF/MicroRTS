@@ -73,7 +73,6 @@ func create_command_from_data(data:CommandData,executor:CCommandExecutor, target
 func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i, command:CommandData) -> bool:
 	var tile = controller.grid_manager.map_tiles[target_coord]
 	if not tile:
-		# print("No valid tile.")
 		return false
 	
 	var hovered_object:GridObject
@@ -97,8 +96,10 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 					return true
 			CommandData.Targetting.BUILD_SETUP:
 				if command is CommandData_BuildStructure:
-					var size: Vector2i = (command as CommandData_BuildStructure).get_footprint_size()
-					return controller.grid_manager.can_place_footprint(target_coord, size)
+					var build_data := command as CommandData_BuildStructure
+					var size: Vector2i = build_data.get_footprint_size()
+					var clearance: int = build_data.get_clearance()
+					return controller.grid_manager.can_place_with_clearance(target_coord, size, clearance)
 				if (hovered_object == null and tile.tile_type == GameTile.TileType.FLOOR):
 					return true
 			CommandData.Targetting.CONSTRUCTION_SITE:

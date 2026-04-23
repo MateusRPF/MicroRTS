@@ -1,16 +1,21 @@
 [gd_resource type="Resource" script_class="CommandData_BuildStructure" format=3 uid="uid://bppw8r3iwyl24"]
 
-[ext_resource type="Script" path="res://Scripts/DataStructures/CommandData_BuildStructure.gd" id="1_bs"]
-[ext_resource type="Texture2D" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/Commands/Command_BuildStructure.gd" id="3_cmd"]
+[ext_resource type="Script" uid="uid://duon4ud16dmju" path="res://Scripts/DataStructures/CommandData_BuildStructure.gd" id="1_bs"]
+[ext_resource type="Texture2D" uid="uid://2jm2vong2tqx" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
+[ext_resource type="Script" uid="uid://dcsgbgr4nk4vt" path="res://Scripts/UnitComponents/Commands/Command_BuildStructure.gd" id="3_cmd"]
 [ext_resource type="PackedScene" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="4_scene"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="5_res"]
+[ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="6_wood"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="7_ien8q"]
 
 [resource]
 script = ExtResource("1_bs")
+structure_scene = ExtResource("4_scene")
+cost = Dictionary[ExtResource("5_res"), int]({
+ExtResource("6_wood"): 10
+})
 display_name = "Stockpile"
 description = "Build a Stockpile to deliver basic materials."
 icon = ExtResource("2_icon")
 target_mode = 5
-priority = 1
 command_script = ExtResource("3_cmd")
-structure_scene = ExtResource("4_scene")

@@ -63,3 +63,6 @@ metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Harbingers_Adept" unique_id=187744114 instance=ExtResource("1_base")]
 data = SubResource("Actor_Adept_Data")
+
+[node name="CarryPivot" type="Marker2D" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="1" unique_id=2079978064]
+position = Vector2(0, -19)

@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inspector Widgets/Widget_BuildRequirementsView.gd" id="1_brv"]
+
+[node name="Widget_BuildRequirementsView" type="PanelContainer"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 30.0
+offset_bottom = 23.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("1_brv")
+
+[node name="BuildRequirementsContainer" type="GridContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3

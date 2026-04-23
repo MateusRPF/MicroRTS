@@ -1,11 +1,12 @@
 extends GridObjectComponent
 class_name CUnderConstruction
 
-const MAX_PROGRESS: int = 30
+const HITS_PER_RESOURCE: int = 4
 const GHOST_ALPHA: float = 0.1
 const SHAKE_MAGNITUDE: float = 3.0
 const SHAKE_DURATION: float = 0.26
 
+var max_progress: int = 0
 var current_progress: int = 0
 var _shake_tween: Tween = null
 
@@ -17,18 +18,26 @@ func initialize_component(actor: GridObject) -> void:
 	_refresh_visual()
 
 
+func init_from_cost(cost_sum: int) -> void:
+	max_progress = cost_sum * HITS_PER_RESOURCE
+	current_progress = 0
+	_refresh_visual()
+
+
 func get_progress_ratio() -> float:
-	return float(current_progress) / float(MAX_PROGRESS)
+	if max_progress <= 0:
+		return 0.0
+	return float(current_progress) / float(max_progress)
 
 
 func is_complete() -> bool:
-	return current_progress >= MAX_PROGRESS
+	return max_progress > 0 and current_progress >= max_progress
 
 
 func add_progress(amount: int) -> bool:
-	if is_complete():
+	if is_complete() or max_progress <= 0:
 		return false
-	current_progress = min(current_progress + amount, MAX_PROGRESS)
+	current_progress = min(current_progress + amount, max_progress)
 	_refresh_visual()
 	progress_changed.emit(self)
 	if is_complete():

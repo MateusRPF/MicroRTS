@@ -46,6 +46,8 @@ func _draw() -> void:
 		draw_rect(rect, Color(0, 1, 0, 0.2), true) # Fill
 		draw_rect_corners(rect, Color(0, 1, 0, 0.5), 2.0) # Border corners on top
 
+	_draw_clearance_overlay()
+
 	# 2. Draw highlights for all selected units
 	for unit in controller.selected_objects:
 		if not (unit):
@@ -71,6 +73,29 @@ func _draw() -> void:
 
 func _draw_hover_rect() -> void:
 	draw_rect_corners(get_rect_for_tile(controller.hovered_coord), Color(1, 1, 1, 0.5), 2.0)
+
+
+func _draw_clearance_overlay() -> void:
+	if not (controller.aiming_command is CommandData_BuildStructure):
+		return
+	var build_data: CommandData_BuildStructure = controller.aiming_command as CommandData_BuildStructure
+	var grid: GridManager = controller.grid_manager
+	var fill: Color = Color(1, 1, 0, 0.25)
+	var drawn: Dictionary = {}
+	var new_origin: Vector2i = controller._get_effective_target_coord()
+	var new_size: Vector2i = build_data.get_footprint_size()
+	var new_clearance: int = build_data.get_clearance()
+	for coord in grid.get_clearance_coords(new_origin, new_size, new_clearance):
+		if drawn.has(coord):
+			continue
+		drawn[coord] = true
+		draw_rect(get_rect_for_tile(coord), fill, true)
+	for building in grid.get_buildings_with_clearance():
+		for coord in grid.get_clearance_coords(building.current_coord, building.size, building.data.clearance):
+			if drawn.has(coord):
+				continue
+			drawn[coord] = true
+			draw_rect(get_rect_for_tile(coord), fill, true)
 
 func _process(_delta: float) -> void:
 	

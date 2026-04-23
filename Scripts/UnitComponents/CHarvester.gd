@@ -53,8 +53,8 @@ func perform_harvest(node:CResourceNode) -> void:
 
 
 func _play_punch(node: CResourceNode) -> void:
-	var sprite: Node2D = owner_object.get_node_or_null("%Sprite")
-	if not sprite or not is_instance_valid(node) or not is_instance_valid(node.owner_object):
+	var pivot: Node2D = owner_object.get_node_or_null("%ViewPivot")
+	if not pivot or not is_instance_valid(node) or not is_instance_valid(node.owner_object):
 		return
 	var delta: Vector2 = Vector2(node.owner_object.current_coord - owner_object.current_coord)
 	if delta.length_squared() == 0:
@@ -62,15 +62,17 @@ func _play_punch(node: CResourceNode) -> void:
 	if _punch_tween and _punch_tween.is_running():
 		_punch_tween.kill()
 	var punch_offset: Vector2 = delta.normalized() * PUNCH_DISTANCE
-	sprite.position = Vector2.ZERO
-	_punch_tween = sprite.create_tween()
-	_punch_tween.tween_property(sprite, "position", punch_offset, PUNCH_DURATION * 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_punch_tween.tween_property(sprite, "position", Vector2.ZERO, PUNCH_DURATION * 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+	pivot.position = Vector2.ZERO
+	_punch_tween = pivot.create_tween()
+	_punch_tween.tween_property(pivot, "position", punch_offset, PUNCH_DURATION * 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_punch_tween.tween_property(pivot, "position", Vector2.ZERO, PUNCH_DURATION * 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
 func deliver_to(stockpile: CStockpile) -> void:
-	
+
 	stockpile.deposit_resource(self,currently_harvesting_resource,inventory.withdrawal(currently_harvesting_resource,inventory.get_stored_qty(currently_harvesting_resource)))
+	if stockpile.owner_object:
+		owner_object.play_interaction_with(stockpile.owner_object)
 	
 
 

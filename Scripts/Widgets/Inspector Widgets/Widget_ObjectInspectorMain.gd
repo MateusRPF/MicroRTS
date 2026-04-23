@@ -23,7 +23,7 @@ func _single_object_view(object: GridObject):
 	%SingleObject.visible = true
 	%MultiObject.visible = false
 	_inspect_actor(object)
-	_viewing_actors.clear()
+	_viewing_actors = []
 
 func _multiple_object_view(objects:Array[GridObject]):
 	print("UI Viewing %s objects" % [objects.size()] )

@@ -131,8 +131,8 @@ func perform_move(from_coord: Vector2i, to_coord: Vector2i) -> bool:
 
 
 func _play_hop(direction: Vector2i) -> void:
-	var sprite: Node2D = owner_object.get_node_or_null("%Sprite")
-	if not sprite:
+	var pivot: Node2D = owner_object.get_node_or_null("%ViewPivot")
+	if not pivot:
 		return
 	if _pos_tween and _pos_tween.is_running():
 		_pos_tween.kill()
@@ -144,23 +144,23 @@ func _play_hop(direction: Vector2i) -> void:
 	var start_local: Vector2 = -Vector2(direction) * GridManager.TILE_SIZE
 	var start_y: float = start_local.y
 
-	sprite.position = start_local
+	pivot.position = start_local
 
-	_pos_tween = sprite.create_tween().set_parallel(true)
-	_pos_tween.tween_property(sprite, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)
+	_pos_tween = pivot.create_tween().set_parallel(true)
+	_pos_tween.tween_property(pivot, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)
 	_pos_tween.tween_method(
 		func(t: float) -> void:
-			sprite.position.y = lerp(start_y, 0.0, t) - HOP_HEIGHT * sin(t * PI),
+			pivot.position.y = lerp(start_y, 0.0, t) - HOP_HEIGHT * sin(t * PI),
 		0.0, 1.0, duration
 	)
 
 	if direction.x != 0:
 		var lean: float = -sign(direction.x) * HOP_LEAN
-		_rot_tween = sprite.create_tween()
-		_rot_tween.tween_property(sprite, "rotation", lean, half).set_trans(Tween.TRANS_SINE)
-		_rot_tween.tween_property(sprite, "rotation", 0.0, half).set_trans(Tween.TRANS_SINE)
+		_rot_tween = pivot.create_tween()
+		_rot_tween.tween_property(pivot, "rotation", lean, half).set_trans(Tween.TRANS_SINE)
+		_rot_tween.tween_property(pivot, "rotation", 0.0, half).set_trans(Tween.TRANS_SINE)
 	else:
-		sprite.rotation = 0.0
+		pivot.rotation = 0.0
 
 func can_move_to(target_coord: Vector2i) -> bool:
 	if not owner_object or not owner_object.grid_manager:

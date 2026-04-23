@@ -14,6 +14,8 @@
 [ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
 [ext_resource type="Script" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="13_cuc"]
 [ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_ConstructionView.tscn" id="14_cvw"]
+[ext_resource type="Script" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="15_breq"]
+[ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_BuildRequirementsView.tscn" id="16_brv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
 bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
@@ -47,7 +49,8 @@ ExtResource("2_hbito"): NodePath("MarginContainer/SingleObject/VBoxContainer/Wid
 ExtResource("3_fjt0s"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
 ExtResource("4_j7ygb"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
 ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView"),
-ExtResource("13_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView")
+ExtResource("13_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView"),
+ExtResource("15_breq"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_BuildRequirementsView")
 }
 multiple_selection_view = ExtResource("12_ow81a")
 
@@ -88,6 +91,9 @@ layout_mode = 2
 [node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/SingleObject" unique_id=304232959]
 layout_mode = 2
 size_flags_horizontal = 0
+
+[node name="Widget_BuildRequirementsView" parent="MarginContainer/SingleObject/VBoxContainer2" instance=ExtResource("16_brv")]
+layout_mode = 2
 
 [node name="Widget_InventoryView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
 layout_mode = 2

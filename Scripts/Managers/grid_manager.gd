@@ -195,6 +195,55 @@ func can_place_footprint(origin: Vector2i, size: Vector2i) -> bool:
 	return true
 
 
+func get_clearance_coords(origin: Vector2i, size: Vector2i, clearance: int) -> Array[Vector2i]:
+	var coords: Array[Vector2i] = []
+	if clearance <= 0:
+		return coords
+	var footprint_set: Dictionary = {}
+	for coord in get_footprint_coords(origin, size):
+		footprint_set[coord] = true
+	for dx in range(-clearance, size.x + clearance):
+		for dy in range(-clearance, size.y + clearance):
+			var coord := Vector2i(origin.x + dx, origin.y - dy)
+			if footprint_set.has(coord):
+				continue
+			coords.append(coord)
+	return coords
+
+
+func get_buildings_with_clearance() -> Array[GridObject]:
+	var buildings: Array[GridObject] = []
+	for child in get_children():
+		if child is GridObject:
+			var obj := child as GridObject
+			if obj.data and obj.data.clearance > 0:
+				buildings.append(obj)
+	return buildings
+
+
+func can_place_with_clearance(origin: Vector2i, size: Vector2i, clearance: int) -> bool:
+	if not can_place_footprint(origin, size):
+		return false
+	var new_zone: Dictionary = {}
+	for coord in get_footprint_coords(origin, size):
+		new_zone[coord] = true
+	for coord in get_clearance_coords(origin, size, clearance):
+		new_zone[coord] = true
+		if map_tiles.has(coord) and map_tiles[coord].tile_type != GameTile.TileType.FLOOR:
+			return false
+	for building in get_buildings_with_clearance():
+		var b_origin: Vector2i = building.current_coord
+		var b_size: Vector2i = building.size
+		var b_clearance: int = building.data.clearance
+		for coord in get_footprint_coords(b_origin, b_size):
+			if new_zone.has(coord):
+				return false
+		for coord in get_clearance_coords(b_origin, b_size, b_clearance):
+			if new_zone.has(coord):
+				return false
+	return true
+
+
 func find_path(start: Vector2i, end: Vector2i, moving_unit: GridObject = null) -> Array[Vector2i]:
 	if not astar_grid:
 		push_error("GridManager: AStarGrid2D not initialized")

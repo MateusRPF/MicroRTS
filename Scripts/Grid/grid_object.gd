@@ -20,6 +20,14 @@ var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 
 var _component_cache: Dictionary = {}
 
+const INTERACT_LEAN_DISTANCE: float = 6.0
+const INTERACT_DURATION: float = 0.3
+const INTERACT_SHAKE_MAGNITUDE: float = 2.0
+const INTERACT_SHAKE_DURATION: float = 0.2
+
+var _interact_tween: Tween = null
+var _shake_tween: Tween = null
+
 
 signal OnTickReceived
 
@@ -37,10 +45,11 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, 
 	settle_position()
 
 
-func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, target_data: ActorData) -> void:
+func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, target_data: ActorData, cost: Dictionary[GameResource, int], state: PlayerState) -> void:
 	grid_manager = manager
 	current_coord = coord
 	side = newSide
+	player_state = state
 	data = target_data
 	%Sprite.texture = data.sprite
 	%Sprite.offset = data.view_offset
@@ -49,10 +58,20 @@ func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newS
 
 	GlobalTicker.TickSignal.connect(_on_global_tick)
 
+	var requirements := CBuildRequirements.new()
+	add_child(requirements)
+	requirements.initialize_component(self)
+	_component_cache[requirements.get_script()] = requirements
+	requirements.init_requirements(cost)
+
 	var construction := CUnderConstruction.new()
 	add_child(construction)
 	construction.initialize_component(self)
 	_component_cache[construction.get_script()] = construction
+	var cost_sum: int = 0
+	for res in cost:
+		cost_sum += cost[res]
+	construction.init_from_cost(cost_sum)
 
 	grid_manager.UpdatePosition(self, current_coord)
 	settle_position()
@@ -63,6 +82,10 @@ func complete_construction() -> void:
 	if construction:
 		_component_cache.erase(construction.get_script())
 		construction.queue_free()
+	var requirements: CBuildRequirements = get_component(CBuildRequirements)
+	if requirements:
+		_component_cache.erase(requirements.get_script())
+		requirements.queue_free()
 	modulate.a = 1.0
 	_update_outline_color()
 	for module in data.modules:
@@ -128,3 +151,42 @@ func get_component_by_name(script_name:String) -> GridObjectComponent:
 func destroy_object():
 	grid_manager.ClearPosition(self)
 	queue_free()
+
+
+func play_interaction_with(target: GridObject) -> void:
+	if not is_instance_valid(target):
+		return
+	var pivot: Node2D = get_node_or_null("%ViewPivot")
+	if not pivot:
+		return
+	var delta: Vector2 = Vector2(target.current_coord - current_coord)
+	if delta.length_squared() == 0:
+		return
+	var offset: Vector2 = delta.normalized() * INTERACT_LEAN_DISTANCE
+	if _interact_tween and _interact_tween.is_running():
+		_interact_tween.kill()
+	pivot.position = Vector2.ZERO
+	_interact_tween = pivot.create_tween()
+	var third: float = INTERACT_DURATION / 3.0
+	_interact_tween.tween_property(pivot, "position", offset, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	_interact_tween.tween_callback(func():
+		if is_instance_valid(target):
+			target.play_shake()
+	)
+	_interact_tween.tween_interval(third)
+	_interact_tween.tween_property(pivot, "position", Vector2.ZERO, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+
+func play_shake() -> void:
+	var sprite: Node2D = get_node_or_null("%Sprite")
+	if not sprite:
+		return
+	if _shake_tween and _shake_tween.is_running():
+		_shake_tween.kill()
+	sprite.position.x = 0
+	_shake_tween = sprite.create_tween()
+	var step: float = INTERACT_SHAKE_DURATION * 0.25
+	_shake_tween.tween_property(sprite, "position:x", INTERACT_SHAKE_MAGNITUDE, step)
+	_shake_tween.tween_property(sprite, "position:x", -INTERACT_SHAKE_MAGNITUDE, step)
+	_shake_tween.tween_property(sprite, "position:x", INTERACT_SHAKE_MAGNITUDE * 0.5, step)
+	_shake_tween.tween_property(sprite, "position:x", 0.0, step)

@@ -16,6 +16,8 @@
 [ext_resource type="Script" uid="uid://rt43ydbdv6x4" path="res://Scripts/DataStructures/ComponentData/ComponentData_Builder.gd" id="14_builder"]
 [ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="15_cmddata"]
 [ext_resource type="Resource" uid="uid://bppw8r3iwyl24" path="res://Data/CommandDatas/CommandData_Build_Stockpile.tres" id="16_buildstockpile"]
+[ext_resource type="Script" uid="uid://bkymwg55yft4y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IdleDeposit.gd" id="17_idle"]
+[ext_resource type="Script" uid="uid://7dy3oolv1jl" path="res://Scripts/DataStructures/ComponentData/ComponentData_CarryVisual.gd" id="18_carry"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("3_attrs")
@@ -59,13 +61,22 @@ metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 script = ExtResource("14_builder")
 buildable = Array[ExtResource("15_cmddata")]([ExtResource("16_buildstockpile")])
 
+[sub_resource type="Resource" id="Mod_IdleDeposit"]
+script = ExtResource("17_idle")
+
+[sub_resource type="Resource" id="Mod_CarryVisual"]
+script = ExtResource("18_carry")
+
 [sub_resource type="Resource" id="Actor_Shambler_Data"]
 script = ExtResource("10_actor")
 actor_name = "Risen"
 description = "A corpse, reanimated for some nefarious purpose."
 sprite = ExtResource("11_sprite")
-modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder")])
+modules = Array[ExtResource("2_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Harbingers_Shambler" unique_id=1628272071 instance=ExtResource("1_base")]
 data = SubResource("Actor_Shambler_Data")
+
+[node name="CarryPivot" type="Marker2D" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="1" unique_id=807894613]
+position = Vector2(0, -20)
