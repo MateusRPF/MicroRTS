@@ -22,7 +22,7 @@
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("3_attrs")
 attrs = Dictionary[int, int]({
-0: 30,
+0: 20,
 1: 2,
 2: 2,
 3: 1,

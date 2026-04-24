@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://uqd4e4oidbba"]
+
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="1_pj5oe"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_is3cq"]
+[ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="3_6vpti"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="4_5vecq"]
+[ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="5_qyvi6"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="6_vqw3g"]
+[ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="7_e232m"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="8_6g8ot"]
+[ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="9_dtdop"]
+[ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_1rw41"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="11_eifc8"]
+[ext_resource type="Texture2D" uid="uid://ct3kamaosk3h1" path="res://Sprites/Units/SPR_Balestrier.tres" id="12_pj5oe"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_64d35"]
+
+[sub_resource type="Resource" id="Mod_Attrs"]
+script = ExtResource("3_6vpti")
+attrs = Dictionary[int, int]({
+0: 35,
+1: 0,
+2: 0,
+3: 3,
+4: 2,
+5: 1,
+6: 3,
+7: 3
+})
+metadata/_custom_type_script = "uid://b40p573hfvm6v"
+
+[sub_resource type="Resource" id="Mod_Inv"]
+script = ExtResource("4_5vecq")
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Mod_Mover"]
+script = ExtResource("5_qyvi6")
+metadata/_custom_type_script = "uid://bmuke1nuwo0qc"
+
+[sub_resource type="Resource" id="Mod_Harv"]
+script = ExtResource("7_e232m")
+metadata/_custom_type_script = "uid://cyj0feijn3m44"
+
+[sub_resource type="Resource" id="Mod_Exec"]
+script = ExtResource("8_6g8ot")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[sub_resource type="Resource" id="Mod_SM"]
+script = ExtResource("9_dtdop")
+metadata/_custom_type_script = "uid://40q3s0vdavqw"
+
+[sub_resource type="Resource" id="Resource_beslk"]
+resource_local_to_scene = true
+script = ExtResource("10_1rw41")
+metadata/_custom_type_script = "uid://b75xfdnwu8eig"
+
+[sub_resource type="Resource" id="Actor_Adept_Data"]
+script = ExtResource("11_eifc8")
+actor_name = "Balestrier"
+description = "Lethal sharpshooter"
+sprite = ExtResource("12_pj5oe")
+modules = Array[ExtResource("2_is3cq")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Resource_beslk")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"
+
+[node name="Actor_Consector_Balestrier" unique_id=187744114 instance=ExtResource("1_pj5oe")]
+data = SubResource("Actor_Adept_Data")
+
+[node name="CarryPivot" type="Marker2D" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="1" unique_id=2079978064]
+position = Vector2(0, -19)
