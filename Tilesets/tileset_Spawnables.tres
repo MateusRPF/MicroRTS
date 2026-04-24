@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" format=3 uid="uid://dmrvivvr1lsxp"]
 
-[ext_resource type="Texture2D" uid="uid://ckc11e1vblji8" path="res://Sprites/Structures/SPR_Stockpile.png" id="1_rykax"]
+[ext_resource type="Texture2D" uid="uid://c3w3x4kp0j4mf" path="res://Sprites/Structures/SPR_Stockpile.tres" id="1_ea704"]
 [ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="2_7tb2v"]
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="3_7tb2v"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_rykax"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c4i681h2wh8qk" path="res://Sprites/Structures/SPR_BoneCarver.tres" id="8_ea704"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
-texture = ExtResource("1_rykax")
+texture = ExtResource("1_ea704")
 texture_region_size = Vector2i(32, 32)
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0

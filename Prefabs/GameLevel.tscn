@@ -5,7 +5,7 @@
 [ext_resource type="TileSet" uid="uid://dmrvivvr1lsxp" path="res://Tilesets/tileset_Spawnables.tres" id="4_jympa"]
 [ext_resource type="PackedScene" uid="uid://d7u65ka60wn1" path="res://Prefabs/Actors/Units/Actor_Harbingers_Adept.tscn" id="5_adept"]
 [ext_resource type="PackedScene" uid="uid://bnnnhxq14ac5f" path="res://Prefabs/Actors/Units/Actor_Harbingers_Shambler.tscn" id="6_shambler"]
-[ext_resource type="PackedScene" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="7_stockpile"]
+[ext_resource type="PackedScene" uid="uid://dwt67mh1xbwa5" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="7_stockpile"]
 [ext_resource type="PackedScene" uid="uid://bkcsi28gvwkbj" path="res://Prefabs/Actors/Structures/Actor_Structure_CircleOfRaising.tscn" id="7_w4pua"]
 [ext_resource type="PackedScene" uid="uid://bevbcmy6imac" path="res://Prefabs/Actors/Structures/Actor_Structure_BoneCarver.tscn" id="8_fdgdc"]
 [ext_resource type="PackedScene" uid="uid://o73b6kuim2qn" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Tree.tscn" id="8_tree"]

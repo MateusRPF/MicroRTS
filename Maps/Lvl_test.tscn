@@ -8,9 +8,6 @@
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="10_c44cc"]
 [ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_rlgon"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="11_c44cc"]
-[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
-[ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="18_cuc"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="19_breq"]
 [ext_resource type="Script" uid="uid://wyn24v7ygtom" path="res://Scripts/Widgets/Widget_TickControl.gd" id="11_gab08"]
 [ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_jln6d"]
 [ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="11_jp3g8"]
@@ -22,6 +19,9 @@
 [ext_resource type="Texture2D" uid="uid://bkpv1hcxnk13c" path="res://Sprites/UI/UIControls/SPR_UI_Slower.tres" id="14_upx6b"]
 [ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="16_gab08"]
 [ext_resource type="PackedScene" uid="uid://ukqepnrxhbvw" path="res://Prefabs/Widgets/Widget_CommandPanel.tscn" id="17_c44cc"]
+[ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="18_cuc"]
+[ext_resource type="Script" uid="uid://c3jbedmwonsab" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="19_breq"]
+[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
 content_margin_left = 0.0
