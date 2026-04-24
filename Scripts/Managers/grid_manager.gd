@@ -87,8 +87,11 @@ func _refresh_astar_for(coord: Vector2i, tile: GameTile) -> void:
 		astar_grid.set_point_weight_scale(coord, 1.0)
 
 func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:PlayerState) -> void:
+	var spawned_coords: Dictionary = {}
 
 	for tile in tileset.get_used_cells():
+		if spawned_coords.has(tile):
+			continue
 		var data = tileset.get_cell_tile_data(tile)
 		var resourceName:String = data.get_custom_data("DataEntry")
 		if not spawn_scenes.has(resourceName):
@@ -97,6 +100,9 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:P
 		var newActor = spawn_scenes[resourceName].instantiate() as GridObject
 		add_child(newActor)
 		newActor.Initialize(self, tile, side,newState)
+		for coord in newActor.get_covered_coords():
+			print("Marking coord %s as occupied by spawned object %s" % [coord, newActor.name])
+			spawned_coords[coord] = true
 
 	tileset.clear()
 

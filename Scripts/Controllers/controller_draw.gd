@@ -64,8 +64,12 @@ func _draw() -> void:
 			max_x = max(max_x, coord.x)
 			min_y = min(min_y, coord.y)
 			max_y = max(max_y, coord.y)
-		var rect_pos = controller.grid_manager.tile_to_world(Vector2i(min_x, min_y)) - Vector2(controller.grid_manager.HALF_TILE, controller.grid_manager.HALF_TILE)
-		var rect_size = Vector2((max_x - min_x + 1) * controller.grid_manager.TILE_SIZE, (max_y - min_y + 1) * controller.grid_manager.TILE_SIZE)
+		var origin:Vector2 =  unit.get_child(0).global_position
+		
+		var rect_pos = origin - Vector2(controller.grid_manager.HALF_TILE, -1*controller.grid_manager.HALF_TILE)
+		# var rect_pos = controller.grid_manager.tile_to_world(Vector2i(min_x, min_y)) - Vector2(controller.grid_manager.HALF_TILE, controller.grid_manager.HALF_TILE)
+		# var rect_size = Vector2((max_x - min_x + 1) * controller.grid_manager.TILE_SIZE, (max_y - min_y + 1) * controller.grid_manager.TILE_SIZE)
+		var rect_size = Vector2((max_x - min_x + 1) * controller.grid_manager.TILE_SIZE, (max_y - min_y + 1) * -1*controller.grid_manager.TILE_SIZE)
 		var rect = Rect2(rect_pos, rect_size)
 		var color = get_color_for_side(unit.side)
 		draw_rect_corners(rect, color, 1.0)

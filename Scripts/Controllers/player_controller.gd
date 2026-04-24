@@ -105,7 +105,7 @@ func _confirm_aimed_command():
 func _get_effective_target_coord() -> Vector2i:
 	if aiming_command is CommandData_BuildStructure:
 		var size: Vector2i = (aiming_command as CommandData_BuildStructure).get_footprint_size()
-		return hovered_coord + Vector2i(-((size.x - 1) / 2), size.y / 2)
+		return hovered_coord + Vector2i(-((size.x - 1) / 2.0), size.y / 2)
 	return hovered_coord
 
 func _cancel_aiming():
@@ -162,7 +162,7 @@ func _select_in_box() -> void:
 	
 	var tilesInRect = grid_manager.get_tiles_in_rect(selection_rect)
 	for tile in tilesInRect:
-		if (tile.occupant):
+		if (tile.occupant && not selected_objects.has(tile.occupant)):
 			selected_objects.append(tile.occupant)
 
 	selected_objects = _filter_multiple_selection(selected_objects)
