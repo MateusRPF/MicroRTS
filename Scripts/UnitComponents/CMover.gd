@@ -168,10 +168,14 @@ func can_move_to(target_coord: Vector2i) -> bool:
 	if not owner_object.grid_manager.map_tiles.has(target_coord):
 		return false
 
-	if owner_object.grid_manager.map_tiles[target_coord].is_occupied:
-		var occupant = owner_object.grid_manager.map_tiles[target_coord].occupant
+	var tile: GameTile = owner_object.grid_manager.map_tiles[target_coord]
+	if tile.tile_type != GameTile.TileType.FLOOR:
+		return false
+
+	if tile.is_occupied:
+		var occupant = tile.occupant
 		if occupant != null and occupant != owner_object:
-			if (occupant):
+			if occupant:
 				blocker_object = occupant
 			return false  # Tile is occupied by another object
 	return true

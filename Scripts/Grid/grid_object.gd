@@ -11,7 +11,7 @@ var player_state: PlayerState = null
 
 var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 
-@export var material_map:Dictionary[ActorData.Sides, ShaderMaterial]
+@export var tint_map:Dictionary[ActorData.Sides, Color]
 
 
 @export var data:ActorData = null
@@ -38,7 +38,7 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, 
 	player_state = state
 	GlobalTicker.TickSignal.connect(_on_global_tick)
 	assemble_from_data(data)
-	_update_outline_color()
+	_update_color_tint()
 
 	grid_manager.UpdatePosition(self, current_coord)
 
@@ -87,7 +87,7 @@ func complete_construction() -> void:
 		_component_cache.erase(requirements.get_script())
 		requirements.queue_free()
 	modulate.a = 1.0
-	_update_outline_color()
+	_update_color_tint()
 	for module in data.modules:
 		var newComp = module.assemble_component(self)
 		_component_cache[newComp.get_script()] = newComp
@@ -102,12 +102,18 @@ func assemble_from_data(newData:ActorData):
 		var newComp = module.assemble_component(self)
 		_component_cache[newComp.get_script()] = newComp
 
-func _update_outline_color() -> void:
-	pass
-	if material_map.has(side):
-		%Sprite.material = material_map[side]
+func _update_color_tint() -> void:
+	var color_rect = get_node_or_null("%ColorRect")
+	if not color_rect:
+		return
+	color_rect.size.x *= size.x
+	color_rect.size.y *= size.y
+	color_rect.position.y += -32 * (size.y-1)
+
+	if tint_map.has(side):
+		color_rect.color = tint_map[side]
 	else:
-		%Sprite.material = material_map[ActorData.Sides.NEUTRAL]
+		color_rect.color = Color(0, 0, 0, 0)
 
 
 

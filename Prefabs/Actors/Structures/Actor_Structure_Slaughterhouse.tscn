@@ -24,3 +24,6 @@ metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
 [node name="Actor_Structure_Slaughterhouse" unique_id=1280668460 instance=ExtResource("1_ng8v2")]
 data = SubResource("Actor_Stockpile_Data")
+
+[node name="Sprite" parent="ViewPivot" parent_id_path=PackedInt32Array(1593318972) index="0" unique_id=862196751]
+texture = ExtResource("6_ng8v2")

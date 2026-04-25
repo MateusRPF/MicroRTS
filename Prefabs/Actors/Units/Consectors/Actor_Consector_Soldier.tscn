@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="9_xnwfp"]
 [ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_hujfv"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="11_ybiox"]
-[ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="12_a6oy1"]
+[ext_resource type="Texture2D" uid="uid://cpxpkgtmnhadd" path="res://Sprites/Units/SPR_Consector.tres" id="12_t8u2e"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_xuu2t"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
@@ -57,7 +57,7 @@ metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 script = ExtResource("11_ybiox")
 actor_name = "Consector"
 description = "Trained member of the Civilized."
-sprite = ExtResource("12_a6oy1")
+sprite = ExtResource("12_t8u2e")
 modules = Array[ExtResource("2_rikev")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Resource_beslk")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
 
