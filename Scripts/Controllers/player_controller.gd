@@ -147,7 +147,10 @@ func _is_command_target_valid() -> bool:
 # --- Selection Logic ---
 
 func _select_at_mouse() -> void:
-	selected_objects.clear()
+	var shift_held = Input.is_key_pressed(KEY_SHIFT)
+	if not shift_held:
+		selected_objects.clear()
+		
 	var tile = grid_manager.map_tiles[hovered_coord]
 	if tile and tile.occupant:
 		selected_objects.append(tile.occupant)
@@ -155,7 +158,10 @@ func _select_at_mouse() -> void:
 	_emit_selection()
 
 func _select_in_box() -> void:
-	selected_objects.clear()
+
+	var shift_held = Input.is_key_pressed(KEY_SHIFT)
+	if not shift_held:
+		selected_objects.clear()
 	
 	# Create a Rect2 from the drag positions
 	var selection_rect = Rect2(drag_start_pos, Vector2.ZERO).expand(drag_end_pos)
