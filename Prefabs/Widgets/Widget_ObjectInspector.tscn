@@ -12,9 +12,9 @@
 [ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="5_eojcl"]
 [ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
 [ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="13_cuc"]
+[ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="13_cuc"]
 [ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_ConstructionView.tscn" id="14_cvw"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="15_breq"]
+[ext_resource type="Script" uid="uid://c3jbedmwonsab" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="15_breq"]
 [ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_BuildRequirementsView.tscn" id="16_brv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
@@ -61,7 +61,6 @@ theme = ExtResource("1_cyf21")
 
 [node name="SingleObject" type="HBoxContainer" parent="MarginContainer" unique_id=870948775]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SingleObject" unique_id=1215381375]
@@ -73,7 +72,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Widget_ConstructionView" parent="MarginContainer/SingleObject/VBoxContainer" instance=ExtResource("14_cvw")]
+[node name="Widget_ConstructionView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1507468358 instance=ExtResource("14_cvw")]
 layout_mode = 2
 
 [node name="Widget_ExecutorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
@@ -92,7 +91,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="Widget_BuildRequirementsView" parent="MarginContainer/SingleObject/VBoxContainer2" instance=ExtResource("16_brv")]
+[node name="Widget_BuildRequirementsView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1416753354 instance=ExtResource("16_brv")]
 layout_mode = 2
 
 [node name="Widget_InventoryView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
@@ -107,6 +106,7 @@ columns = 2
 
 [node name="MultiObject" type="GridContainer" parent="MarginContainer" unique_id=1398479506]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/v_separation = 4
 columns = 6
