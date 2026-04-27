@@ -162,7 +162,8 @@ theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 12
 text = "x1"
 
-[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("camera_bounds") instance=ExtResource("11_rlgon")]
+[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("grid_manager", "camera_bounds") instance=ExtResource("11_rlgon")]
+grid_manager = NodePath("../GameLevel")
 camera_bounds = NodePath("../CameraBounds")
 
 [node name="GameLevel" parent="." unique_id=1620061272 instance=ExtResource("22_cc4vf")]
