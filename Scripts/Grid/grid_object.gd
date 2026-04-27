@@ -14,7 +14,7 @@ var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 @export var tint_map:Dictionary[ActorData.Sides, Color]
 
 
-@export var data:ActorData = null
+var data:ActorData = null
 
 @onready var randomizedPriority = randi()
 
@@ -24,20 +24,22 @@ const INTERACT_LEAN_DISTANCE: float = 6.0
 const INTERACT_DURATION: float = 0.3
 const INTERACT_SHAKE_MAGNITUDE: float = 2.0
 const INTERACT_SHAKE_DURATION: float = 0.2
+const HIT_FLASH_DURATION: float = 0.15
 
 var _interact_tween: Tween = null
 var _shake_tween: Tween = null
+var _hit_flash_tween: Tween = null
 
 
 signal OnTickReceived
 
-func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, state:PlayerState) -> void:
+func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, state:PlayerState, actorData: ActorData) -> void:
 	grid_manager = manager
 	current_coord = coord
 	side = newSide
 	player_state = state
 	GlobalTicker.TickSignal.connect(_on_global_tick)
-	assemble_from_data(data)
+	assemble_from_data(actorData)
 	_update_color_tint()
 
 	grid_manager.UpdatePosition(self, current_coord)
@@ -159,7 +161,7 @@ func destroy_object():
 	queue_free()
 
 
-func play_interaction_with(target: GridObject) -> void:
+func play_interaction_with(target: GridObject, shake_target: bool = true, duration: float = INTERACT_DURATION) -> void:
 	if not is_instance_valid(target):
 		return
 	var pivot: Node2D = get_node_or_null("%ViewPivot")
@@ -173,12 +175,15 @@ func play_interaction_with(target: GridObject) -> void:
 		_interact_tween.kill()
 	pivot.position = Vector2.ZERO
 	_interact_tween = pivot.create_tween()
-	var third: float = INTERACT_DURATION / 3.0
+	var third: float = duration / 3.0
 	_interact_tween.tween_property(pivot, "position", offset, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_interact_tween.tween_callback(func():
-		if is_instance_valid(target):
-			target.play_shake()
-	)
+	if shake_target:
+		var target_id: int = target.get_instance_id()
+		_interact_tween.tween_callback(func():
+			var t: GridObject = instance_from_id(target_id) as GridObject
+			if t and is_instance_valid(t):
+				t.play_shake()
+		)
 	_interact_tween.tween_interval(third)
 	_interact_tween.tween_property(pivot, "position", Vector2.ZERO, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
@@ -196,3 +201,22 @@ func play_shake() -> void:
 	_shake_tween.tween_property(sprite, "position:x", -INTERACT_SHAKE_MAGNITUDE, step)
 	_shake_tween.tween_property(sprite, "position:x", INTERACT_SHAKE_MAGNITUDE * 0.5, step)
 	_shake_tween.tween_property(sprite, "position:x", 0.0, step)
+
+
+func play_hit_flash() -> void:
+	_play_flash(Color(2.0, 0.5, 0.5))
+
+
+func play_white_flash() -> void:
+	_play_flash(Color(2.0, 2.0, 2.0))
+
+
+func _play_flash(color: Color) -> void:
+	var sprite: Node2D = get_node_or_null("%Sprite")
+	if not sprite:
+		return
+	if _hit_flash_tween and _hit_flash_tween.is_running():
+		_hit_flash_tween.kill()
+	sprite.modulate = color
+	_hit_flash_tween = sprite.create_tween()
+	_hit_flash_tween.tween_property(sprite, "modulate", Color(1, 1, 1), HIT_FLASH_DURATION)

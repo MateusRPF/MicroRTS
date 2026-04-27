@@ -18,10 +18,14 @@ func enter_state(params: Dictionary) -> bool:
 	var attrSet:CAttributeSet = attacker.get_component(CAttributeSet)
 	attacker_comp = attacker.get_component(CAttacker)
 	attacker_comp.in_combat= true
-	attack_interval = 1
+	var mover: CMover = attacker.get_component(CMover)
+	if mover:
+		mover.stop_move()
+	attack_interval = 10
 	if attrSet:
-		attack_interval = max(1, attrSet.get_attr(CAttributeSet.ATTR_ID.ATTR_ATTACK_SPEED))
-	frame_counter = 0
+		var rate: int = max(1, attrSet.get_attr(CAttributeSet.ATTR_ID.ATTR_ATTACK_SPEED))
+		attack_interval = max(1, ceili(10.0 / rate))
+	frame_counter = attack_interval
 
 	return true
 
@@ -37,14 +41,25 @@ func tick_state() -> void:
 		owner_machine.request_state(CStateMachine.StateID.IDLE)
 		return
 
+	var mover_check: CMover = attacker.get_component(CMover)
+	if mover_check and mover_check.is_hop_animating():
+		return
 	frame_counter += 1
-	if frame_counter >= attack_interval:
+	var will_fire: bool = frame_counter >= attack_interval
+	if will_fire:
 		frame_counter = 0
+		var lean_duration: float = min(GridObject.INTERACT_DURATION, attack_interval * GlobalTicker.tick_rate)
+		attacker.play_interaction_with(target_actor, false, lean_duration)
 		var pipeline: CombatPipeline = CombatPipeline.new()
 		pipeline.attacker = attacker
 		pipeline.defender = target_actor
-		pipeline.execute()
-		var defender_woundable:CWoundable = target_actor.get_component(CWoundable)
+		var hit: bool = pipeline.execute()
+		if is_instance_valid(target_actor) and target_actor.is_inside_tree():
+			if hit:
+				target_actor.play_hit_flash()
+			else:
+				target_actor.play_white_flash()
+		var defender_woundable:CWoundable = target_actor.get_component(CWoundable) if is_instance_valid(target_actor) else null
 		if not defender_woundable or defender_woundable.get_current_health() <= 0:
 			owner_machine.request_state(CStateMachine.StateID.IDLE)
 

@@ -13,7 +13,8 @@ const MOVER_WEIGHT: float = 10.0
 
 var map_tiles: Dictionary[Vector2i, GameTile] = {}
 var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
-@export var spawn_scenes: Dictionary[String, PackedScene]
+@export var grid_object_scene: PackedScene
+@export var spawn_actors: Dictionary[String, ActorData]
 @export var player_state: PlayerState
 
 var astar_grid: AStarGrid2D = null
@@ -94,14 +95,14 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:P
 			continue
 		var data = tileset.get_cell_tile_data(tile)
 		var resourceName:String = data.get_custom_data("DataEntry")
-		if not spawn_scenes.has(resourceName):
-			push_warning("GridManager: no scene mapped for '%s'" % resourceName)
+		if not spawn_actors.has(resourceName):
+			push_warning("GridManager: no actor mapped for '%s'" % resourceName)
 			continue
-		var newActor = spawn_scenes[resourceName].instantiate() as GridObject
+		var actorData: ActorData = spawn_actors[resourceName]
+		var newActor = grid_object_scene.instantiate() as GridObject
 		add_child(newActor)
-		newActor.Initialize(self, tile, side,newState)
+		newActor.Initialize(self, tile, side, newState, actorData)
 		for coord in newActor.get_covered_coords():
-			print("Marking coord %s as occupied by spawned object %s" % [coord, newActor.name])
 			spawned_coords[coord] = true
 
 	tileset.clear()

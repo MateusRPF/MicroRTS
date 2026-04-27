@@ -24,14 +24,14 @@ func start_command() -> bool:
 
 
 func _spawn_structure() -> void:
-	if not build_data or not build_data.structure_scene:
+	if not build_data or not build_data.target_actor:
 		return
 	var grid: GridManager = owner_executor.owner_object.grid_manager
 	if not grid.can_place_with_clearance(target_coord, build_data.get_footprint_size(), build_data.get_clearance()):
 		return
-	var new_structure: GridObject = build_data.structure_scene.instantiate() as GridObject
+	var new_structure: GridObject = grid.grid_object_scene.instantiate() as GridObject
 	grid.add_child(new_structure)
-	new_structure.initialize_as_construction_site(grid, target_coord, ActorData.Sides.PLAYER, new_structure.data, build_data.cost, owner_executor.owner_object.player_state)
+	new_structure.initialize_as_construction_site(grid, target_coord, ActorData.Sides.PLAYER, build_data.target_actor, build_data.cost, owner_executor.owner_object.player_state)
 	_bind_to_site(new_structure)
 
 

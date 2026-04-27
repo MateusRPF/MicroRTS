@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="ActorData" format=3]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b12sbao0o4pnt" path="res://Scripts/DataStructures/ComponentData/ComponentData_Stockpile.gd" id="2_stock"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="3_actor"]
+[ext_resource type="Texture2D" uid="uid://c4i681h2wh8qk" path="res://Sprites/Structures/SPR_BoneCarver.tres" id="4_sprite"]
+
+[sub_resource type="Resource" id="Mod_Stockpile"]
+script = ExtResource("2_stock")
+metadata/_custom_type_script = "uid://b12sbao0o4pnt"
+
+[resource]
+script = ExtResource("3_actor")
+actor_name = "Bone Carver"
+description = "Improves nearby Circles of Raising. Researches Bone technology."
+sprite = ExtResource("4_sprite")
+view_offset = Vector2i(16, -16)
+grid_size = Vector2i(2, 2)
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Stockpile")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

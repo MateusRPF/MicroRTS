@@ -3,30 +3,32 @@
 [ext_resource type="Script" uid="uid://c0kjp7i585mh7" path="res://Scripts/Managers/grid_manager.gd" id="1_uqqmm"]
 [ext_resource type="TileSet" uid="uid://baontrc7qla2f" path="res://Tilesets/tileset_A.tres" id="3_osnka"]
 [ext_resource type="TileSet" uid="uid://dmrvivvr1lsxp" path="res://Tilesets/tileset_Spawnables.tres" id="4_jympa"]
-[ext_resource type="PackedScene" uid="uid://d7u65ka60wn1" path="res://Prefabs/Actors/Units/Harbingers/Actor_Harbingers_Adept.tscn" id="5_adept"]
-[ext_resource type="PackedScene" uid="uid://bnnnhxq14ac5f" path="res://Prefabs/Actors/Units/Harbingers/Actor_Harbingers_Shambler.tscn" id="6_shambler"]
-[ext_resource type="PackedScene" uid="uid://dwt67mh1xbwa5" path="res://Prefabs/Actors/Structures/Actor_Structure_Stockpile.tscn" id="7_stockpile"]
-[ext_resource type="PackedScene" uid="uid://bkcsi28gvwkbj" path="res://Prefabs/Actors/Structures/Actor_Structure_CircleOfRaising.tscn" id="7_w4pua"]
-[ext_resource type="PackedScene" uid="uid://dvb88pordv6sc" path="res://Prefabs/Actors/Units/Animals/Actor_Animals_BlackBear.tscn" id="8_6pit5"]
-[ext_resource type="PackedScene" uid="uid://bevbcmy6imac" path="res://Prefabs/Actors/Structures/Actor_Structure_BoneCarver.tscn" id="8_fdgdc"]
-[ext_resource type="PackedScene" uid="uid://o73b6kuim2qn" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Tree.tscn" id="8_tree"]
-[ext_resource type="PackedScene" uid="uid://b67cuim2l1xef" path="res://Prefabs/Actors/ResourceNodes/Actor_Resource_Sarcophagus.tscn" id="9_sarc"]
-[ext_resource type="PackedScene" uid="uid://dn2ucg8dvta6j" path="res://Prefabs/Actors/Units/Animals/Actor_Animals_BrownBear.tscn" id="9_xg7fj"]
-[ext_resource type="PackedScene" uid="uid://b8qys08msbix2" path="res://Prefabs/Actors/Structures/Actor_Structure_Slaughterhouse.tscn" id="9_xr8k8"]
-[ext_resource type="PackedScene" uid="uid://dl1vha5vvtn6u" path="res://Prefabs/Actors/Units/Animals/Actor_Animals_Llama.tscn" id="10_8gv4g"]
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="2_gop"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Adept.tres" id="5_adept"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Shambler.tres" id="6_shambler"]
+[ext_resource type="Resource" path="res://Data/Actors/Structures/ActorData_Structure_Stockpile.tres" id="7_stockpile"]
+[ext_resource type="Resource" path="res://Data/Actors/Structures/ActorData_Structure_CircleOfRaising.tres" id="7_w4pua"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Animals/ActorData_Animals_BlackBear.tres" id="8_6pit5"]
+[ext_resource type="Resource" path="res://Data/Actors/Structures/ActorData_Structure_BoneCarver.tres" id="8_fdgdc"]
+[ext_resource type="Resource" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Tree.tres" id="8_tree"]
+[ext_resource type="Resource" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Sarcophagus.tres" id="9_sarc"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Animals/ActorData_Animals_BrownBear.tres" id="9_xg7fj"]
+[ext_resource type="Resource" path="res://Data/Actors/Structures/ActorData_Structure_Slaughterhouse.tres" id="9_xr8k8"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Animals/ActorData_Animals_Llama.tres" id="10_8gv4g"]
 [ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="10_d7f3w"]
-[ext_resource type="PackedScene" uid="uid://br3lh8u1h1guy" path="res://Prefabs/Actors/Units/Harbingers/Actor_Harbingers_SkeletonMinion.tscn" id="10_pswxo"]
-[ext_resource type="PackedScene" uid="uid://dx617vlw3oyat" path="res://Prefabs/Actors/Units/Animals/Actor_Animals_Wolf.tscn" id="11_mwdpc"]
-[ext_resource type="PackedScene" uid="uid://cdso15cub13fu" path="res://Prefabs/Actors/Units/Harbingers/Actor_Harbingers_SkeletonArcher.tscn" id="11_tb1tv"]
-[ext_resource type="PackedScene" uid="uid://uqd4e4oidbba" path="res://Prefabs/Actors/Units/Consectors/Actor_Consector_Balestrier.tscn" id="12_1p1pc"]
-[ext_resource type="PackedScene" uid="uid://dqwd6xbfgvgpc" path="res://Prefabs/Actors/Units/Consectors/Actor_Consector_Soldier.tscn" id="13_u03oy"]
-[ext_resource type="PackedScene" uid="uid://vsmany1h36fp" path="res://Prefabs/Actors/Units/Consectors/Actor_Consector_Tombkeeper.tscn" id="14_56uj5"]
-[ext_resource type="PackedScene" uid="uid://ctqgc6prp0r52" path="res://Prefabs/Actors/Units/Grovelings/Actor_Grovelings_Dryad.tscn" id="15_vp45k"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonMinion.tres" id="10_pswxo"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Animals/ActorData_Animals_Wolf.tres" id="11_mwdpc"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonArcher.tres" id="11_tb1tv"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Balestrier.tres" id="12_1p1pc"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Soldier.tres" id="13_u03oy"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Tombkeeper.tres" id="14_56uj5"]
+[ext_resource type="Resource" path="res://Data/Actors/Units/Grovelings/ActorData_Grovelings_Dryad.tres" id="15_vp45k"]
 
 [node name="GameLevel" type="Node2D" unique_id=1620061272]
 texture_filter = 1
 script = ExtResource("1_uqqmm")
-spawn_scenes = Dictionary[String, PackedScene]({
+grid_object_scene = ExtResource("2_gop")
+spawn_actors = Dictionary[String, ActorData]({
 "Balestrier": ExtResource("12_1p1pc"),
 "BlackBear": ExtResource("8_6pit5"),
 "BrownBear": ExtResource("9_xg7fj"),

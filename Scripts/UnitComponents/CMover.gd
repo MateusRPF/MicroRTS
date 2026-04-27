@@ -36,7 +36,11 @@ func stop_move() -> void:
 	current_path = []
 	current_step = 0
 	tick_counter = 0
-	
+
+
+func is_hop_animating() -> bool:
+	return _pos_tween != null and _pos_tween.is_running()
+
 
 func start_move(target_coord: Vector2i) -> bool:
 	current_goal = target_coord
@@ -124,8 +128,12 @@ func perform_move(from_coord: Vector2i, to_coord: Vector2i) -> bool:
 		return false
 
 	var grid = owner_object.grid_manager
+	var pivot: Node2D = owner_object.get_node_or_null("%ViewPivot")
+	var pivot_world_pos: Vector2 = pivot.global_position if pivot else Vector2.ZERO
 	grid.UpdatePosition(owner_object, to_coord)
 	owner_object.settle_position()
+	if pivot:
+		pivot.global_position = pivot_world_pos
 	_play_hop(to_coord - from_coord)
 	return true
 
@@ -141,10 +149,7 @@ func _play_hop(direction: Vector2i) -> void:
 
 	var duration: float = GlobalTicker.tick_rate * ticks_per_step
 	var half: float = duration * 0.5
-	var start_local: Vector2 = -Vector2(direction) * GridManager.TILE_SIZE
-	var start_y: float = start_local.y
-
-	pivot.position = start_local
+	var start_y: float = pivot.position.y
 
 	_pos_tween = pivot.create_tween().set_parallel(true)
 	_pos_tween.tween_property(pivot, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)

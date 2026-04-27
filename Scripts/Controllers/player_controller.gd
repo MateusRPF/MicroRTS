@@ -19,6 +19,9 @@ var is_dragging: bool = false
 var drag_start_pos: Vector2 = Vector2.ZERO
 var drag_end_pos: Vector2 = Vector2.ZERO
 
+# Per-unit tree_exiting handlers so we can disconnect on deselect
+var _selection_death_handlers: Dictionary = {}
+
 # Command & Build Data
 var aiming_command: CommandData = null
 var ghost_preview: Node2D = null
@@ -45,16 +48,17 @@ func on_command_aim_request(new_command: CommandData):
 	_update_aiming_visual()
 
 func _spawn_ghost_preview(build_data: CommandData_BuildStructure) -> void:
-	if not build_data.structure_scene:
+	if not build_data.target_actor:
 		return
-	var instance := build_data.structure_scene.instantiate() as GridObject
+	var instance := grid_manager.grid_object_scene.instantiate() as GridObject
 	if not instance:
 		return
+	instance.data = build_data.target_actor
 	add_child(instance)
 	ghost_preview = instance
 	var sprite: Sprite2D = instance.get_node("%Sprite")
-	sprite.texture = instance.data.sprite
-	sprite.offset = instance.data.view_offset
+	sprite.texture = build_data.target_actor.sprite
+	sprite.offset = build_data.target_actor.view_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -148,31 +152,59 @@ func _is_command_target_valid() -> bool:
 
 func _select_at_mouse() -> void:
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
-	if not shift_held:
-		selected_objects.clear()
-		
+	var new_selection: Array[GridObject] = []
+	if shift_held:
+		new_selection = selected_objects.duplicate()
 	var tile = grid_manager.map_tiles[hovered_coord]
-	if tile and tile.occupant:
-		selected_objects.append(tile.occupant)
-
-	_emit_selection()
+	if tile and tile.occupant and not new_selection.has(tile.occupant):
+		new_selection.append(tile.occupant)
+	_set_selection(new_selection)
 
 func _select_in_box() -> void:
-
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
-	if not shift_held:
-		selected_objects.clear()
-	
-	# Create a Rect2 from the drag positions
+	var new_selection: Array[GridObject] = []
+	if shift_held:
+		new_selection = selected_objects.duplicate()
 	var selection_rect = Rect2(drag_start_pos, Vector2.ZERO).expand(drag_end_pos)
-	
 	var tilesInRect = grid_manager.get_tiles_in_rect(selection_rect)
 	for tile in tilesInRect:
-		if (tile.occupant && not selected_objects.has(tile.occupant)):
-			selected_objects.append(tile.occupant)
+		if tile.occupant and not new_selection.has(tile.occupant):
+			new_selection.append(tile.occupant)
+	new_selection = _filter_multiple_selection(new_selection)
+	_set_selection(new_selection)
 
-	selected_objects = _filter_multiple_selection(selected_objects)
+func _set_selection(new_selection: Array[GridObject]) -> void:
+	var new_set: Dictionary = {}
+	for unit in new_selection:
+		new_set[unit] = true
+	for old_unit in _selection_death_handlers.keys():
+		if not new_set.has(old_unit):
+			_unwatch_unit(old_unit)
+	for unit in new_selection:
+		_watch_unit(unit)
+	selected_objects = new_selection
 	_emit_selection()
+
+func _watch_unit(unit: GridObject) -> void:
+	if _selection_death_handlers.has(unit):
+		return
+	var handler = _on_selected_unit_dying.bind(unit)
+	_selection_death_handlers[unit] = handler
+	unit.tree_exiting.connect(handler)
+
+func _unwatch_unit(unit) -> void:
+	if not _selection_death_handlers.has(unit):
+		return
+	var handler = _selection_death_handlers[unit]
+	_selection_death_handlers.erase(unit)
+	if is_instance_valid(unit) and unit.tree_exiting.is_connected(handler):
+		unit.tree_exiting.disconnect(handler)
+
+func _on_selected_unit_dying(unit: GridObject) -> void:
+	_selection_death_handlers.erase(unit)
+	if selected_objects.has(unit):
+		selected_objects.erase(unit)
+		_emit_selection()
 
 func _filter_multiple_selection(objects:Array[GridObject]) -> Array[GridObject]:
 	var player_objects:Array[GridObject] = []

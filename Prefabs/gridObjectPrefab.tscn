@@ -30,6 +30,10 @@ y_sort_enabled = true
 texture_filter = 1
 texture = ExtResource("3_ob644")
 
+[node name="CarryPivot" type="Marker2D" parent="ViewPivot" unique_id=2079978064]
+unique_name_in_owner = true
+position = Vector2(0, -19)
+
 [node name="ColorRect" type="ColorRect" parent="ViewPivot/Sprite" unique_id=227843000]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_id5nw")

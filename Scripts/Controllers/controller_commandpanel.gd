@@ -24,6 +24,8 @@ func get_enabled_commands_for_actor(actor:GridObject) -> Array[CommandData]:
 
 func issue_wildcard_order(selected_objects:Array[GridObject]) -> void:
 	for unit in selected_objects:
+		if not is_instance_valid(unit):
+			continue
 		if unit.side != ActorData.Sides.PLAYER:
 			continue
 		var executor = unit.get_component(CCommandExecutor)
@@ -38,6 +40,8 @@ func issue_wildcard_order(selected_objects:Array[GridObject]) -> void:
 
 func issue_aimed_command(selected_objects:Array[GridObject],commandData:CommandData,target_coord:Vector2i):
 	for object in selected_objects:
+		if not is_instance_valid(object):
+			continue
 		if object.side != ActorData.Sides.PLAYER:
 			continue
 		var executor:CCommandExecutor = object.get_component(CCommandExecutor)
@@ -89,7 +93,7 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 				if (hovered_object):
 					return true
 			CommandData.Targetting.UNIT_ENEMY:
-				if (hovered_object and hovered_object.side != ActorData.Sides.PLAYER):
+				if (hovered_object and hovered_object.side != ActorData.Sides.PLAYER and hovered_object.get_component(CWoundable)):
 					return true
 			CommandData.Targetting.RESOURCE_NODE:
 				if (hovered_object && hovered_object.get_component(CResourceNode)):
