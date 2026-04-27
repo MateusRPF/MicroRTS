@@ -24,9 +24,8 @@ func enter_state(params: Dictionary) -> bool:
 	attack_interval = 10
 	if attrSet:
 		var rate: int = max(1, attrSet.get_attr(CAttributeSet.ATTR_ID.ATTR_ATTACK_SPEED))
-		attack_interval = max(1, ceili(10.0 / rate))
+		attack_interval = max(1, ceili(30.0 / rate))
 	frame_counter = attack_interval
-
 	return true
 
 func tick_state() -> void:
@@ -55,6 +54,7 @@ func tick_state() -> void:
 		pipeline.defender = target_actor
 		var hit: bool = pipeline.execute()
 		if is_instance_valid(target_actor) and target_actor.is_inside_tree():
+			GameplayEvents.VFX_requested.emit("Slash", target_actor.current_coord)
 			if hit:
 				target_actor.play_hit_flash()
 			else:

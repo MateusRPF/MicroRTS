@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bhtfu4b8i3ugp"]
+
+[ext_resource type="Texture2D" uid="uid://dkiivbjmofl15" path="res://Sprites/VFX/VFX_MeleeHit/VFX_Slash_01.tres" id="1_cfbef"]
+[ext_resource type="Script" uid="uid://dpq2tukd4hu5c" path="res://Scripts/FX_Control.gd" id="1_fqupg"]
+[ext_resource type="Texture2D" uid="uid://c5o3e5bgvyeme" path="res://Sprites/VFX/VFX_MeleeHit/VFX_Slash_02.tres" id="2_fqupg"]
+[ext_resource type="Texture2D" uid="uid://dvjtabe5t3piy" path="res://Sprites/VFX/VFX_MeleeHit/VFX_Slash_03.tres" id="3_q05rb"]
+[ext_resource type="Texture2D" uid="uid://s0fg7k3cwtp6" path="res://Sprites/VFX/VFX_MeleeHit/VFX_Slash_04.tres" id="4_kewjk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sfdp3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cfbef")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_fqupg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q05rb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_kewjk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="VfxMeleeHit" type="Node2D" unique_id=1436368628]
+script = ExtResource("1_fqupg")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1604330342]
+z_index = 30
+sprite_frames = SubResource("SpriteFrames_sfdp3")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0

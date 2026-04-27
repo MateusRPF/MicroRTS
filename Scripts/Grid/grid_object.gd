@@ -24,7 +24,7 @@ const INTERACT_LEAN_DISTANCE: float = 6.0
 const INTERACT_DURATION: float = 0.3
 const INTERACT_SHAKE_MAGNITUDE: float = 2.0
 const INTERACT_SHAKE_DURATION: float = 0.2
-const HIT_FLASH_DURATION: float = 0.15
+const HIT_FLASH_DURATION: float = 0.5
 
 var _interact_tween: Tween = null
 var _shake_tween: Tween = null

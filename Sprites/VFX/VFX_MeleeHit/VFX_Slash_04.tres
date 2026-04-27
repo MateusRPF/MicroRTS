@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://s0fg7k3cwtp6"]
+
+[ext_resource type="Texture2D" uid="uid://bhw6edvsgvx17" path="res://Sprites/VFX/VFX_MeleeHit/VFX_Slash.png" id="1_k7gm1"]
+
+[resource]
+atlas = ExtResource("1_k7gm1")
+region = Rect2(96, 0, 32, 32)

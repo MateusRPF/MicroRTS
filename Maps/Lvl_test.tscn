@@ -21,6 +21,8 @@
 [ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="18_cuc"]
 [ext_resource type="Script" uid="uid://c3jbedmwonsab" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="19_breq"]
 [ext_resource type="PackedScene" uid="uid://c0umrcpgjtmi1" path="res://Maps/Map_Test.tscn" id="22_cc4vf"]
+[ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
+[ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
 [ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
@@ -174,3 +176,10 @@ camera_bounds = NodePath("../CameraBounds")
 position = Vector2(1614, 1138.5)
 shape = SubResource("RectangleShape2D_w3o1q")
 debug_color = Color(0, 0.5950001, 0.7, 0)
+
+[node name="VFXManager" type="Node" parent="." unique_id=1082738693 node_paths=PackedStringArray("grid")]
+script = ExtResource("23_8ch73")
+grid = NodePath("../GameLevel")
+vfxRegistry = Dictionary[String, PackedScene]({
+"Slash": ExtResource("24_1vwrj")
+})
