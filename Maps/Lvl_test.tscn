@@ -23,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://c0umrcpgjtmi1" path="res://Maps/Map_Test.tscn" id="22_cc4vf"]
 [ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
 [ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
+[ext_resource type="PackedScene" uid="uid://uvwrtjxt2vvd" path="res://Prefabs/VFX/VFX_Miss.tscn" id="25_47m3e"]
 [ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
@@ -181,5 +182,6 @@ debug_color = Color(0, 0.5950001, 0.7, 0)
 script = ExtResource("23_8ch73")
 grid = NodePath("../GameLevel")
 vfxRegistry = Dictionary[String, PackedScene]({
+"Miss": ExtResource("25_47m3e"),
 "Slash": ExtResource("24_1vwrj")
 })

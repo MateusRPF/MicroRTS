@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://uvwrtjxt2vvd"]
+
+[ext_resource type="Script" uid="uid://dpq2tukd4hu5c" path="res://Scripts/FX_Control.gd" id="1_ojje3"]
+[ext_resource type="Texture2D" uid="uid://dcbjlivpdmqg7" path="res://Sprites/VFX/VFX_Miss/VFX_Miss_01.tres" id="2_cwtpn"]
+[ext_resource type="Texture2D" uid="uid://dm36bduof4c6l" path="res://Sprites/VFX/VFX_Miss/VFX_Miss_02.tres" id="3_3ss8b"]
+[ext_resource type="Texture2D" uid="uid://c3ms2u1p32e54" path="res://Sprites/VFX/VFX_Miss/VFX_Miss_03.tres" id="4_864wb"]
+[ext_resource type="Texture2D" uid="uid://c48gsttc5lqhx" path="res://Sprites/VFX/VFX_Miss/VFX_Miss_04.tres" id="5_erw8t"]
+[ext_resource type="Texture2D" uid="uid://cw4gxo5ml2fv2" path="res://Sprites/VFX/VFX_Miss/VFX_Miss_05.tres" id="6_q0x8a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sfdp3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cwtpn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_3ss8b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_864wb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_erw8t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q0x8a")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="VfxMiss" type="Node2D" unique_id=1436368628]
+script = ExtResource("1_ojje3")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1604330342]
+z_index = 30
+sprite_frames = SubResource("SpriteFrames_sfdp3")
+autoplay = "default"
+frame_progress = 1.0
