@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="9_actor"]
 [ext_resource type="Texture2D" uid="uid://ct3kamaosk3h1" path="res://Sprites/Units/SPR_Balestrier.tres" id="10_sprite"]
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="11_attacker"]
+[ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="11_mpu5m"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_mpu5m"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
@@ -24,7 +25,7 @@ attrs = Dictionary[int, int]({
 4: 2,
 5: 1,
 6: 3,
-7: 3
+7: 60
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 
@@ -57,10 +58,15 @@ metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 script = ExtResource("11_attacker")
 metadata/_custom_type_script = "uid://n0f88etvtcyy"
 
+[sub_resource type="Resource" id="Resource_qua60"]
+script = ExtResource("11_mpu5m")
+default_intelligence = 2
+metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
+
 [resource]
 script = ExtResource("9_actor")
 actor_name = "Balestrier"
 description = "Lethal sharpshooter"
 sprite = ExtResource("10_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Attacker")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

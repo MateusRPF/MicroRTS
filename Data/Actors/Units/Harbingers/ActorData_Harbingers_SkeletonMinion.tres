@@ -17,6 +17,7 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="14_actor"]
 [ext_resource type="Texture2D" uid="uid://bk0ys2l2r2xd8" path="res://Sprites/Units/SPR_SkeletalMinion.tres" id="15_sprite"]
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="16_attacker"]
+[ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="16_vitse"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="18_vitse"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
@@ -71,10 +72,15 @@ script = ExtResource("13_carry")
 script = ExtResource("16_attacker")
 metadata/_custom_type_script = "uid://n0f88etvtcyy"
 
+[sub_resource type="Resource" id="Resource_qua60"]
+script = ExtResource("16_vitse")
+default_intelligence = 2
+metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
+
 [resource]
 script = ExtResource("14_actor")
 actor_name = "Skeleton Minion"
 description = "The barest of minions, formed out of bone and spite."
 sprite = ExtResource("15_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
