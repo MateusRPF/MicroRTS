@@ -1,16 +1,30 @@
 extends IntelligenceBase
-class_name Intelligence_HelplessWander
+class_name Intelligence_Predator
 
 const REPATH_DELAY_MIN: int = 10
 const REPATH_DELAY_MAX: int = 50
 
+const PREDATE_RANGE:int = 5
 
 
 func on_tick(owner: GridObject, holder: CIntelligenceHolder) -> void:
-	if not holder.executor.idling:
+
+	if not (holder.executor.idling):
+		return
+
+	#predate logic
+	var _units_in_range = owner.grid_manager.get_objects_in_radius(owner.current_coord, 5, CWoundable)
+	if (_units_in_range):
+		var target = _units_in_range[0]
+		var cmd_data = CommandData.new()
+		cmd_data.display_name = "Attacking %s" % target.name
+		var cmd = Command_Attack.new(cmd_data, holder.executor, target.current_coord,target)
+		holder.executor.queue_command(cmd, true)
 		return
 
 
+
+	#Wander logic
 	var current_counter = holder.get_from_blackboard("repath_delay_counter", 0)
 	var current_delay = holder.get_from_blackboard("repath_delay", REPATH_DELAY_MIN)
 	if current_counter >= current_delay:

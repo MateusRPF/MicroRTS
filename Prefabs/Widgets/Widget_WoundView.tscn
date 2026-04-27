@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ch83a8eiw4ro1" path="res://Scripts/Widgets/Inspector Widgets/Widget_WoundView.gd" id="1_76qtk"]
 [ext_resource type="PackedScene" uid="uid://bdtw2wie3x4js" path="res://Prefabs/Widgets/Widget_WoundPanel.tscn" id="2_o4aov"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="3_8ytgf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w3o1q"]
 bg_color = Color(0, 0, 0, 1)
@@ -24,6 +25,33 @@ border_color = Color(0, 0, 0, 1)
 border_blend = true
 corner_detail = 9
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sh75g"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ihjs0"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(5.7756904e-07, 0.37779185, 0.17017955, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
 [node name="Widget_WoundView" type="PanelContainer" unique_id=1596486453]
 custom_minimum_size = Vector2(20, 16)
 theme_override_styles/panel = SubResource("StyleBoxFlat_w3o1q")
@@ -38,6 +66,7 @@ theme_override_constants/margin_bottom = 1
 
 [node name="WoundContainer" type="HBoxContainer" parent="MarginContainer" unique_id=540191605]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/separation = 2
 
@@ -56,3 +85,18 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_jln6d")
 
 [node name="Panel4" type="Panel" parent="MarginContainer/WoundContainer" unique_id=1836833505]
 layout_mode = 2
+
+[node name="ProgressBar1" type="ProgressBar" parent="MarginContainer" unique_id=1658065138]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("3_8ytgf")
+theme_override_constants/outline_size = 6
+theme_override_styles/background = SubResource("StyleBoxFlat_sh75g")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ihjs0")
+min_value = 1.0
+max_value = 5.0
+step = 1.0
+value = 4.0
+rounded = true
+show_percentage = false

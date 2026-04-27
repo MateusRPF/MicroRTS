@@ -23,7 +23,7 @@ attrs = Dictionary[int, int]({
 4: 3,
 5: 1,
 6: 3,
-7: 3
+7: 50
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 

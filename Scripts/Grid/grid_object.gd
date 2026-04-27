@@ -106,6 +106,7 @@ func assemble_from_data(newData:ActorData):
 
 func _update_color_tint() -> void:
 	var color_rect = get_node_or_null("%ColorRect")
+	var progress_bar = get_node_or_null("%ProgressBar1")
 	if not color_rect:
 		return
 	color_rect.size.x *= size.x
@@ -114,6 +115,8 @@ func _update_color_tint() -> void:
 
 	if tint_map.has(side):
 		color_rect.color = tint_map[side]
+		if progress_bar:
+			progress_bar.modulate = tint_map[side]
 	else:
 		color_rect.color = Color(0, 0, 0, 0)
 

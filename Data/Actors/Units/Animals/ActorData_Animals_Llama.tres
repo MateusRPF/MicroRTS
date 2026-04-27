@@ -24,7 +24,7 @@ attrs = Dictionary[int, int]({
 4: 2,
 5: 0,
 6: 3,
-7: 3
+7: 30
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 
@@ -55,6 +55,7 @@ metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 
 [sub_resource type="Resource" id="Resource_qua60"]
 script = ExtResource("10_dbjoj")
+default_intelligence = 1
 metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
 
 [resource]

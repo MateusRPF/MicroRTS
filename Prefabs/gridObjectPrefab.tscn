@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://6yjsacewkcs3" path="res://Scripts/Grid/grid_object.gd" id="1_dns1d"]
 [ext_resource type="Shader" uid="uid://b4h1hrvpejkbo" path="res://Prefabs/glowfaction.gdshader" id="3_lo6vi"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="3_ob644"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="4_id5nw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_id5nw"]
 shader = ExtResource("3_lo6vi")
@@ -11,6 +12,31 @@ shader_parameter/softness = 0.5
 shader_parameter/glow_strength = 1.246000059185
 shader_parameter/pulse_speed = 0.0
 shader_parameter/pulse_amount = 0.30000001192093
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_id5nw"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
+shadow_size = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dns1d"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 1, 1, 0.4)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 1
 
 [node name="GridObject" type="Node2D" unique_id=1179883337]
 y_sort_enabled = true
@@ -30,10 +56,6 @@ y_sort_enabled = true
 texture_filter = 1
 texture = ExtResource("3_ob644")
 
-[node name="CarryPivot" type="Marker2D" parent="ViewPivot" unique_id=2079978064]
-unique_name_in_owner = true
-position = Vector2(0, -19)
-
 [node name="ColorRect" type="ColorRect" parent="ViewPivot/Sprite" unique_id=227843000]
 unique_name_in_owner = true
 material = SubResource("ShaderMaterial_id5nw")
@@ -41,3 +63,31 @@ offset_left = -16.0
 offset_top = -16.0
 offset_right = 16.0
 offset_bottom = 16.0
+
+[node name="ProgressBar1" type="ProgressBar" parent="ViewPivot/Sprite" unique_id=1629668178]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -36.0
+offset_right = -16.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_id5nw")
+theme_override_constants/outline_size = 6
+theme_override_styles/background = SubResource("StyleBoxFlat_id5nw")
+theme_override_styles/fill = SubResource("StyleBoxFlat_dns1d")
+min_value = 1.0
+max_value = 5.0
+step = 1.0
+value = 3.0
+rounded = true
+show_percentage = false
+
+[node name="CarryPivot" type="Marker2D" parent="ViewPivot" unique_id=2079978064]
+unique_name_in_owner = true
+position = Vector2(0, -19)
