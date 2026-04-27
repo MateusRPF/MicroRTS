@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="ActorData" format=3]
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://b2kmdacu0pt33"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_1m70e"]
 [ext_resource type="Script" uid="uid://b12sbao0o4pnt" path="res://Scripts/DataStructures/ComponentData/ComponentData_Stockpile.gd" id="2_stock"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="3_actor"]
 [ext_resource type="Texture2D" uid="uid://c3w3x4kp0j4mf" path="res://Sprites/Structures/SPR_Stockpile.tres" id="4_sprite"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_tiflp"]
 
 [sub_resource type="Resource" id="Mod_Stockpile"]
 script = ExtResource("2_stock")

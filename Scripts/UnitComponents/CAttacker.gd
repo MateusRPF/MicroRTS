@@ -48,5 +48,6 @@ func _on_tick_received() -> void:
 		if distance < best_distance:
 			best_distance = distance
 			best = candidate
-	if best:
-		state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": best})
+	# if best:
+	# 	state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": best})
+

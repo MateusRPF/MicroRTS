@@ -37,7 +37,7 @@ func configure_base_attrs(newAttrs:Dictionary[ATTR_ID,int]):
 		attr_map[key] = instance
 
 
-func get_attr(id:ATTR_ID):
+func get_attr(id:ATTR_ID)->int:
 	if not attr_map.has(id):
 		return 0
 	return attr_map[id].get_final_value()

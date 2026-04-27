@@ -10,6 +10,8 @@ var _was_idle: bool = true
 @onready var behavioral_frequency:int = randi_range(3,5)
 var tick_count:int = 0
 
+func initialize_component(actor: GridObject) -> void:
+	super.initialize_component(actor)
 
 func queue_command(newCommand: Command, force:bool = true) -> void:
 	newCommand.owner_executor = self

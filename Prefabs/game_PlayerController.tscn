@@ -7,10 +7,10 @@
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="5_5434e"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="6_s8s4i"]
 [ext_resource type="Resource" uid="uid://cg805kwk31uw5" path="res://Data/CommandDatas/CommandData_Attack.tres" id="7_attack"]
-[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="8_build"]
-[ext_resource type="Resource" path="res://Data/CommandDatas/CommandData_AssistBuild.tres" id="9_assist"]
 [ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="7_qos5v"]
+[ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="8_build"]
 [ext_resource type="Script" uid="uid://dvj3d6vrjhgbc" path="res://Scripts/Controllers/camera_controller.gd" id="8_zx9ab"]
+[ext_resource type="Resource" path="res://Data/CommandDatas/CommandData_AssistBuild.tres" id="9_assist"]
 
 [node name="PlayerController" type="Node2D" unique_id=863427110]
 script = ExtResource("1_nu1np")

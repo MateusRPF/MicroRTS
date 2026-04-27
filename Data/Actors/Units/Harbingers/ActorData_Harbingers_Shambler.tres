@@ -1,10 +1,11 @@
-[gd_resource type="Resource" script_class="ActorData" format=3]
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://hr7gf5x37cqi"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="2_attrs"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="4_mover"]
 [ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="5_harv"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="5_qpx54"]
 [ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="6_exec"]
 [ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="7_sm"]
 [ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="8_wound"]
@@ -16,6 +17,7 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="14_actor"]
 [ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="15_sprite"]
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="16_attacker"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="18_uwfmb"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")

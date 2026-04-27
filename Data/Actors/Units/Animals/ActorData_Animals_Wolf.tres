@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="ActorData" format=3]
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://blpmdfsc42o0b"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="2_attrs"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="4_mover"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="5_gmasj"]
 [ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="5_harv"]
 [ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="6_exec"]
 [ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="7_sm"]
@@ -11,6 +12,8 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="9_actor"]
 [ext_resource type="Texture2D" uid="uid://dsbew6vtd431g" path="res://Sprites/Units/SPR_Wolf.tres" id="10_sprite"]
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="11_attacker"]
+[ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="11_qqwmw"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_qqwmw"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
@@ -55,10 +58,14 @@ metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 script = ExtResource("11_attacker")
 metadata/_custom_type_script = "uid://n0f88etvtcyy"
 
+[sub_resource type="Resource" id="Resource_qua60"]
+script = ExtResource("11_qqwmw")
+metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
+
 [resource]
 script = ExtResource("9_actor")
 actor_name = "Wolf"
 description = "Fuzzi and not so gentle."
 sprite = ExtResource("10_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Attacker")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

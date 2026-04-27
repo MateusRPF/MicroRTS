@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="ActorData" format=3]
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://237c5tjdmj50"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_inv"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="4_wood"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_actor"]
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="6_sprite"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_8bha0"]
 
 [sub_resource type="Resource" id="Mod_Inventory"]
 script = ExtResource("2_inv")

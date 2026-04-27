@@ -420,6 +420,14 @@ func get_tiles_in_radius(center: Vector2i, radius: float) -> Array[GameTile]:
 				tiles.append(map_tiles[coord])
 	return tiles
 
+func get_walkable_tiles_in_radius(center: Vector2i, radius: float) -> Array[GameTile]:
+	var tiles: Array[GameTile] = get_tiles_in_radius(center, radius)
+	var walkable_tiles: Array[GameTile] = []
+	for tile in tiles:
+		if tile.tile_type == GameTile.TileType.FLOOR and (not tile.is_occupied or (tile.occupant and tile.occupant.get_component(CMover))):
+			walkable_tiles.append(tile)
+	return tiles
+
 func calculate_distance(coord1: Vector2i, coord2: Vector2i) -> float:
 	var distance = Vector2(coord1).distance_to(coord2)
 	return distance
