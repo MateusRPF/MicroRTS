@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://crkjc8t7cw5mx"]
+
+[ext_resource type="Script" uid="uid://dpq2tukd4hu5c" path="res://Scripts/FX_Control.gd" id="1_jcpp2"]
+[ext_resource type="Texture2D" uid="uid://cq6nqlc6qpgqd" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile_01.tres" id="2_jcpp2"]
+[ext_resource type="Texture2D" uid="uid://cvdyf100if5po" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile_02.tres" id="3_eb6lu"]
+[ext_resource type="Texture2D" uid="uid://b0atqv5sllwpm" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile_03.tres" id="4_tiqwe"]
+[ext_resource type="Texture2D" uid="uid://gmdt7s2vj68r" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile_04.tres" id="5_ofrvd"]
+[ext_resource type="Texture2D" uid="uid://2r2yqywumieu" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile_05.tres" id="6_xow84"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sfdp3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jcpp2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_eb6lu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tiqwe")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ofrvd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_xow84")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="VFXProjectile" type="Node2D" unique_id=1436368628]
+script = ExtResource("1_jcpp2")
+play_mode = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1604330342]
+z_index = 30
+sprite_frames = SubResource("SpriteFrames_sfdp3")
+autoplay = "default"
+frame = 4
+frame_progress = 1.0

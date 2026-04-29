@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" format=3 uid="uid://b0atqv5sllwpm"]
+
+[ext_resource type="Texture2D" uid="uid://dbqhvvnj6olbn" path="res://Sprites/VFX/VFX_Projectile/VFX_Projectile.png" id="1_q77f3"]
+
+[resource]
+atlas = ExtResource("1_q77f3")
+region = Rect2(64, 0, 32, 32)

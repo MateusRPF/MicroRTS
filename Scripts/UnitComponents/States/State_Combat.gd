@@ -52,13 +52,18 @@ func tick_state() -> void:
 		var pipeline: CombatPipeline = CombatPipeline.new()
 		pipeline.attacker = attacker
 		pipeline.defender = target_actor
+		var is_ranged: bool = attacker.get_component(CAttributeSet).get_attr(CAttributeSet.ATTR_ID.ATTR_ATTACK_RANGE) > 1
+		
 		var hit: bool = pipeline.execute()
+		if (is_ranged):
+			GameplayEvents.VFX_requested.emit("Projectile", attacker.current_coord, target_actor.current_coord)
 		if is_instance_valid(target_actor) and target_actor.is_inside_tree():
 			if hit:
-				GameplayEvents.VFX_requested.emit("Slash", target_actor.current_coord) #todo - what for ranged?
+				if (not is_ranged):
+					GameplayEvents.VFX_requested.emit("Slash", attacker.current_coord,target_actor.current_coord) #todo - what for ranged?
 				target_actor.play_hit_flash()
 			else:
-				GameplayEvents.VFX_requested.emit("Miss", target_actor.current_coord)
+				GameplayEvents.VFX_requested.emit("Miss", attacker.current_coord,target_actor.current_coord)
 				target_actor.play_white_flash()
 		var defender_woundable:CWoundable = target_actor.get_component(CWoundable) if is_instance_valid(target_actor) else null
 		if not defender_woundable or defender_woundable.get_current_health() <= 0:

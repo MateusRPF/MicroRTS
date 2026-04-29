@@ -24,6 +24,7 @@
 [ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
 [ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
 [ext_resource type="PackedScene" uid="uid://uvwrtjxt2vvd" path="res://Prefabs/VFX/VFX_Miss.tscn" id="25_47m3e"]
+[ext_resource type="PackedScene" uid="uid://crkjc8t7cw5mx" path="res://Prefabs/VFX/VFX_Projectile.tscn" id="26_1nj4d"]
 [ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
@@ -103,6 +104,7 @@ ExtResource("19_breq"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Wi
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]
+visible = false
 offset_left = 447.0
 offset_top = 552.0
 offset_right = 488.0
@@ -183,5 +185,6 @@ script = ExtResource("23_8ch73")
 grid = NodePath("../GameLevel")
 vfxRegistry = Dictionary[String, PackedScene]({
 "Miss": ExtResource("25_47m3e"),
+"Projectile": ExtResource("26_1nj4d"),
 "Slash": ExtResource("24_1vwrj")
 })
