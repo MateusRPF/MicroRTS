@@ -37,7 +37,10 @@ func start_command() -> bool:
 
 	if _is_target_valid_enemy(target_actor):
 		if attacker.can_attack(target_actor):
-			state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": target_actor})
+			var combat_state := state_machine.current_state as State_Combat
+			var already_on_target: bool = state_machine.current_state_id == CStateMachine.StateID.COMBAT and combat_state and combat_state.target_actor == target_actor
+			if not already_on_target:
+				state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": target_actor})
 			current_step = AttackSteps.ATTACKING
 			return true
 		if _start_approach():
