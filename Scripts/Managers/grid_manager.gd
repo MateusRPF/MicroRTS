@@ -19,6 +19,8 @@ var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
 
 var astar_grid: AStarGrid2D = null
 
+@export var debug_draw: bool = false
+
 
 
 func _ready() -> void:
@@ -63,6 +65,7 @@ func LoadFromTileSet() -> void:
 	astar_grid.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_ONLY_IF_NO_OBSTACLES
 	astar_grid.default_compute_heuristic = AStarGrid2D.HEURISTIC_OCTILE
 	astar_grid.default_estimate_heuristic = AStarGrid2D.HEURISTIC_OCTILE
+
 	astar_grid.update()
 	for coord in map_tiles:
 		_refresh_astar_for(coord, map_tiles[coord])
@@ -79,13 +82,14 @@ func _refresh_astar_for(coord: Vector2i, tile: GameTile) -> void:
 		return
 	if tile.is_occupied and tile.occupant:
 		if tile.occupant.get_component(CMover):
-			astar_grid.set_point_solid(coord, false)
+			astar_grid.set_point_solid(coord, true)
 			astar_grid.set_point_weight_scale(coord, MOVER_WEIGHT)
 		else:
 			astar_grid.set_point_solid(coord, true)
 	else:
 		astar_grid.set_point_solid(coord, false)
 		astar_grid.set_point_weight_scale(coord, 1.0)
+	queue_redraw()
 
 func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:PlayerState) -> void:
 	var spawned_coords: Dictionary = {}
@@ -181,6 +185,19 @@ func ClearPosition(object: GridObject) -> void:
 	for coord in coords:
 		_refresh_astar_for(coord, map_tiles[coord])
 
+func _draw() -> void:
+	if not debug_draw:
+		return
+	for coord in map_tiles:
+		var tile: GameTile = map_tiles[coord]
+		var color: Color = Color(1, 1, 1, 0.5)
+		if (astar_grid.is_point_solid(coord)):
+			color = Color(1, 0, 0, 0.5)
+		elif tile.is_occupied:
+			color = Color(0, 1, 0, 0.5)
+
+		draw_rect(Rect2(tile.coord * TILE_SIZE, Vector2(TILE_SIZE, TILE_SIZE)), color)
+
 
 func get_footprint_coords(origin: Vector2i, size: Vector2i) -> Array[Vector2i]:
 	var coords: Array[Vector2i] = []
@@ -261,13 +278,20 @@ func find_path(start: Vector2i, end: Vector2i, moving_unit: GridObject = null) -
 		return []
 
 	var end_was_solid: bool = astar_grid.is_point_solid(end)
+	var start_was_solid: bool = astar_grid.is_point_solid(start)
+	if start_was_solid:
+		astar_grid.set_point_solid(start, false)
+	
 	if end_was_solid:
 		astar_grid.set_point_solid(end, false)
+
 
 	var raw_path: Array[Vector2i] = astar_grid.get_id_path(start, end, true)
 
 	if end_was_solid:
 		astar_grid.set_point_solid(end, true)
+	if start_was_solid:
+		astar_grid.set_point_solid(start, true)
 
 	if raw_path.size() > 0 and raw_path[0] == start:
 		raw_path.remove_at(0)
@@ -329,6 +353,8 @@ func dijkstra_to_any(start: Vector2i, goals: Array[Vector2i], mover: GridObject)
 				continue
 
 			var tile: GameTile = map_tiles[n]
+			if (astar_grid.is_point_solid(n)):
+				continue
 			if tile.tile_type != GameTile.TileType.FLOOR:
 				continue
 
@@ -435,8 +461,6 @@ func calculate_distance(coord1: Vector2i, coord2: Vector2i) -> float:
 func calculate_distance_sqr(coord1: Vector2i, coord2: Vector2i) -> float:
 	var distance = Vector2(coord1).distance_squared_to(coord2)
 	return distance
-
-
 
 
 func get_interaction_positions(target: GridObject, tolerableDistance: float = 1.5, include_transient_occupants: bool = true) -> Array[Vector2i]:

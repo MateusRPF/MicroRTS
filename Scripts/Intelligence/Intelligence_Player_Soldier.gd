@@ -18,9 +18,8 @@ func on_tick(owner: GridObject, holder: CIntelligenceHolder) -> void:
 		return filter_targets(candidate, owner)
 	)
 	if (filtered):
-		print("Predator intelligence: Found %d potential targets in range" % _units_in_range.size())
 		var target = filtered[0]
-		print("Predator intelligence: Selected target %s at coordinate %s" % [target.name, target.current_coord])
+		print("Soldier intelligence: Selected target %s at coordinate %s" % [target.name, target.current_coord])
 		var cmd_data = CommandData.new()
 		cmd_data.display_name = "Attacking %s" % target.name
 		var cmd = Command_Attack.new(cmd_data, holder.executor, target.current_coord,target)

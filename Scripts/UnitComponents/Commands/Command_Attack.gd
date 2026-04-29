@@ -71,26 +71,21 @@ func tick() -> void:
 				state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": target_actor})
 				current_step = AttackSteps.ATTACKING
 				return
-			if mover and not mover.is_moving():
-				if not _start_approach():
-					finish_command()
+			if not _start_approach():
+				print("Command_Attack: Failed to start approach to target %s. Aborting attack." % target_actor.name)
+				finish_command()
 		AttackSteps.ATTACKING:
 			if attacker.in_combat:
-				return
+				return # All good.
 			if not _is_target_valid_enemy(target_actor):
 				current_step = AttackSteps.FINDING_ENEMY
-				return
+				return # If we lost the target, try to find another one.
 			if attacker.can_attack(target_actor):
 				state_machine.request_state(CStateMachine.StateID.COMBAT, {"target_actor": target_actor})
 				return
 			if not _start_approach():
 				current_step = AttackSteps.FINDING_ENEMY
 
-
-func get_descriptor() -> String:
-	if target_actor:
-		return "Attack %s" % target_actor.data.actor_name
-	return "Attack"
 
 func _is_target_valid_enemy(target) -> bool:
 	if not is_instance_valid(target):
@@ -105,10 +100,10 @@ func _is_target_valid_enemy(target) -> bool:
 	return true
 
 func _start_approach() -> bool:
-	var target_coord: Vector2i = _get_best_coord_to_enact(target_actor)
-	if target_coord == Vector2i(-1, -1):
+	var _approach_Coord: Vector2i = _get_best_coord_to_enact(target_actor)
+	if _approach_Coord == Vector2i(-1, -1):
 		return false
-	_request_move_state(target_coord)
+	_request_move_state(_approach_Coord)
 	current_step = AttackSteps.APPROACHING
 	return true
 
@@ -119,17 +114,34 @@ func _request_move_state(target_tile: Vector2i) -> void:
 	state_machine.request_state(CStateMachine.StateID.MOVE, params)
 
 func _get_best_coord_to_enact(target: GridObject) -> Vector2i:
+	if not target or not is_instance_valid(target):
+		cached_path = []
+		return Vector2i(-1, -1)
+
 	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target, attacker.get_attack_range())
 	if candidates.is_empty():
 		cached_path = []
 		return Vector2i(-1, -1)
+
 	var actor: GridObject = owner_executor.owner_object
 	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
-	if result.is_empty():
+	if result.is_empty() or not result.has("best_goal"):
 		cached_path = []
+		print("Command_Attack: No path found to any candidate attack position.")
 		return Vector2i(-1, -1)
-	cached_path = result["path"]
+
+	cached_path = result["path"] if result.has("path") else []
 	return result["best_goal"]
+
+func get_descriptor() -> String:
+	match current_step:
+		AttackSteps.FINDING_ENEMY:
+			return "Searching for enemy to attack"
+		AttackSteps.APPROACHING:
+			return "Approaching %s" % target_actor.data.actor_name if target_actor else "Approaching enemy"
+		AttackSteps.ATTACKING:
+			return "Attacking %s" % target_actor.data.actor_name if target_actor else "Attacking enemy"
+	return "Attack"
 
 func _choose_attack_target() -> GridObject:
 	if attacker and _is_target_valid_enemy(target_actor) and attacker.can_attack(target_actor):
