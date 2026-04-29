@@ -63,13 +63,12 @@ rendering_quadrant_size = 32
 [node name="Spawnables_Player" type="TileMapLayer" parent="." unique_id=779288486]
 unique_name_in_owner = true
 modulate = Color(0, 1, 1, 1)
-tile_map_data = PackedByteArray("AAAeAAsAAAAAAAAAAAAiAAwABQAAAAAAAAAqAA8ABgAAAAAAAAAhAA8ABwAAAAAAAAANAAkACgABAAQAAAAJABAACwAGAAEAAAAKAAoACgAEAAQAAAAJAAwACgAEAAQAAAAKAAwACgAEAAQAAAALAAsACgAEAAQAAAAKAAsACgAEAAQAAAALAAwACgAEAAQAAAALAA0ACgAEAAQAAAAKAA0ACgAEAAQAAAAKAA4ACgAEAAQAAAALAA4ACgAEAAQAAAA=")
+tile_map_data = PackedByteArray("AAAeAAsAAAAAAAAAAAAiAAwABQAAAAAAAAAqAA8ABgAAAAAAAAAhAA8ABwAAAAAAAAAJABAACwAGAAEAAAAKAA4ACgAEAAQAAAA=")
 tile_set = ExtResource("4_jympa")
 
 [node name="Spawnables_Enemy" type="TileMapLayer" parent="." unique_id=1953164313]
 unique_name_in_owner = true
 modulate = Color(1, 0, 0.016666412, 1)
-tile_map_data = PackedByteArray("AAAQAAkACwAEAAEAAAAWAAkACwADAAEAAAAVAAoACwADAAEAAAAWAAwACwADAAEAAAATAA4ACwADAAEAAAAUAAsACwADAAEAAAAXAAsACwAEAAAAAAA=")
 tile_set = ExtResource("4_jympa")
 
 [node name="Spawnables_SideNeutral" type="TileMapLayer" parent="." unique_id=266319030]
