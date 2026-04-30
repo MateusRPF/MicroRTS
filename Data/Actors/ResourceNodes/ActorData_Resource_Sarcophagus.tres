@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://bslstqgk7go7j"
 [sub_resource type="Resource" id="Mod_ResourceNode"]
 script = ExtResource("3_rn")
 resource = ExtResource("4_bones")
+amount = 100
 metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
 
 [resource]
