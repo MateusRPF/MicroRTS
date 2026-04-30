@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dkxqnp1y2ecb1"]
+
+[ext_resource type="Script" path="res://Scripts/Widgets/Inspector Widgets/Widget_RequirementIcon.gd" id="1_script"]
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="2_theme"]
+
+[node name="Widget_RequirementIcon" type="HBoxContainer"]
+script = ExtResource("1_script")
+
+[node name="Image_ResourceSprite" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_Amount" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("2_theme")
+theme_override_font_sizes/font_size = 12
+text = "x0"

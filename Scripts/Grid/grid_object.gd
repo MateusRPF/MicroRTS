@@ -77,6 +77,11 @@ func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newS
 
 	grid_manager.UpdatePosition(self, current_coord)
 	settle_position()
+	var bar: ProgressBar = %ProgressBar1
+	var lift: float = GridManager.TILE_SIZE * (size.y - 1) - 14.0
+	bar.offset_top -= lift
+	bar.offset_bottom -= lift
+	bar.offset_right += GridManager.TILE_SIZE * (size.x - 1)
 
 
 func complete_construction() -> void:
@@ -88,7 +93,7 @@ func complete_construction() -> void:
 	if requirements:
 		_component_cache.erase(requirements.get_script())
 		requirements.queue_free()
-	modulate.a = 1.0
+	%Sprite.modulate.a = 1.0
 	_update_color_tint()
 	for module in data.modules:
 		var newComp = module.assemble_component(self)

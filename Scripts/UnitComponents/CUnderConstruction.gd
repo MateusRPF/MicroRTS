@@ -47,8 +47,12 @@ func add_progress(amount: int) -> bool:
 
 
 func _refresh_visual() -> void:
-	if owner_object:
-		owner_object.modulate.a = GHOST_ALPHA + (1.0 - GHOST_ALPHA) * get_progress_ratio()
+	var sprite: Sprite2D = owner_object.get_node("%Sprite") as Sprite2D
+	sprite.modulate.a = GHOST_ALPHA + (1.0 - GHOST_ALPHA) * get_progress_ratio()
+	var bar: ProgressBar = owner_object.get_node("%ProgressBar1") as ProgressBar
+	bar.max_value = max_progress
+	bar.value = current_progress
+	bar.visible = not is_complete()
 
 
 func shake() -> void:
