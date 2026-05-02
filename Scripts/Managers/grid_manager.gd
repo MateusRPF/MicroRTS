@@ -10,6 +10,7 @@ const DIRECTIONS: Array[Vector2i] = [
 ]
 
 const MOVER_WEIGHT: float = 10.0
+const VIEW_RANGE: int = 6
 
 enum TileLayer {
 	DOODAD,
@@ -24,6 +25,7 @@ var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
 
 var astar_grid: AStarGrid2D = null
 var actor_data_search_cache: Dictionary = {}
+var viewed_tiles: Dictionary = {}
 
 @export var debug_draw: bool = false
 
@@ -31,9 +33,10 @@ var actor_data_search_cache: Dictionary = {}
 
 func _ready() -> void:
 	LoadFromTileSet()
+	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL,null)
 	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
 	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY,null)
-	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL,null)
+	refresh_visibility()
 
 
 func LoadFromTileSet() -> void:
@@ -124,7 +127,6 @@ func spawn_grid_object(actorData: ActorData, coord: Vector2i, side: ActorData.Si
 	return newActor
 
 
-
 func _find_actor_data_by_name(entry:String) -> ActorData:
 	if entry == null or entry == "":
 		return null
@@ -168,6 +170,67 @@ func world_to_tile(world_position: Vector2) -> Vector2i:
 		int(floor((world_position.x ) / TILE_SIZE)),
 		int(floor((world_position.y ) / TILE_SIZE))
 	)
+
+func _ensure_state_viewed_tiles(state: PlayerState) -> Dictionary:
+	if not viewed_tiles.has(state):
+		viewed_tiles[state] = {}
+	return viewed_tiles[state]
+
+func _mark_viewed_tiles_for_object(object: GridObject) -> void:
+	if not object or not object.player_state:
+		return
+	var seen: Dictionary = _ensure_state_viewed_tiles(object.player_state)
+	var visited: Dictionary = {}
+	var queue: Array = []
+	for origin in object.get_covered_coords():
+		if not map_tiles.has(origin):
+			continue
+		queue.append([origin, 0])
+		visited[origin] = true
+
+	while queue.size() > 0:
+		var entry = queue.pop_front()
+		var coord: Vector2i = entry[0]
+		var distance: int = entry[1]
+		if distance > VIEW_RANGE:
+			continue
+		if map_tiles.has(coord):
+			seen[coord] = true
+		var tile: GameTile = map_tiles[coord]
+		if tile.tile_type == GameTile.TileType.WALL:
+			continue
+		if tile.has_unit_occupant and tile.unit_occupant and tile.unit_occupant != object:
+			continue
+
+		for dir in DIRECTIONS:
+			var neighbor: Vector2i = coord + dir
+			if visited.has(neighbor):
+				continue
+			if distance + 1 > VIEW_RANGE:
+				continue
+			if not map_tiles.has(neighbor):
+				continue
+			visited[neighbor] = true
+			queue.append([neighbor, distance + 1])
+
+func _is_tile_viewed_by_state(coord: Vector2i, state: PlayerState) -> bool:
+	if not viewed_tiles.has(state):
+		return false
+	return viewed_tiles[state].has(coord)
+
+func _is_object_visible_to_current_player(object: GridObject) -> bool:
+	if not object or not player_state:
+		return true
+	for coord in object.get_covered_coords():
+		if _is_tile_viewed_by_state(coord, player_state):
+			return true
+	return false
+
+func refresh_visibility() -> void:
+	for child in get_children():
+		if child is GridObject:
+			var obj := child as GridObject
+			obj.set_fog_visible(_is_object_visible_to_current_player(obj))
 
 func tile_to_world(tile_position: Vector2i) -> Vector2:
 	return Vector2(
@@ -226,6 +289,9 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 	for coord in new_coords:
 		_refresh_astar_for(coord, map_tiles[coord])
+	if (object.player_state == player_state):
+		_mark_viewed_tiles_for_object(object)
+		refresh_visibility()
 
 func ClearPosition(object: GridObject) -> void:
 	var coords: Array[Vector2i] = object.get_covered_coords()
@@ -236,15 +302,19 @@ func ClearPosition(object: GridObject) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 
 func _draw() -> void:
-	if not debug_draw:
-		return
+	
 	for coord in map_tiles:
 		var tile: GameTile = map_tiles[coord]
-		var color: Color = Color(1, 1, 1, 0.5)
-		if (astar_grid.is_point_solid(coord)):
-			color = Color(1, 0, 0, 0.5)
-		elif tile.has_unit_occupant:
-			color = Color(0, 1, 0, 0.5)
+
+		var color: Color = Color(1, 1, 1, 0)
+		if debug_draw:
+			if (astar_grid.is_point_solid(coord)):
+				color = Color(1, 0, 0, 0.5)
+			elif tile.has_unit_occupant:
+				color = Color(0, 1, 0, 0.5)
+
+		if player_state and not _is_tile_viewed_by_state(coord, player_state):
+			color = Color(0, 0, 0, 1)
 
 		draw_rect(Rect2(tile.coord * TILE_SIZE, Vector2(TILE_SIZE, TILE_SIZE)), color)
 
