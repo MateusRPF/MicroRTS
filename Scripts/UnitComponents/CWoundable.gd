@@ -20,7 +20,8 @@ func get_max_wounds()-> int:
 func get_current_health()->int:
 	return max(get_max_wounds()- damage_taken,0)
 
-func receive_wound(damage:int):
+func receive_wound(damage:int,opponent:GridObject) -> void:
+	owner_object.OnDamageReceived.emit(owner_object)
 	damage_taken += damage
 	if damage_taken >= get_max_wounds():
 		owner_object.destroy_object()

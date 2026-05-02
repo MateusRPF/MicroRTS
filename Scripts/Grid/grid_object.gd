@@ -13,6 +13,8 @@ var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 
 @export var tint_map:Dictionary[ActorData.Sides, Color]
 
+signal OnDamageReceived(attacker: GridObject)
+
 
 var data:ActorData = null
 
@@ -107,6 +109,7 @@ func assemble_from_data(newData:ActorData):
 
 	for module in data.modules:
 		var newComp = module.assemble_component(self)
+		OnDamageReceived.connect(newComp.on_damaged)
 		_component_cache[newComp.get_script()] = newComp
 
 func _update_color_tint() -> void:
@@ -167,7 +170,7 @@ func get_component_by_name(script_name:String) -> GridObjectComponent:
 func destroy_object():
 	grid_manager.ClearPosition(self)
 	if (data and data.spawn_on_death):
-		var newObj: GridObject = grid_manager.SpawnGridObject(data.spawn_on_death, current_coord, side, player_state)
+		var newObj: GridObject = grid_manager.spawn_grid_object(data.spawn_on_death, current_coord, side, player_state)
 		newObj.play_shake()
 	queue_free()
 

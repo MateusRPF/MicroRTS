@@ -11,7 +11,7 @@ class_name ActorData
 @export var clearance: int = 0
 @export var modules: Array[ComponentData]
 @export var tags:Array[ActorTag]
-@export var costs: Array[CostData]
+@export var costs: Dictionary[GameResource, int]
 
 @export var spawn_on_death: ActorData
 
@@ -19,7 +19,3 @@ enum Sides { PLAYER, NEUTRAL, ALLY, ENEMY }
 
 
 
-class CostData:
-	extends Resource
-	@export var resource: GameResource
-	@export var amount: int

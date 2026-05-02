@@ -35,5 +35,5 @@ func execute() -> bool:
 			var crit_chance: int = clampi(offense - defense, 0, 100)
 			var crit_roll: int = randi_range(1, 100)
 			var is_crit: bool = crit_roll <= crit_chance
-			defender_woundable.receive_wound(CRIT_WOUNDS if is_crit else 1)
+			defender_woundable.receive_wound(CRIT_WOUNDS if is_crit else 1, attacker)
 	return hit

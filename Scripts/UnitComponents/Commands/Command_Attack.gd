@@ -86,6 +86,9 @@ func tick() -> void:
 			if not _start_approach():
 				current_step = AttackSteps.FINDING_ENEMY
 
+func on_damaged(opponent:GridObject) -> void:
+	if current_step != AttackSteps.ATTACKING:
+		target_actor = opponent
 
 func _is_target_valid_enemy(target) -> bool:
 	if not is_instance_valid(target):

@@ -1,14 +1,14 @@
 [gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://b8wjdwh2r0yfe"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_fwn2o"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_inv"]
 [ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="3_rn"]
 [ext_resource type="Resource" uid="uid://dudqhrprdnfic" path="res://Data/GameResources/Resource_Bones.tres" id="4_bones"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_actor"]
 [ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="6_sprite"]
+[ext_resource type="Resource" uid="uid://cdu6gpu8gfxx5" path="res://Data/Actors/ResourceNodes/ActorData_Resource_OpenSarcophagus.tres" id="6_yiely"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_of86o"]
-
-[sub_resource type="GDScript" id="GDScript_7dxpm"]
 
 [sub_resource type="Resource" id="Mod_Inventory"]
 script = ExtResource("2_inv")
@@ -27,4 +27,5 @@ actor_name = "Sarcophagus"
 description = "Full of bones and made of stone."
 sprite = ExtResource("6_sprite")
 modules = Array[ExtResource("1_cd")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
+spawn_on_death = ExtResource("6_yiely")
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

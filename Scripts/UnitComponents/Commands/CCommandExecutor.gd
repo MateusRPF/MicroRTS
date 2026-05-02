@@ -45,3 +45,7 @@ func _on_tick_received() -> void:
 func _trigger_next_command() -> void:
 	current_command = command_queue.pop_front()
 	current_command.start_command()
+
+func on_damaged(opponent:GridObject) -> void:
+	if current_command != null:
+		current_command.on_damaged(opponent)

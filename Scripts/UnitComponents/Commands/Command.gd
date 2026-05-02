@@ -39,6 +39,10 @@ func start_command() -> bool:
 func finish_command() -> void:
 	emit_signal("command_completed", self)
 
+func on_damaged(opponent:GridObject) -> void:
+	#for commands that want to react to being damaged while executing.
+	pass
+
 
 func tick() -> void:
 	if not owner_executor:
