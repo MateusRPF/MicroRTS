@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://cov456brktpca"]
+
+[ext_resource type="Shader" uid="uid://bu44lpfbr5kob" path="res://MT_fogOfWar.gdshader" id="1_l6sgr"]
+
+[resource]
+shader = ExtResource("1_l6sgr")
+shader_parameter/grid_size = Vector2(10, 10)
+shader_parameter/softness = 0.35

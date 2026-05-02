@@ -20,12 +20,15 @@ enum TileLayer {
 
 var map_tiles: Dictionary[Vector2i, GameTile] = {}
 var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
+var grid_origin: Vector2i = Vector2i.ZERO
 @export var grid_object_scene: PackedScene
 @export var player_state: PlayerState
 
 var astar_grid: AStarGrid2D = null
 var actor_data_search_cache: Dictionary = {}
 var viewed_tiles: Dictionary = {}
+var fog_of_war_texture: ImageTexture = ImageTexture.new()
+@onready var fog_of_war: TextureRect = %FogOfWar
 
 @export var debug_draw: bool = false
 
@@ -33,6 +36,7 @@ var viewed_tiles: Dictionary = {}
 
 func _ready() -> void:
 	LoadFromTileSet()
+	_initialize_fog_overlay()
 	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL,null)
 	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
 	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY,null)
@@ -56,6 +60,7 @@ func LoadFromTileSet() -> void:
 		return
 
 	grid_size = size
+	grid_origin = min_cell
 	map_tiles.clear()
 	for x in range(min_cell.x, min_cell.x + grid_size.x):
 		for y in range(min_cell.y, min_cell.y + grid_size.y):
@@ -227,10 +232,41 @@ func _is_object_visible_to_current_player(object: GridObject) -> bool:
 	return false
 
 func refresh_visibility() -> void:
+	update_fog_mask_texture()
 	for child in get_children():
 		if child is GridObject:
 			var obj := child as GridObject
 			obj.set_fog_visible(_is_object_visible_to_current_player(obj))
+
+func _initialize_fog_overlay() -> void:
+	if not fog_of_war:
+		push_warning("GridManager: FogOfWar node not found")
+		return
+	fog_of_war.texture = fog_of_war_texture
+	# fog_of_war.rect_size = Vector2(grid_size.x * TILE_SIZE, grid_size.y * TILE_SIZE)
+	var shader_material := fog_of_war.material as ShaderMaterial
+	shader_material.set_shader_parameter("grid_size", Vector2(grid_size.x, grid_size.y))
+	update_fog_mask_texture()
+
+
+func update_fog_mask_texture() -> void:
+	if not fog_of_war or grid_size.x <= 0 or grid_size.y <= 0:
+		return
+	var image :Image =Image.create(grid_size.x, grid_size.y, false, Image.FORMAT_R8) 
+	
+	for x in range(grid_size.x):
+		for y in range(grid_size.y):
+			var coord := grid_origin + Vector2i(x, y)
+			var value := 0
+			if player_state and _is_tile_viewed_by_state(coord, player_state):
+				value = 255
+			image.set_pixel(x, y, Color8(value, value, value, 255))
+	fog_of_war_texture = ImageTexture.create_from_image(image)  # Use FLAG_FILTER for smooth edges on the fog mask
+	if fog_of_war:
+		fog_of_war.texture = fog_of_war_texture
+		var mat := fog_of_war.material as ShaderMaterial
+		if mat:
+			mat.set_shader_parameter("grid_size", Vector2(grid_size.x, grid_size.y))
 
 func tile_to_world(tile_position: Vector2i) -> Vector2:
 	return Vector2(
@@ -302,20 +338,15 @@ func ClearPosition(object: GridObject) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 
 func _draw() -> void:
-	
+	if not debug_draw:
+		return
 	for coord in map_tiles:
 		var tile: GameTile = map_tiles[coord]
-
 		var color: Color = Color(1, 1, 1, 0)
-		if debug_draw:
-			if (astar_grid.is_point_solid(coord)):
-				color = Color(1, 0, 0, 0.5)
-			elif tile.has_unit_occupant:
-				color = Color(0, 1, 0, 0.5)
-
-		if player_state and not _is_tile_viewed_by_state(coord, player_state):
-			color = Color(0, 0, 0, 1)
-
+		if (astar_grid.is_point_solid(coord)):
+			color = Color(1, 0, 0, 0.5)
+		elif tile.has_unit_occupant:
+			color = Color(0, 1, 0, 0.5)
 		draw_rect(Rect2(tile.coord * TILE_SIZE, Vector2(TILE_SIZE, TILE_SIZE)), color)
 
 
