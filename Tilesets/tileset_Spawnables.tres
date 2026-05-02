@@ -1,22 +1,55 @@
 [gd_resource type="TileSet" format=3 uid="uid://dmrvivvr1lsxp"]
 
-[ext_resource type="Texture2D" uid="uid://c3w3x4kp0j4mf" path="res://Sprites/Structures/SPR_Stockpile.tres" id="1_ea704"]
+[ext_resource type="Texture2D" uid="uid://dwdutaoqkxan6" path="res://Sprites/Atlas_HarbingerStructures.png" id="2_dp8ca"]
 [ext_resource type="Texture2D" uid="uid://sgpaur5fnfau" path="res://32rogues/rogues.png" id="3_4dgue"]
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="3_7tb2v"]
 [ext_resource type="Texture2D" uid="uid://bseu37tggs1eh" path="res://32rogues/monsters.png" id="3_8c5ix"]
 [ext_resource type="Texture2D" uid="uid://bgtq5beuc5tjw" path="res://32rogues/animals.png" id="4_4dgue"]
-[ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="5_km5fj"]
-[ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="6_ghj2b"]
-[ext_resource type="Texture2D" uid="uid://cvkcjmcalwue0" path="res://Sprites/Structures/SPR_Slaughterhouse.tres" id="7_jhoso"]
-[ext_resource type="Texture2D" uid="uid://c4i681h2wh8qk" path="res://Sprites/Structures/SPR_BoneCarver.tres" id="8_ea704"]
+[ext_resource type="Texture2D" uid="uid://lra67edy1tqo" path="res://32rogues/tiles.png" id="5_ghj2b"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
-texture = ExtResource("1_ea704")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sjj37"]
+texture = ExtResource("2_dp8ca")
 texture_region_size = Vector2i(32, 32)
+0:5/size_in_atlas = Vector2i(3, 3)
+0:5/0 = 0
+0:5/0/texture_origin = Vector2i(-32, 32)
+0:5/0/custom_data_0 = "Structure_Effigy1"
+3:5/size_in_atlas = Vector2i(3, 3)
+3:5/0 = 0
+3:5/0/texture_origin = Vector2i(-32, 32)
+3:5/0/custom_data_0 = "Structure_Effigy2"
+6:5/size_in_atlas = Vector2i(3, 3)
+6:5/0 = 0
+6:5/0/texture_origin = Vector2i(-32, 32)
+6:5/0/custom_data_0 = "Structure_Effigy3"
+0:9/size_in_atlas = Vector2i(3, 3)
+0:9/0 = 0
+0:9/0/texture_origin = Vector2i(-32, 32)
+0:9/0/custom_data_0 = "Structure_Effigy4"
+3:9/size_in_atlas = Vector2i(3, 3)
+3:9/0 = 0
+3:9/0/texture_origin = Vector2i(-32, 32)
+3:9/0/custom_data_0 = "Structure_Effigy5"
+4:0/size_in_atlas = Vector2i(3, 3)
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(-32, 32)
+4:0/0/custom_data_0 = "Structure_Slaughterhouse"
+7:0/size_in_atlas = Vector2i(1, 2)
+7:0/0 = 0
+7:0/0/texture_origin = Vector2i(0, 16)
+7:0/0/custom_data_0 = "Structure_AltarOfHorns"
+2:0/size_in_atlas = Vector2i(2, 2)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(-16, 16)
+2:0/0/custom_data_0 = "Structure_BoneCarver"
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(-16, 16)
-0:0/0/custom_data_0 = "Structure_Stockpile"
+0:0/0/custom_data_0 = "Structure_CircleOfRaising"
+0:2/size_in_atlas = Vector2i(2, 2)
+0:2/0 = 0
+0:2/0/texture_origin = Vector2i(-16, 16)
+0:2/0/custom_data_0 = "Structure_Stockpile"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j1yr5"]
 texture = ExtResource("3_8c5ix")
@@ -103,7 +136,7 @@ texture_region_size = Vector2i(32, 32)
 1:1/0 = 0
 2:1/0 = 0
 3:1/0 = 0
-3:1/0/custom_data_0 = "Consector"
+3:1/0/custom_data_0 = "Soldier"
 4:1/0 = 0
 4:1/0/custom_data_0 = "Tombkeeper"
 6:1/0 = 0
@@ -235,49 +268,38 @@ texture_region_size = Vector2i(32, 32)
 3:15/0 = 0
 4:15/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhoso"]
+texture = ExtResource("5_ghj2b")
+texture_region_size = Vector2i(32, 32)
+0:16/0 = 0
+0:16/0/custom_data_0 = "Misc_Door"
+4:16/0 = 0
+4:16/0/custom_data_0 = "Misc_Door"
+0:18/0 = 0
+0:18/0/custom_data_0 = "Resource_Boulder"
+3:23/0 = 0
+3:23/0/custom_data_0 = "Resource_Sarcophagus"
+4:23/0 = 0
+4:23/0/custom_data_0 = "Resource_OpenSarcophagus"
+3:24/size_in_atlas = Vector2i(1, 2)
+3:24/0 = 0
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_rykax"]
 texture = ExtResource("3_7tb2v")
 texture_region_size = Vector2i(32, 32)
 0:0/size_in_atlas = Vector2i(1, 2)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, 16)
+0:0/0/y_sort_origin = 9
 0:0/0/custom_data_0 = "Resource_Tree"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ea704"]
-texture = ExtResource("5_km5fj")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/custom_data_0 = "Resource_Sarcophagus"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4dgue"]
-texture = ExtResource("6_ghj2b")
-texture_region_size = Vector2i(32, 32)
-0:0/size_in_atlas = Vector2i(2, 2)
-0:0/0 = 0
-0:0/0/custom_data_0 = "Structure_CircleOfRaising"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dp8ca"]
-texture = ExtResource("7_jhoso")
-texture_region_size = Vector2i(96, 96)
-0:0/0 = 0
-0:0/0/custom_data_0 = "Structure_Slaughterhouse"
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8c5ix"]
-texture = ExtResource("8_ea704")
-texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-0:0/0/custom_data_0 = "Structure_BoneCarver"
 
 [resource]
 tile_size = Vector2i(32, 32)
 custom_data_layer_0/name = "DataEntry"
 custom_data_layer_0/type = 4
 sources/3 = SubResource("TileSetAtlasSource_rykax")
-sources/0 = SubResource("TileSetAtlasSource_jhoso")
-sources/4 = SubResource("TileSetAtlasSource_ea704")
-sources/5 = SubResource("TileSetAtlasSource_4dgue")
-sources/6 = SubResource("TileSetAtlasSource_dp8ca")
-sources/7 = SubResource("TileSetAtlasSource_8c5ix")
 sources/10 = SubResource("TileSetAtlasSource_j1yr5")
 sources/11 = SubResource("TileSetAtlasSource_odmfb")
 sources/12 = SubResource("TileSetAtlasSource_8a4lf")
+sources/1 = SubResource("TileSetAtlasSource_sjj37")
+sources/2 = SubResource("TileSetAtlasSource_jhoso")

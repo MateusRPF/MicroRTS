@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="GameResource" format=3 uid="uid://bis3mwuexoqqb"]
 
-[ext_resource type="Texture2D" uid="uid://cdraw5xuf51tb" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Attack.tres" id="1_dytr1"]
+[ext_resource type="Texture2D" uid="uid://w0g0c7wpfrc2" path="res://Sprites/UI/SPR_Bones.tres" id="1_dytr1"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_1ol1p"]
 
 [resource]
 script = ExtResource("2_1ol1p")
-proper_name = "Bones"
-description = "Skeletal ingredients"
+proper_name = "Flesh"
+description = "Meat and sinew, ready for the most profane purposes."
 icon = ExtResource("1_dytr1")
 metadata/_custom_type_script = "uid://b21ghjgaar2q5"

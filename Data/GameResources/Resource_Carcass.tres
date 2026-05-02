@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameResource" format=3 uid="uid://car75rl0a54rc"]
+
+[ext_resource type="Texture2D" uid="uid://57x4pesosw1d" path="res://Sprites/UI/SPR_Carcass.tres" id="1_sd5um"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_rm17r"]
+
+[resource]
+script = ExtResource("2_rm17r")
+proper_name = "Carcass"
+description = "Raw bodies, to be processed or repurposed."
+icon = ExtResource("1_sd5um")
+metadata/_custom_type_script = "uid://b21ghjgaar2q5"

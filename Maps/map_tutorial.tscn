@@ -19,7 +19,7 @@
 [ext_resource type="Resource" uid="uid://djix74065hwkl" path="res://Data/Actors/Structures/ActorData_Structure_Slaughterhouse.tres" id="17_j7hun"]
 [ext_resource type="Resource" uid="uid://b2kmdacu0pt33" path="res://Data/Actors/Structures/ActorData_Structure_Stockpile.tres" id="18_lutt7"]
 [ext_resource type="Resource" uid="uid://dspvq8v15o0lf" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Tombkeeper.tres" id="19_lal2s"]
-[ext_resource type="Resource" uid="uid://wbbn3fufqf8g" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Adept.tres" id="20_ru4o5"]
+[ext_resource type="Resource" uid="uid://wbbn3fufqf8g" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Underpriest.tres" id="20_ru4o5"]
 [ext_resource type="Resource" uid="uid://blpmdfsc42o0b" path="res://Data/Actors/Units/Animals/ActorData_Animals_Wolf.tres" id="21_bu2s1"]
 [ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="22_seuon"]
 [ext_resource type="TileSet" uid="uid://baontrc7qla2f" path="res://Tilesets/tileset_A.tres" id="23_5l3vr"]

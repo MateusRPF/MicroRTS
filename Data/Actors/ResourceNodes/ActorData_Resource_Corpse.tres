@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://blshyw17h00qo"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_38m32"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_atht7"]
+[ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="3_ulks5"]
+[ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_bdxth"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_g3n4r"]
+[ext_resource type="Texture2D" uid="uid://57x4pesosw1d" path="res://Sprites/UI/SPR_Carcass.tres" id="6_38m32"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_v5war"]
+
+[sub_resource type="Resource" id="Mod_Inventory"]
+script = ExtResource("2_atht7")
+max_storage = 999
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Mod_ResourceNode"]
+script = ExtResource("4_bdxth")
+resource = ExtResource("3_ulks5")
+amount = 50
+metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
+
+[resource]
+script = ExtResource("5_g3n4r")
+actor_name = "Corpse"
+description = "Freshly dead. Useful!"
+sprite = ExtResource("6_38m32")
+view_offset = Vector2i(0, -16)
+modules = Array[ExtResource("1_38m32")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

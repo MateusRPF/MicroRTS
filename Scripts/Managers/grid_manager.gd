@@ -11,13 +11,19 @@ const DIRECTIONS: Array[Vector2i] = [
 
 const MOVER_WEIGHT: float = 10.0
 
+enum TileLayer {
+	DOODAD,
+	PROP,
+	UNIT
+}
+
 var map_tiles: Dictionary[Vector2i, GameTile] = {}
 var grid_size: Vector2i = Vector2i(10, 10)  # Default grid size
 @export var grid_object_scene: PackedScene
-@export var spawn_actors: Dictionary[String, ActorData]
 @export var player_state: PlayerState
 
 var astar_grid: AStarGrid2D = null
+var actor_data_search_cache: Dictionary = {}
 
 @export var debug_draw: bool = false
 
@@ -80,8 +86,8 @@ func _refresh_astar_for(coord: Vector2i, tile: GameTile) -> void:
 	if tile.tile_type != GameTile.TileType.FLOOR:
 		astar_grid.set_point_solid(coord, true)
 		return
-	if tile.is_occupied and tile.occupant:
-		if tile.occupant.get_component(CMover):
+	if tile.has_unit_occupant and tile.unit_occupant:
+		if tile.unit_occupant.get_component(CMover):
 			astar_grid.set_point_solid(coord, true)
 			astar_grid.set_point_weight_scale(coord, MOVER_WEIGHT)
 		else:
@@ -98,20 +104,64 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:P
 		if spawned_coords.has(tile):
 			continue
 		var data = tileset.get_cell_tile_data(tile)
-		var resourceName:String = data.get_custom_data("DataEntry")
-		if not spawn_actors.has(resourceName):
-			push_warning("GridManager: no actor mapped for '%s'" % resourceName)
+		if data == null:
 			continue
-		var actorData: ActorData = spawn_actors[resourceName]
-		var newActor = grid_object_scene.instantiate() as GridObject
-		add_child(newActor)
-		newActor.Initialize(self, tile, side, newState, actorData)
-		for coord in newActor.get_covered_coords():
-			spawned_coords[coord] = true
+		var resourceName:String = data.get_custom_data("DataEntry")
+		var actorData: ActorData = null
+
+		actorData = _find_actor_data_by_name(resourceName)
+		if not actorData:
+			push_warning("GridManager: no actor mapped or found for '%s'" % resourceName)
+			continue
+		spawn_grid_object(actorData, tile, side, newState)
 
 	tileset.clear()
 
+func spawn_grid_object(actorData: ActorData, coord: Vector2i, side: ActorData.Sides, newState: PlayerState) -> GridObject:
+	var newActor = grid_object_scene.instantiate() as GridObject
+	add_child(newActor)
+	newActor.Initialize(self, coord, side, newState, actorData)
+	return newActor
 
+
+
+func _find_actor_data_by_name(entry:String) -> ActorData:
+	if entry == null or entry == "":
+		return null
+	if actor_data_search_cache.has(entry):
+		return actor_data_search_cache[entry] as ActorData
+	var result: ActorData = _search_actor_data_folder("res://Data/Actors/", entry)
+	actor_data_search_cache[entry] = result
+	return result
+
+func _search_actor_data_folder(path:String, entry:String) -> ActorData:
+	var dir:DirAccess = DirAccess.open(path)
+
+	if dir.list_dir_begin() != OK:
+		dir.list_dir_end()
+		return null
+	var file_name:String = dir.get_next()
+	while file_name != "":
+		if file_name.begins_with("."):
+			file_name = dir.get_next()
+			continue
+		var child_path:String = "%s/%s" % [path, file_name]
+		if dir.current_is_dir():
+			var sub_result: ActorData = _search_actor_data_folder(child_path, entry)
+			if sub_result:
+				dir.list_dir_end()
+				return sub_result
+		else:
+			var normalized_name:String = child_path.to_lower()
+			var normalized_entry:String = entry.to_lower()
+			if normalized_name.find(normalized_entry) != -1 and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
+				var resource = ResourceLoader.load(child_path)
+				if resource and resource is ActorData:
+					dir.list_dir_end()
+					return resource
+		file_name = dir.get_next()
+	dir.list_dir_end()
+	return null
 
 func world_to_tile(world_position: Vector2) -> Vector2i:
 	return Vector2i(
@@ -160,17 +210,17 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 		if not map_tiles.has(coord):
 			push_error("Attempting to move to invalid tile coordinate: %s" % coord)
 			return
-		if map_tiles[coord].is_occupied && map_tiles[coord].occupant != object:
+		if map_tiles[coord].has_unit_occupant && map_tiles[coord].unit_occupant != object:
 			push_error("Attempting to move to occupied tile coordinate: %s" % coord)
 			return
 
 	for coord in old_coords:
-		map_tiles[coord].is_occupied = false
-		map_tiles[coord].occupant = null
+		map_tiles[coord].has_unit_occupant = false
+		map_tiles[coord].unit_occupant = null
 
 	for coord in new_coords:
-		map_tiles[coord].is_occupied = true
-		map_tiles[coord].occupant = object
+		map_tiles[coord].has_unit_occupant = true
+		map_tiles[coord].unit_occupant = object
 
 	for coord in old_coords:
 		_refresh_astar_for(coord, map_tiles[coord])
@@ -180,8 +230,8 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 func ClearPosition(object: GridObject) -> void:
 	var coords: Array[Vector2i] = object.get_covered_coords()
 	for coord in coords:
-		map_tiles[coord].is_occupied = false
-		map_tiles[coord].occupant = null
+		map_tiles[coord].has_unit_occupant = false
+		map_tiles[coord].unit_occupant = null
 	for coord in coords:
 		_refresh_astar_for(coord, map_tiles[coord])
 
@@ -193,7 +243,7 @@ func _draw() -> void:
 		var color: Color = Color(1, 1, 1, 0.5)
 		if (astar_grid.is_point_solid(coord)):
 			color = Color(1, 0, 0, 0.5)
-		elif tile.is_occupied:
+		elif tile.has_unit_occupant:
 			color = Color(0, 1, 0, 0.5)
 
 		draw_rect(Rect2(tile.coord * TILE_SIZE, Vector2(TILE_SIZE, TILE_SIZE)), color)
@@ -212,7 +262,7 @@ func can_place_footprint(origin: Vector2i, size: Vector2i) -> bool:
 		if not map_tiles.has(coord):
 			return false
 		var tile: GameTile = map_tiles[coord]
-		if tile.is_occupied:
+		if tile.has_unit_occupant:
 			return false
 		if tile.tile_type != GameTile.TileType.FLOOR:
 			return false
@@ -301,7 +351,7 @@ func find_path(start: Vector2i, end: Vector2i, moving_unit: GridObject = null) -
 		var dist: int = abs(start.x - last_pos.x) + abs(start.y - last_pos.y)
 		if dist > 1 and map_tiles.has(last_pos):
 			var tile: GameTile = map_tiles[last_pos]
-			if tile.is_occupied and tile.occupant != moving_unit:
+			if tile.has_unit_occupant and tile.unit_occupant != moving_unit:
 				raw_path.pop_back()
 
 	return raw_path
@@ -361,8 +411,8 @@ func dijkstra_to_any(start: Vector2i, goals: Array[Vector2i], mover: GridObject)
 			var is_goal: bool = goal_set.has(n)
 			var weight: float = 1.0
 
-			if tile.is_occupied and tile.occupant and tile.occupant != mover:
-				if tile.occupant.get_component(CMover):
+			if tile.has_unit_occupant and tile.unit_occupant and tile.unit_occupant != mover:
+				if tile.unit_occupant.get_component(CMover):
 					weight = MOVER_WEIGHT
 				elif not is_goal:
 					continue
@@ -382,12 +432,12 @@ func get_objects_in_radius(center: Vector2i, radius: int, filter_script:Script =
 	for x in range(center.x - radius, center.x + radius + 1):
 		for y in range(center.y - radius, center.y + radius + 1):
 			var coord = Vector2i(x, y)
-			if map_tiles.has(coord) and map_tiles[coord].is_occupied:
-				if (map_tiles[coord].occupant):
+			if map_tiles.has(coord) and map_tiles[coord].has_unit_occupant:
+				if (map_tiles[coord].unit_occupant):
 					if (filter_script):
-						if not (map_tiles[coord].occupant.get_component(filter_script)):
+						if not (map_tiles[coord].unit_occupant.get_component(filter_script)):
 							continue
-					objects.append(map_tiles[coord].occupant)
+					objects.append(map_tiles[coord].unit_occupant)
 	return objects
 
 
@@ -407,8 +457,8 @@ func find_closest_reachable_component(origin: GridObject, search_radius: int, co
 		for direction in DIRECTIONS:
 			var neighbor: Vector2i = current + direction
 			var tile: GameTile = map_tiles.get(neighbor)
-			if tile and tile.is_occupied and tile.occupant:
-				var res_component = tile.occupant.get_component(component_script)
+			if tile and tile.has_unit_occupant and tile.unit_occupant:
+				var res_component = tile.unit_occupant.get_component(component_script)
 				if res_component:
 					return res_component
 
@@ -419,13 +469,13 @@ func find_closest_reachable_component(origin: GridObject, search_radius: int, co
 			var tile: GameTile = map_tiles.get(neighbor)
 			if not tile or tile.tile_type != GameTile.TileType.FLOOR:
 				continue
-			if tile.is_occupied and tile.occupant and tile.occupant != origin:
-				if not tile.occupant.get_component(CMover):
+			if tile.has_unit_occupant and tile.unit_occupant and tile.unit_occupant != origin:
+				if not tile.unit_occupant.get_component(CMover):
 					continue
 			visited[neighbor] = true
 			distance_map[neighbor] = current_dist + 1
 			queue.append(neighbor)
-                
+				
 	return null
 
 func get_coords_in_radius(center: Vector2i, radius: int) -> Array[Vector2i]:
@@ -450,7 +500,7 @@ func get_walkable_tiles_in_radius(center: Vector2i, radius: float) -> Array[Game
 	var tiles: Array[GameTile] = get_tiles_in_radius(center, radius)
 	var walkable_tiles: Array[GameTile] = []
 	for tile in tiles:
-		if tile.tile_type == GameTile.TileType.FLOOR and (not tile.is_occupied or (tile.occupant and tile.occupant.get_component(CMover))):
+		if tile.tile_type == GameTile.TileType.FLOOR and (not tile.has_unit_occupant or (tile.unit_occupant and tile.unit_occupant.get_component(CMover))):
 			walkable_tiles.append(tile)
 	return tiles
 
@@ -463,7 +513,7 @@ func calculate_distance_sqr(coord1: Vector2i, coord2: Vector2i) -> float:
 	return distance
 
 
-func get_interaction_positions(target: GridObject, tolerableDistance: float = 1.5, include_transient_occupants: bool = true) -> Array[Vector2i]:
+func get_interaction_positions(target: GridObject, tolerableDistance: float = 1.5, include_transient_unit_occupants: bool = true) -> Array[Vector2i]:
 	var possible_positions: Array[Vector2i] = []
 	for occupied_tile in target.get_covered_coords():
 		var tiles_in_range = get_tiles_in_radius(occupied_tile, tolerableDistance)
@@ -471,10 +521,10 @@ func get_interaction_positions(target: GridObject, tolerableDistance: float = 1.
 			if tile.tile_type != GameTile.TileType.FLOOR:
 				continue
 			var qualifies: bool = false
-			if not tile.is_occupied:
+			if not tile.has_unit_occupant:
 				qualifies = true
-			elif include_transient_occupants and tile.occupant and tile.occupant != target:
-				if tile.occupant.get_component(CMover):
+			elif include_transient_unit_occupants and tile.unit_occupant and tile.unit_occupant != target:
+				if tile.unit_occupant.get_component(CMover):
 					qualifies = true
 			if qualifies and not possible_positions.has(tile.coord):
 				possible_positions.append(tile.coord)

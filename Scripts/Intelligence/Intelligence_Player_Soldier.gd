@@ -40,6 +40,8 @@ func filter_targets(candidate, PoV:GridObject) -> bool:
 		return false
 	if not candidate.get_component(CWoundable):
 		return false
+	if not candidate.get_component(CAttacker):
+		return false
 	
 	return true
 

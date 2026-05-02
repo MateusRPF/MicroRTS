@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GameResource" format=3 uid="uid://du1foa3j0e2tk"]
 
-[ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="1_qesww"]
+[ext_resource type="Texture2D" uid="uid://b1x6lwaahurk4" path="res://Sprites/UI/SPR_Stone.tres" id="1_qesww"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_q8aoc"]
 
 [resource]

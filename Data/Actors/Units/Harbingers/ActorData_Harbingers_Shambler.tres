@@ -20,6 +20,8 @@
 [ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="16_uwfmb"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="18_uwfmb"]
 
+[sub_resource type="GDScript" id="GDScript_7dxpm"]
+
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
 attrs = Dictionary[int, int]({
@@ -30,7 +32,7 @@ attrs = Dictionary[int, int]({
 4: 10,
 5: 0,
 6: 2,
-7: 40
+7: 25
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 

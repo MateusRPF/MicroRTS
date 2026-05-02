@@ -177,11 +177,11 @@ func can_move_to(target_coord: Vector2i) -> bool:
 	if tile.tile_type != GameTile.TileType.FLOOR:
 		return false
 
-	if tile.is_occupied:
-		var occupant = tile.occupant
-		if occupant != null and occupant != owner_object:
-			if occupant:
-				blocker_object = occupant
+	if tile.has_unit_occupant:
+		var unit_occupant = tile.unit_occupant
+		if unit_occupant != null and unit_occupant != owner_object:
+			if unit_occupant:
+				blocker_object = unit_occupant
 			return false  # Tile is occupied by another object
 	return true
 

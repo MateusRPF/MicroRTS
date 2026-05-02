@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://bh60fq2nxe4wd"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_6m85a"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_cxe3e"]
+[ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="3_6m85a"]
+[ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_dtr4l"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_qbrhy"]
+[ext_resource type="Texture2D" uid="uid://dqr7c57lyw1qj" path="res://Sprites/ResourceNodes/SPR_Boulder_01.tres" id="6_6m85a"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_1ueuj"]
+
+[sub_resource type="Resource" id="Mod_Inventory"]
+script = ExtResource("2_cxe3e")
+max_storage = 999
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Mod_ResourceNode"]
+script = ExtResource("4_dtr4l")
+resource = ExtResource("3_6m85a")
+amount = 50
+metadata/_custom_type_script = "uid://s7k6o4xx4ssm"
+
+[resource]
+script = ExtResource("5_qbrhy")
+actor_name = "Boulder"
+description = "Source of Stone"
+sprite = ExtResource("6_6m85a")
+view_offset = Vector2i(0, -16)
+modules = Array[ExtResource("1_6m85a")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

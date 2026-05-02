@@ -153,7 +153,7 @@ func _find_walkable_in_perimeter() -> Vector2i:
 	for coord in perimeter_coords:
 		var tile: GameTile = grid.map_tiles.get(coord)
 		if tile and tile.tile_type == GameTile.TileType.FLOOR:
-			if not tile.is_occupied or tile.occupant == actor:
+			if not tile.has_unit_occupant or tile.unit_occupant == actor:
 				candidates.append(coord)
 	if candidates.is_empty():
 		return Vector2i(-1, -1)
@@ -228,7 +228,7 @@ func _find_walkable_at_stockpile(stockpile_obj: GridObject) -> Vector2i:
 	for coord in stockpile.calculate_deliverable_tiles():
 		var tile: GameTile = grid.map_tiles.get(coord)
 		if tile and tile.tile_type == GameTile.TileType.FLOOR:
-			if not tile.is_occupied or tile.occupant == actor:
+			if not tile.has_unit_occupant or tile.unit_occupant == actor:
 				candidates.append(coord)
 	if candidates.is_empty():
 		return Vector2i(-1, -1)

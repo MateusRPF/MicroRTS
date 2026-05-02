@@ -156,8 +156,8 @@ func _select_at_mouse() -> void:
 	if shift_held:
 		new_selection = selected_objects.duplicate()
 	var tile = grid_manager.map_tiles[hovered_coord]
-	if tile and tile.occupant and not new_selection.has(tile.occupant):
-		new_selection.append(tile.occupant)
+	if tile and tile.unit_occupant and not new_selection.has(tile.unit_occupant):
+		new_selection.append(tile.unit_occupant)
 	_set_selection(new_selection)
 
 func _select_in_box() -> void:
@@ -168,8 +168,8 @@ func _select_in_box() -> void:
 	var selection_rect = Rect2(drag_start_pos, Vector2.ZERO).expand(drag_end_pos)
 	var tilesInRect = grid_manager.get_tiles_in_rect(selection_rect)
 	for tile in tilesInRect:
-		if tile.occupant and not new_selection.has(tile.occupant):
-			new_selection.append(tile.occupant)
+		if tile.unit_occupant and not new_selection.has(tile.unit_occupant):
+			new_selection.append(tile.unit_occupant)
 	new_selection = _filter_multiple_selection(new_selection)
 	_set_selection(new_selection)
 

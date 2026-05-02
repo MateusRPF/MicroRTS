@@ -166,6 +166,9 @@ func get_component_by_name(script_name:String) -> GridObjectComponent:
 
 func destroy_object():
 	grid_manager.ClearPosition(self)
+	if (data and data.spawn_on_death):
+		var newObj: GridObject = grid_manager.SpawnGridObject(data.spawn_on_death, current_coord, side, player_state)
+		newObj.play_shake()
 	queue_free()
 
 
@@ -212,7 +215,7 @@ func play_shake() -> void:
 
 
 func play_hit_flash() -> void:
-	_play_flash(Color(2.0, 0.5, 0.5))
+	_play_flash(Color.ORANGE_RED)
 
 
 func play_white_flash() -> void:

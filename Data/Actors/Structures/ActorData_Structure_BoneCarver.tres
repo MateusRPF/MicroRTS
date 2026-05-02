@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://c4i681h2wh8qk" path="res://Sprites/Structures/SPR_BoneCarver.tres" id="4_sprite"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_g5g7v"]
 
+[sub_resource type="GDScript" id="GDScript_7dxpm"]
+
 [sub_resource type="Resource" id="Mod_Stockpile"]
 script = ExtResource("2_stock")
 metadata/_custom_type_script = "uid://b12sbao0o4pnt"

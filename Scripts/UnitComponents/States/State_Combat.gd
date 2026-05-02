@@ -64,7 +64,7 @@ func tick_state() -> void:
 				target_actor.play_hit_flash()
 			else:
 				GameplayEvents.VFX_requested.emit("Miss", attacker.current_coord,target_actor.current_coord)
-				target_actor.play_white_flash()
+				# target_actor.play_white_flash()
 		var defender_woundable:CWoundable = target_actor.get_component(CWoundable) if is_instance_valid(target_actor) else null
 		if not defender_woundable or defender_woundable.get_current_health() <= 0:
 			owner_machine.request_state(CStateMachine.StateID.IDLE)

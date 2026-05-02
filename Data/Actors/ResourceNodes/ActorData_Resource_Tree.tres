@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://c7yb722hjxxox" path="res://Sprites/ResourceNodes/SPR_Tree_Large.tres" id="6_sprite"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_8bha0"]
 
+[sub_resource type="GDScript" id="GDScript_7dxpm"]
+
 [sub_resource type="Resource" id="Mod_Inventory"]
 script = ExtResource("2_inv")
 max_storage = 999

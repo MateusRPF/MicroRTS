@@ -12,7 +12,10 @@
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="9_actor"]
 [ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="10_58xhc"]
 [ext_resource type="Texture2D" uid="uid://bgsc4cwkmupv4" path="res://Sprites/Units/SPR_Undergodling.tres" id="10_sprite"]
+[ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="11_7dxpm"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="12_58xhc"]
+
+[sub_resource type="GDScript" id="GDScript_7dxpm"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
@@ -21,10 +24,10 @@ attrs = Dictionary[int, int]({
 1: 0,
 2: 0,
 3: 3,
-4: 30,
+4: 50,
 5: 20,
 6: 3,
-7: 40
+7: 30
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 
@@ -58,10 +61,14 @@ script = ExtResource("10_58xhc")
 default_intelligence = 2
 metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
 
+[sub_resource type="Resource" id="Mod_Attacker"]
+script = ExtResource("11_7dxpm")
+metadata/_custom_type_script = "uid://n0f88etvtcyy"
+
 [resource]
 script = ExtResource("9_actor")
 actor_name = "Underpriest"
 description = "Trained member of the Harbingers, able to conduct basic magic."
 sprite = ExtResource("10_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Resource_qua60")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Resource_qua60"), SubResource("Mod_Attacker")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"
