@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://bh60fq2nxe4wd"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_6m85a"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_cxe3e"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_cxe3e"]
 [ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="3_6m85a"]
 [ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_dtr4l"]

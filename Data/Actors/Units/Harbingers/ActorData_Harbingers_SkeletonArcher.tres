@@ -20,8 +20,6 @@
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="16_attacker"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="18_3xatg"]
 
-[sub_resource type="GDScript" id="GDScript_7dxpm"]
-
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
 attrs = Dictionary[int, int]({

@@ -1,14 +1,13 @@
 [gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://cdu6gpu8gfxx5"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_l0ggf"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_nod27"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="2_nod27"]
 [ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="3_l0ggf"]
 [ext_resource type="Script" uid="uid://s7k6o4xx4ssm" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceNode.gd" id="4_07rgv"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_yx1d3"]
 [ext_resource type="Texture2D" uid="uid://cxhknhrg5x1ho" path="res://Sprites/ResourceNodes/SPR_Sarcophagus_Open.tres" id="6_l0ggf"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_ku7cc"]
-
-[sub_resource type="GDScript" id="GDScript_mpu5m"]
 
 [sub_resource type="Resource" id="Mod_Inventory"]
 script = ExtResource("2_nod27")

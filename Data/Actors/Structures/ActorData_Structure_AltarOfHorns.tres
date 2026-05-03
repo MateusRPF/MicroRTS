@@ -7,8 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://dio8xx2mhneph" path="res://Sprites/Structures/SPR_Altar.tres" id="5_dxsh0"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_vj34k"]
 
-[sub_resource type="GDScript" id="GDScript_3n5ac"]
-
 [sub_resource type="Resource" id="Mod_Stockpile"]
 script = ExtResource("3_pq188")
 metadata/_custom_type_script = "uid://b12sbao0o4pnt"

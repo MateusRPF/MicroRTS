@@ -5,14 +5,39 @@
 [ext_resource type="TileSet" uid="uid://baontrc7qla2f" path="res://Tilesets/tileset_A.tres" id="3_osnka"]
 [ext_resource type="TileSet" uid="uid://dmrvivvr1lsxp" path="res://Tilesets/tileset_Spawnables.tres" id="4_jympa"]
 [ext_resource type="Material" uid="uid://cov456brktpca" path="res://MT_fogOfWar.tres" id="6_4l1gu"]
+[ext_resource type="Script" uid="uid://dfb7gbdyepn5b" path="res://Scripts/Managers/GridAssetLoader.gd" id="7_0j28r"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="8_tq2kr"]
+[ext_resource type="Resource" uid="uid://il12os3x1a14" path="res://Data/Actors/Misc/ActorData_Misc_Door.tres" id="9_50h01"]
 [ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="10_d7f3w"]
+[ext_resource type="Resource" uid="uid://bh60fq2nxe4wd" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Boulder.tres" id="10_ko2qf"]
+[ext_resource type="Resource" uid="uid://blshyw17h00qo" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Corpse.tres" id="11_u8kyo"]
+[ext_resource type="Resource" uid="uid://cdu6gpu8gfxx5" path="res://Data/Actors/ResourceNodes/ActorData_Resource_OpenSarcophagus.tres" id="12_jjiio"]
+[ext_resource type="Resource" uid="uid://b8wjdwh2r0yfe" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Sarcophagus.tres" id="13_e0mx8"]
+[ext_resource type="Resource" uid="uid://237c5tjdmj50" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Tree.tres" id="14_svbmn"]
+[ext_resource type="Resource" uid="uid://b2h0cg8c6fa2h" path="res://Data/Actors/Units/Animals/ActorData_Animals_BlackBear.tres" id="15_1dap8"]
+[ext_resource type="Resource" uid="uid://gdi7mei8kyp2" path="res://Data/Actors/Units/Animals/ActorData_Animals_BrownBear.tres" id="16_wpgaq"]
+[ext_resource type="Resource" uid="uid://3j4jjq07fffs" path="res://Data/Actors/Units/Animals/ActorData_Animals_Llama.tres" id="17_ocfr7"]
+[ext_resource type="Resource" uid="uid://blpmdfsc42o0b" path="res://Data/Actors/Units/Animals/ActorData_Animals_Wolf.tres" id="18_126lb"]
+[ext_resource type="Resource" uid="uid://bsxlacch5vbo5" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Balestrier.tres" id="19_oom5x"]
+[ext_resource type="Resource" uid="uid://j6yqw0pj86ho" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Soldier.tres" id="20_lwyau"]
+[ext_resource type="Resource" uid="uid://dspvq8v15o0lf" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Tombkeeper.tres" id="21_d6yj3"]
+[ext_resource type="Resource" uid="uid://cwpqmxa8gsyfh" path="res://Data/Actors/Units/Grovelings/ActorData_Grovelings_Dryad.tres" id="22_k7yt7"]
+[ext_resource type="Resource" uid="uid://hr7gf5x37cqi" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Shambler.tres" id="23_vt6co"]
+[ext_resource type="Resource" uid="uid://prnuj1m30t66" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonArcher.tres" id="24_gxdy6"]
+[ext_resource type="Resource" uid="uid://e6sqeljf21ug" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonMinion.tres" id="25_db0u0"]
+[ext_resource type="Resource" uid="uid://wbbn3fufqf8g" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Underpriest.tres" id="26_5q8mw"]
+[ext_resource type="Resource" uid="uid://b0jstpiq0qffm" path="res://Data/Actors/Structures/ActorData_Structure_AltarOfHorns.tres" id="27_e0mx8"]
+[ext_resource type="Resource" uid="uid://cuukl1t1bo4ig" path="res://Data/Actors/Structures/ActorData_Structure_BoneCarver.tres" id="28_svbmn"]
+[ext_resource type="Resource" uid="uid://b7w20d3qgpuk1" path="res://Data/Actors/Structures/ActorData_Structure_CircleOfRaising.tres" id="29_1dap8"]
+[ext_resource type="Resource" uid="uid://shqteeit57b7" path="res://Data/Actors/Structures/ActorData_Structure_Effigy1.tres" id="30_wpgaq"]
+[ext_resource type="Resource" uid="uid://djix74065hwkl" path="res://Data/Actors/Structures/ActorData_Structure_Slaughterhouse.tres" id="31_ocfr7"]
+[ext_resource type="Resource" uid="uid://b2kmdacu0pt33" path="res://Data/Actors/Structures/ActorData_Structure_Stockpile.tres" id="32_126lb"]
 
 [node name="GameLevel" type="Node2D" unique_id=1620061272]
 texture_filter = 1
 script = ExtResource("1_uqqmm")
 grid_object_scene = ExtResource("2_gop")
 player_state = ExtResource("10_d7f3w")
-debug_draw = null
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=2091239766]
 unique_name_in_owner = true
@@ -56,3 +81,34 @@ custom_minimum_size = Vector2(500, 500)
 offset_right = 3203.0
 offset_bottom = 3191.0
 expand_mode = 1
+
+[node name="AssetLoader" type="Node" parent="." unique_id=844848456]
+unique_name_in_owner = true
+script = ExtResource("7_0j28r")
+actor_data_search_cache = Dictionary[String, ExtResource("8_tq2kr")]({
+"AltarOfHorns": ExtResource("27_e0mx8"),
+"Balestrier": ExtResource("19_oom5x"),
+"BlackBear": ExtResource("15_1dap8"),
+"BoneCarver": ExtResource("28_svbmn"),
+"Boulder": ExtResource("10_ko2qf"),
+"BrownBear": ExtResource("16_wpgaq"),
+"CircleOfRaising": ExtResource("29_1dap8"),
+"Consector": ExtResource("20_lwyau"),
+"Corpse": ExtResource("11_u8kyo"),
+"Door": ExtResource("9_50h01"),
+"Effigy1": ExtResource("30_wpgaq"),
+"Llama": ExtResource("17_ocfr7"),
+"MinorDryad": ExtResource("22_k7yt7"),
+"OpenSarcophagus": ExtResource("12_jjiio"),
+"Sarcophagus": ExtResource("13_e0mx8"),
+"Shambler": ExtResource("23_vt6co"),
+"SkeletonArcher": ExtResource("24_gxdy6"),
+"SkeletonMinion": ExtResource("25_db0u0"),
+"Slaughterhouse": ExtResource("31_ocfr7"),
+"Stockpile": ExtResource("32_126lb"),
+"Tombkeeper": ExtResource("21_d6yj3"),
+"Tree": ExtResource("14_svbmn"),
+"Underpriest": ExtResource("26_5q8mw"),
+"Wolf": ExtResource("18_126lb")
+})
+metadata/_custom_type_script = "uid://dfb7gbdyepn5b"

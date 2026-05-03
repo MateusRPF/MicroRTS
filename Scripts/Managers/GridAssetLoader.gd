@@ -1,7 +1,7 @@
 extends Node
 class_name GridAssetLoader
 
-var actor_data_search_cache: Dictionary = {}
+@export var actor_data_search_cache: Dictionary[String,ActorData] = {}
 
 func find_actor_data_by_name(entry:String) -> ActorData:
 	if entry == null or entry == "":
@@ -11,9 +11,6 @@ func find_actor_data_by_name(entry:String) -> ActorData:
 	var result: ActorData = _search_actor_data_folder("res://Data/Actors", entry)
 	actor_data_search_cache[entry] = result
 	return result
-
-func clear_cache() -> void:
-	actor_data_search_cache.clear()
 
 func _search_actor_data_folder(path:String, entry:String) -> ActorData:
 	var dir: DirAccess = DirAccess.open(path)

@@ -26,7 +26,7 @@ var grid_origin: Vector2i = Vector2i.ZERO
 
 
 var astar_grid: AStarGrid2D = null
-var asset_loader: GridAssetLoader = null
+@onready var asset_loader: GridAssetLoader = %AssetLoader
 var visibility_manager: GridVisibility
 @onready var fog_of_war: TextureRect = %FogOfWar
 
@@ -36,8 +36,6 @@ var visibility_manager: GridVisibility
 
 func _ready() -> void:
 	LoadFromTileSet()
-	asset_loader = GridAssetLoader.new()
-	add_child(asset_loader)
 	visibility_manager = GridVisibility.new()
 	add_child(visibility_manager)
 	visibility_manager.initialize(fog_of_war, grid_size, grid_origin, TILE_SIZE)
