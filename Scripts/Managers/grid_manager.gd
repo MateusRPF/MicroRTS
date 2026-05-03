@@ -10,7 +10,7 @@ const DIRECTIONS: Array[Vector2i] = [
 ]
 
 const MOVER_WEIGHT: float = 10.0
-const VIEW_RANGE: int = 6
+const VIEW_RANGE: int = 3
 
 enum TileLayer {
 	DOODAD,
@@ -24,10 +24,10 @@ var grid_origin: Vector2i = Vector2i.ZERO
 @export var grid_object_scene: PackedScene
 @export var player_state: PlayerState
 
+
 var astar_grid: AStarGrid2D = null
-var actor_data_search_cache: Dictionary = {}
-var viewed_tiles: Dictionary = {}
-var fog_of_war_texture: ImageTexture = ImageTexture.new()
+var asset_loader: GridAssetLoader = null
+var visibility_manager: GridVisibility
 @onready var fog_of_war: TextureRect = %FogOfWar
 
 @export var debug_draw: bool = false
@@ -36,10 +36,15 @@ var fog_of_war_texture: ImageTexture = ImageTexture.new()
 
 func _ready() -> void:
 	LoadFromTileSet()
-	_initialize_fog_overlay()
-	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL,null)
+	asset_loader = GridAssetLoader.new()
+	add_child(asset_loader)
+	visibility_manager = GridVisibility.new()
+	add_child(visibility_manager)
+	visibility_manager.initialize(fog_of_war, grid_size, grid_origin, TILE_SIZE)
+
+	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL, null)
+	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY, null)
 	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
-	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY,null)
 	refresh_visibility()
 
 
@@ -117,7 +122,7 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:P
 		var resourceName:String = data.get_custom_data("DataEntry")
 		var actorData: ActorData = null
 
-		actorData = _find_actor_data_by_name(resourceName)
+		actorData = asset_loader.find_actor_data_by_name(resourceName)
 		if not actorData:
 			push_warning("GridManager: no actor mapped or found for '%s'" % resourceName)
 			continue
@@ -132,43 +137,6 @@ func spawn_grid_object(actorData: ActorData, coord: Vector2i, side: ActorData.Si
 	return newActor
 
 
-func _find_actor_data_by_name(entry:String) -> ActorData:
-	if entry == null or entry == "":
-		return null
-	if actor_data_search_cache.has(entry):
-		return actor_data_search_cache[entry] as ActorData
-	var result: ActorData = _search_actor_data_folder("res://Data/Actors/", entry)
-	actor_data_search_cache[entry] = result
-	return result
-
-func _search_actor_data_folder(path:String, entry:String) -> ActorData:
-	var dir:DirAccess = DirAccess.open(path)
-
-	if dir.list_dir_begin() != OK:
-		dir.list_dir_end()
-		return null
-	var file_name:String = dir.get_next()
-	while file_name != "":
-		if file_name.begins_with("."):
-			file_name = dir.get_next()
-			continue
-		var child_path:String = "%s/%s" % [path, file_name]
-		if dir.current_is_dir():
-			var sub_result: ActorData = _search_actor_data_folder(child_path, entry)
-			if sub_result:
-				dir.list_dir_end()
-				return sub_result
-		else:
-			var normalized_name:String = child_path.to_lower()
-			var normalized_entry:String = entry.to_lower()
-			if normalized_name.find(normalized_entry) != -1 and (file_name.ends_with(".tres") or file_name.ends_with(".res")):
-				var resource = ResourceLoader.load(child_path)
-				if resource and resource is ActorData:
-					dir.list_dir_end()
-					return resource
-		file_name = dir.get_next()
-	dir.list_dir_end()
-	return null
 
 func world_to_tile(world_position: Vector2) -> Vector2i:
 	return Vector2i(
@@ -176,97 +144,9 @@ func world_to_tile(world_position: Vector2) -> Vector2i:
 		int(floor((world_position.y ) / TILE_SIZE))
 	)
 
-func _ensure_state_viewed_tiles(state: PlayerState) -> Dictionary:
-	if not viewed_tiles.has(state):
-		viewed_tiles[state] = {}
-	return viewed_tiles[state]
-
-func _mark_viewed_tiles_for_object(object: GridObject) -> void:
-	if not object or not object.player_state:
-		return
-	var seen: Dictionary = _ensure_state_viewed_tiles(object.player_state)
-	var visited: Dictionary = {}
-	var queue: Array = []
-	for origin in object.get_covered_coords():
-		if not map_tiles.has(origin):
-			continue
-		queue.append([origin, 0])
-		visited[origin] = true
-
-	while queue.size() > 0:
-		var entry = queue.pop_front()
-		var coord: Vector2i = entry[0]
-		var distance: int = entry[1]
-		if distance > VIEW_RANGE:
-			continue
-		if map_tiles.has(coord):
-			seen[coord] = true
-		var tile: GameTile = map_tiles[coord]
-		if tile.tile_type == GameTile.TileType.WALL:
-			continue
-		if tile.has_unit_occupant and tile.unit_occupant and tile.unit_occupant != object:
-			continue
-
-		for dir in DIRECTIONS:
-			var neighbor: Vector2i = coord + dir
-			if visited.has(neighbor):
-				continue
-			if distance + 1 > VIEW_RANGE:
-				continue
-			if not map_tiles.has(neighbor):
-				continue
-			visited[neighbor] = true
-			queue.append([neighbor, distance + 1])
-
-func _is_tile_viewed_by_state(coord: Vector2i, state: PlayerState) -> bool:
-	if not viewed_tiles.has(state):
-		return false
-	return viewed_tiles[state].has(coord)
-
-func _is_object_visible_to_current_player(object: GridObject) -> bool:
-	if not object or not player_state:
-		return true
-	for coord in object.get_covered_coords():
-		if _is_tile_viewed_by_state(coord, player_state):
-			return true
-	return false
-
 func refresh_visibility() -> void:
-	update_fog_mask_texture()
-	for child in get_children():
-		if child is GridObject:
-			var obj := child as GridObject
-			obj.set_fog_visible(_is_object_visible_to_current_player(obj))
-
-func _initialize_fog_overlay() -> void:
-	if not fog_of_war:
-		push_warning("GridManager: FogOfWar node not found")
-		return
-	fog_of_war.texture = fog_of_war_texture
-	# fog_of_war.rect_size = Vector2(grid_size.x * TILE_SIZE, grid_size.y * TILE_SIZE)
-	var shader_material := fog_of_war.material as ShaderMaterial
-	shader_material.set_shader_parameter("grid_size", Vector2(grid_size.x, grid_size.y))
-	update_fog_mask_texture()
-
-
-func update_fog_mask_texture() -> void:
-	if not fog_of_war or grid_size.x <= 0 or grid_size.y <= 0:
-		return
-	var image :Image =Image.create(grid_size.x, grid_size.y, false, Image.FORMAT_R8) 
-	
-	for x in range(grid_size.x):
-		for y in range(grid_size.y):
-			var coord := grid_origin + Vector2i(x, y)
-			var value := 0
-			if player_state and _is_tile_viewed_by_state(coord, player_state):
-				value = 255
-			image.set_pixel(x, y, Color8(value, value, value, 255))
-	fog_of_war_texture = ImageTexture.create_from_image(image)  # Use FLAG_FILTER for smooth edges on the fog mask
-	if fog_of_war:
-		fog_of_war.texture = fog_of_war_texture
-		var mat := fog_of_war.material as ShaderMaterial
-		if mat:
-			mat.set_shader_parameter("grid_size", Vector2(grid_size.x, grid_size.y))
+	if visibility_manager:
+		visibility_manager.refresh(get_children(), map_tiles, player_state)
 
 func tile_to_world(tile_position: Vector2i) -> Vector2:
 	return Vector2(
@@ -325,9 +205,8 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 	for coord in new_coords:
 		_refresh_astar_for(coord, map_tiles[coord])
-	if (object.player_state == player_state):
-		_mark_viewed_tiles_for_object(object)
-		refresh_visibility()
+	if object.player_state == player_state and visibility_manager:
+		visibility_manager.refresh(get_children(), map_tiles, player_state)
 
 func ClearPosition(object: GridObject) -> void:
 	var coords: Array[Vector2i] = object.get_covered_coords()

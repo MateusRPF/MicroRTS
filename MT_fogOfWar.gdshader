@@ -1,29 +1,42 @@
 shader_type canvas_item;
 
-uniform vec2 grid_size = vec2(0.5, 0.5);
-uniform float softness = 1.0;
+uniform vec2 grid_size = vec2(16.0, 16.0);
+uniform float blur_radius = 3.0;
+uniform float edge_falloff = 0.6;
 uniform float max_alpha = 1;
+
+float gaussian(float x, float sigma) {
+    return exp(-0.5 * (x * x) / (sigma * sigma));
+}
 
 void fragment() {
     vec2 uv = UV;
-    vec2 delta = 1.0 / grid_size;
+    vec2 texel = 1.0 / grid_size;
+
+    float center = texture(TEXTURE, uv).r;
 
     float sum = 0.0;
-    int samples = 0;
-    for (int x = -2; x <= 2; x++) {
-        for (int y = -2; y <= 2; y++) {
-            vec2 offset = vec2(float(x), float(y)) * delta;
-            sum += texture(TEXTURE, clamp(uv + offset, vec2(0.0), vec2(1.0))).r;
-            samples++;
+    float weight = 0.0;
+    int radius = int(blur_radius);
+
+    for (int x = -radius; x <= radius; x++) {
+        for (int y = -radius; y <= radius; y++) {
+            vec2 offset = vec2(float(x), float(y)) * texel;
+            float w = gaussian(length(vec2(float(x), float(y))), blur_radius * 0.7);
+            sum += texture(TEXTURE, clamp(uv + offset, vec2(0.0), vec2(1.0))).r * w;
+            weight += w;
         }
     }
 
-    float blur = sum / float(samples);
-    float center = texture(TEXTURE, uv).r;
-    float visibility = smoothstep(softness, 1.0 - softness, blur);
-    float alpha = (1.0 - visibility) * max_alpha;
-    if (center > 0.5) {
+    float blur = sum / weight;
+    float fade = smoothstep(0.0, edge_falloff, blur);
+    float alpha = (1.0 - fade) * max_alpha;
+
+    // Fully clear visible tiles and apply partial fog to seen tiles.
+    if (center >= 1.0) {
         alpha = 0.0;
+    } else if (center >= 0.5) {
+        alpha = min(alpha, 0.5 * max_alpha);
     }
 
     COLOR = vec4(0.0, 0.0, 0.0, alpha);

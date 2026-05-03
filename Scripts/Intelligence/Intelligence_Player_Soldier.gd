@@ -28,7 +28,6 @@ func on_tick(owner: GridObject, holder: CIntelligenceHolder) -> void:
 
 
 
-	
 
 func on_start(_owner: GridObject, _holder: CIntelligenceHolder) -> void:
 	pass

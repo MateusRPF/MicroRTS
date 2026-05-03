@@ -12,6 +12,7 @@ texture_filter = 1
 script = ExtResource("1_uqqmm")
 grid_object_scene = ExtResource("2_gop")
 player_state = ExtResource("10_d7f3w")
+debug_draw = null
 
 [node name="Terrain" type="TileMapLayer" parent="." unique_id=2091239766]
 unique_name_in_owner = true
