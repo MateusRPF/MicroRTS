@@ -25,5 +25,6 @@ script = ExtResource("5_g3n4r")
 actor_name = "Corpse"
 description = "Freshly dead. Useful!"
 sprite = ExtResource("6_38m32")
+layer = 1
 modules = Array[ExtResource("1_38m32")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

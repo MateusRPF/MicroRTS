@@ -168,6 +168,8 @@ func get_next_stockpile()->bool:
 		var best_stockpile: CStockpile = null
 		var best_score = -INF
 		for obj in nearby_objects:
+			if obj.side != owner_executor.owner_object.side:
+				continue
 			var stockpile = obj.get_component(CStockpile)
 			if stockpile:
 				var score = evaluate_stockpile(stockpile)

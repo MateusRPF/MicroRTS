@@ -183,6 +183,24 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 	object.current_coord = newCoord
 	var new_coords: Array[Vector2i] = object.get_covered_coords()
 
+	if object.data and object.data.layer == ActorData.Layer.PROP:
+		for coord in new_coords:
+			if not map_tiles.has(coord):
+				push_error("Attempting to place prop at invalid tile coordinate: %s" % coord)
+				return
+			if map_tiles[coord].has_prop_occupant && map_tiles[coord].prop_occupant != object:
+				push_error("Attempting to place prop on tile already containing a prop: %s" % coord)
+				return
+
+		for coord in old_coords:
+			map_tiles[coord].has_prop_occupant = false
+			map_tiles[coord].prop_occupant = null
+
+		for coord in new_coords:
+			map_tiles[coord].has_prop_occupant = true
+			map_tiles[coord].prop_occupant = object
+		return
+
 	for coord in new_coords:
 		if not map_tiles.has(coord):
 			push_error("Attempting to move to invalid tile coordinate: %s" % coord)
@@ -208,6 +226,11 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 
 func ClearPosition(object: GridObject) -> void:
 	var coords: Array[Vector2i] = object.get_covered_coords()
+	if object.data and object.data.layer == ActorData.Layer.PROP:
+		for coord in coords:
+			map_tiles[coord].has_prop_occupant = false
+			map_tiles[coord].prop_occupant = null
+		return
 	for coord in coords:
 		map_tiles[coord].has_unit_occupant = false
 		map_tiles[coord].unit_occupant = null
@@ -224,6 +247,8 @@ func _draw() -> void:
 			color = Color(1, 0, 0, 0.5)
 		elif tile.has_unit_occupant:
 			color = Color(0, 1, 0, 0.5)
+		elif tile.has_prop_occupant:
+			color = Color(0, 0, 1, 0.4)
 		draw_rect(Rect2(tile.coord * TILE_SIZE, Vector2(TILE_SIZE, TILE_SIZE)), color)
 
 

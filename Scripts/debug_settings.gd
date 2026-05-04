@@ -18,7 +18,7 @@ var debug_categories: Dictionary = {
 	"CommandExecutor": true,
 	"PlayerController": true,
 	"Unit": true,
-	"Combat": true
+	"Combat": false
 }
 
 var selected_unit:GridObject

@@ -9,12 +9,14 @@ class_name ActorData
 @export var view_offset:Vector2i = Vector2i(0,0)
 @export var grid_size:Vector2i = Vector2i(1,1)
 @export var clearance: int = 0
+@export var layer: Layer = Layer.UNIT
 @export var modules: Array[ComponentData]
 @export var tags:Array[ActorTag]
 @export var costs: Dictionary[GameResource, int]
 
 @export var spawn_on_death: ActorData
 
+enum Layer { UNIT, PROP }
 enum Sides { PLAYER, NEUTRAL, ALLY, ENEMY }
 
 

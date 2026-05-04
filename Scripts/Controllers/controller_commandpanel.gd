@@ -73,6 +73,8 @@ func create_command_from_data(data:CommandData,executor:CCommandExecutor, target
 		tile = controller.grid_manager.map_tiles[target_pos]
 		if (tile):
 			target_object = tile.unit_occupant
+			if target_object == null:
+				target_object = tile.prop_occupant
 
 	var new_command = data.command_script.new(data,executor,target_pos,target_object)
 
@@ -89,6 +91,8 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 	var hovered_object:GridObject
 	if (tile.unit_occupant):
 		hovered_object = tile.unit_occupant
+	elif (tile.prop_occupant):
+		hovered_object = tile.prop_occupant
 
 	match command.target_mode: #TODO ADD ALL OTHERS
 			CommandData.Targetting.NONE:

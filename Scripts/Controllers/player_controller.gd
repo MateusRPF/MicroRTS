@@ -157,13 +157,33 @@ func _is_command_target_valid() -> bool:
 
 func _select_at_mouse() -> void:
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
-	var new_selection: Array[GridObject] = []
+	var tile: GameTile = grid_manager.map_tiles.get(hovered_coord)
+	if tile == null:
+		if not shift_held:
+			_set_selection([])
+		return
+
 	if shift_held:
-		new_selection = selected_objects.duplicate()
-	var tile = grid_manager.map_tiles[hovered_coord]
-	if tile and tile.unit_occupant and not new_selection.has(tile.unit_occupant):
-		new_selection.append(tile.unit_occupant)
-	_set_selection(new_selection)
+		var new_selection: Array[GridObject] = selected_objects.duplicate()
+		if tile.unit_occupant and not new_selection.has(tile.unit_occupant):
+			new_selection.append(tile.unit_occupant)
+		_set_selection(new_selection)
+		return
+
+	var unit: GridObject = tile.unit_occupant
+	var prop: GridObject = tile.prop_occupant
+	var unit_is_sole_selected: bool = selected_objects.size() == 1 and unit != null and selected_objects[0] == unit
+
+	if unit and not unit_is_sole_selected:
+		_set_selection([unit])
+		return
+	if unit_is_sole_selected and prop:
+		_set_selection([prop])
+		return
+	if not unit and prop:
+		_set_selection([prop])
+		return
+	_set_selection([])
 
 func _select_in_box() -> void:
 	var shift_held = Input.is_key_pressed(KEY_SHIFT)
