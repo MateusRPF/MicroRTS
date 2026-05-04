@@ -43,6 +43,11 @@ func on_command_aim_request(new_command: CommandData):
 
 	if aiming_command.target_mode == CommandData.Targetting.BUILD_SETUP:
 		current_state = ControlState.BUILDING
+	elif aiming_command.target_mode == CommandData.Targetting.NONE:
+		# Issue immediately if no targetting needed
+		command_controller.issue_aimed_command(selected_objects, aiming_command, Vector2i(-1, -1))
+		aiming_command = null
+		current_state = ControlState.IDLE
 	else:
 		current_state = ControlState.AIMING
 	_update_aiming_visual()
@@ -109,7 +114,7 @@ func _confirm_aimed_command():
 func _get_effective_target_coord() -> Vector2i:
 	if aiming_command is CommandData_BuildStructure:
 		var size: Vector2i = (aiming_command as CommandData_BuildStructure).get_footprint_size()
-		return hovered_coord + Vector2i(-((size.x - 1) / 2.0), size.y / 2)
+		return hovered_coord + Vector2i(-((size.x - 1) / 2), size.y / 2)
 	return hovered_coord
 
 func _cancel_aiming():

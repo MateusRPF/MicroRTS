@@ -17,6 +17,7 @@ func get_enabled_commands_for_actor(actor:GridObject) -> Array[CommandData]:
 			if not actor.get_component(script):
 				valid = false
 		if valid:
+			print("Command %s is valid for %s" % [command_data.command_script, actor.data.actor_name])
 			valid_commands.append(command_data)
 
 	return valid_commands
@@ -66,15 +67,21 @@ func _actor_can_issue(actor: GridObject, commandData: CommandData) -> bool:
 
 
 func create_command_from_data(data:CommandData,executor:CCommandExecutor, target_pos:Vector2i)->Command:
-	var tile = controller.grid_manager.map_tiles[target_pos]
-	var target_object:GridObject = tile.unit_occupant
+	var tile:GameTile = null
+	var target_object:GridObject = null
+	if (target_pos != Vector2i(-1,-1)):
+		tile = controller.grid_manager.map_tiles[target_pos]
+		if (tile):
+			target_object = tile.unit_occupant
 
 	var new_command = data.command_script.new(data,executor,target_pos,target_object)
-
 
 	return new_command
 
 func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i, command:CommandData) -> bool:
+	if command.target_mode == CommandData.Targetting.NONE:
+		return true
+	
 	var tile = controller.grid_manager.map_tiles[target_coord]
 	if not tile:
 		return false
@@ -123,6 +130,9 @@ func find_appropriate_command(executor:CCommandExecutor)-> CommandData:
 	var applicable_commands:Array[CommandData] = get_enabled_commands_for_actor(executor.owner_object)
 	var valid_commands_for_target:Array[CommandData]
 	for command:CommandData in applicable_commands:
+		if command.target_mode == CommandData.Targetting.NONE:
+			valid_commands_for_target.append(command)
+			continue
 		if (validate_command_on_coord(executor,controller.hovered_coord,command)):
 			valid_commands_for_target.append(command)
 

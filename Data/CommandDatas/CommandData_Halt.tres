@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://d2jv22wb71477"]
+
+[ext_resource type="Script" uid="uid://2qgnihdg2p0w" path="res://Scripts/UnitComponents/Commands/Command_Halt.gd" id="1_drcp6"]
+[ext_resource type="Texture2D" uid="uid://b7igpo75s83tk" path="res://Sprites/UI/CommandIcons/SPR_Command_Halt.tres" id="1_e8ie8"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="3_c4xie"]
+[ext_resource type="Script" uid="uid://dm2ly44wwf48c" path="res://Scripts/UnitComponents/CMover.gd" id="3_drcp6"]
+
+[resource]
+script = ExtResource("3_c4xie")
+display_name = "Halt"
+description = "Immediatelly stops the unit. It won't attack or pick up orders until issued another command."
+icon = ExtResource("1_e8ie8")
+target_mode = 0
+required_components = Array[Script]([ExtResource("3_drcp6")])
+command_script = ExtResource("1_drcp6")
+metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

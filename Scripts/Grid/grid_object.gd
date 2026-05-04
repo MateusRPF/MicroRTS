@@ -129,8 +129,8 @@ func _update_color_tint() -> void:
 		color_rect.color = Color(0, 0, 0, 0)
 
 
-func set_fog_visible(is_visible: bool) -> void:
-	visible = is_visible
+func set_fog_visible(newVis: bool) -> void:
+	visible = newVis
 
 func _on_global_tick() -> void:
 	OnTickReceived.emit()
