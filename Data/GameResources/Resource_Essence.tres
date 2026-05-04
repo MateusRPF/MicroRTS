@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="GameResource" format=3 uid="uid://bafrmfpon3pos"]
+
+[ext_resource type="Texture2D" uid="uid://dr2pyf66yku84" path="res://Sprites/UI/SPR_Essence.tres" id="1_mh5aa"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_6ismb"]
+
+[resource]
+script = ExtResource("2_6ismb")
+proper_name = "Essence"
+description = "Favor from the Undergod."
+icon = ExtResource("1_mh5aa")
+metadata/_custom_type_script = "uid://b21ghjgaar2q5"

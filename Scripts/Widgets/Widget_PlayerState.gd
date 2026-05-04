@@ -34,6 +34,10 @@ func populate_inventory() -> void:
 			add_or_update_entry(res, player_state.resourceInventory[res])
 
 func update_resource(resource: GameResource, amount: int) -> void:
+	if resource.proper_name == "Essence":
+		update_essence(amount)
+		return
+
 	if amount > 0:
 		add_or_update_entry(resource, amount)
 	else:

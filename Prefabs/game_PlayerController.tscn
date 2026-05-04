@@ -33,5 +33,6 @@ _command_registry = Array[ExtResource("4_k6ym1")]([ExtResource("5_5434e"), ExtRe
 
 [node name="AimingVisual" type="Sprite2D" parent="." unique_id=1350001677]
 unique_name_in_owner = true
-scale = Vector2(3, 3)
+z_index = 999
+scale = Vector2(2, 2)
 texture = ExtResource("7_qos5v")

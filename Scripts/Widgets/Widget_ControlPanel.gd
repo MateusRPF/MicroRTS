@@ -35,9 +35,7 @@ func _configure_panels():
 		_refresh_button_chrome(command_entry)
 
 func _on_hotkey_pressed(key: Key):
-
 	for commandEntry:CommandPanelEntry in command_entries:
-		print("Checking command %s with hotkey %s" % [commandEntry.data, key_command_map.get(commandEntry.data, "None")])
 		if commandEntry.data and key_command_map.get(commandEntry.data, null) == key:
 			_on_button_pressed(commandEntry)
 			break

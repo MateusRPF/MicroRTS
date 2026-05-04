@@ -36,9 +36,8 @@ func _process(delta: float) -> void:
 		return
 	tick_timer += delta
 	if tick_timer >= tick_rate:
-		tick_timer = 0.0
+		tick_timer -= tick_rate
 		TickSignal.emit()
-		DebugSettings.debug_print("Tick", "Tick at time: %f" % Time.get_ticks_msec())
 
 	# Handle input
 	if Input.is_action_just_pressed("speed_up"):
