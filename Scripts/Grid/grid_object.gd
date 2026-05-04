@@ -43,6 +43,8 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, 
 	GlobalTicker.TickSignal.connect(_on_global_tick)
 	assemble_from_data(actorData)
 	_update_color_tint()
+	if data.layer == ActorData.Layer.PROP:
+		z_index = -1
 
 	grid_manager.UpdatePosition(self, current_coord)
 
