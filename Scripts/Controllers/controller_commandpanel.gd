@@ -17,7 +17,6 @@ func get_enabled_commands_for_actor(actor:GridObject) -> Array[CommandData]:
 			if not actor.get_component(script):
 				valid = false
 		if valid:
-			print("Command %s is valid for %s" % [command_data.command_script, actor.data.actor_name])
 			valid_commands.append(command_data)
 
 	return valid_commands
@@ -48,7 +47,8 @@ func issue_aimed_command(selected_objects:Array[GridObject],commandData:CommandD
 		var executor:CCommandExecutor = object.get_component(CCommandExecutor)
 		if not executor:
 			continue
-		if not _actor_can_issue(object, commandData):
+		if not actor_can_issue(object, commandData):
+			print("Actor %s cannot issue command %s " %[object.data.actor_name,commandData.display_name])
 			continue
 		if (validate_command_on_coord(executor,target_coord,commandData)):
 			var new_command:Command = create_command_from_data(commandData,executor,target_coord)
@@ -56,13 +56,29 @@ func issue_aimed_command(selected_objects:Array[GridObject],commandData:CommandD
 				executor.queue_command(new_command)
 
 
-func _actor_can_issue(actor: GridObject, commandData: CommandData) -> bool:
-	if get_enabled_commands_for_actor(actor).has(commandData):
-		return true
+func actor_can_issue(actor: GridObject, commandData: CommandData) -> bool:
+
 	if commandData is CommandData_BuildStructure:
 		var builder: CBuilder = actor.get_component(CBuilder)
 		if builder and builder.buildable.has(commandData):
 			return true
+
+	if commandData is CommandData_IssueWorkOrder:
+		print("Validating CommandData_IssueWorkOrder")
+		var immediate_cost_resource = commandData.order.immediate_cost
+		var immediate_cost_value = commandData.order.immediate_cost_value
+		if controller.grid_manager.player_state.get_resource_value(immediate_cost_resource) < immediate_cost_value:
+			print("Validating CommandData_IssueWorkOrder - Immediate Cost failed.")
+			return false
+
+		var issuer:CWorkOrderIssuer = actor.get_component(CWorkOrderIssuer)
+		if (issuer and issuer.validate_work_order(commandData.order)):
+			print("Validating CommandData_IssueWorkOrder - accepted Issuer")
+			return true
+
+	if get_enabled_commands_for_actor(actor).has(commandData):
+		return true
+	
 	return false
 
 

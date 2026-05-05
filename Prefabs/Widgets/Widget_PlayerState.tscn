@@ -39,7 +39,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Pop" unique_id=1668034487]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("1_2r0hn")
 expand_mode = 1
@@ -57,7 +57,7 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Entry_Mana" unique_id=357437705]
-custom_minimum_size = Vector2(20, 20)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("3_7s3ui")
 expand_mode = 1

@@ -11,11 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://bwv385nbhrraq" path="res://Prefabs/Widgets/Widget_AttributeView.tscn" id="5_353ih"]
 [ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="5_eojcl"]
 [ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
+[ext_resource type="Script" uid="uid://jb2cf1yktrys" path="res://Scripts/UnitComponents/CWorkOrderIssuer.gd" id="8_olpi4"]
 [ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
-[ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="13_cuc"]
-[ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_ConstructionView.tscn" id="14_cvw"]
-[ext_resource type="Script" uid="uid://c3jbedmwonsab" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="15_breq"]
-[ext_resource type="PackedScene" path="res://Prefabs/Widgets/Widget_BuildRequirementsView.tscn" id="16_brv"]
+[ext_resource type="PackedScene" uid="uid://cqu3pm2hy2row" path="res://Prefabs/Widgets/Widget_WorkOrdersView.tscn" id="15_lmiyd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
 bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
@@ -48,9 +46,8 @@ widget_registry = {
 ExtResource("2_hbito"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
 ExtResource("3_fjt0s"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
 ExtResource("4_j7ygb"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
-ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView"),
-ExtResource("13_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView"),
-ExtResource("15_breq"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_BuildRequirementsView")
+ExtResource("5_eojcl"): NodePath("MarginContainer/SingleObject/VBoxContainer/HBoxContainer/Widget_InventoryView"),
+ExtResource("8_olpi4"): NodePath("MarginContainer/SingleObject/Container_WorkOrderView")
 }
 multiple_selection_view = ExtResource("12_ow81a")
 
@@ -68,11 +65,15 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Widget_ActorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1612727262]
+layout_mode = 2
+
+[node name="Widget_ActorView" parent="MarginContainer/SingleObject/VBoxContainer/HBoxContainer" unique_id=883937192 instance=ExtResource("2_mb4xq")]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="Widget_ConstructionView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1507468358 instance=ExtResource("14_cvw")]
+[node name="Widget_InventoryView" parent="MarginContainer/SingleObject/VBoxContainer/HBoxContainer" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Widget_ExecutorView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=1022687051 instance=ExtResource("6_353ih")]
@@ -85,24 +86,14 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Widget_AttributeView" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=2076027311 instance=ExtResource("5_353ih")]
+visible = false
 layout_mode = 2
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/SingleObject" unique_id=304232959]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="Widget_BuildRequirementsView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1416753354 instance=ExtResource("16_brv")]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/SingleObject" unique_id=898644431]
 layout_mode = 2
 
-[node name="Widget_InventoryView" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=1195157617 instance=ExtResource("4_fjt0s")]
+[node name="Container_WorkOrderView" parent="MarginContainer/SingleObject" unique_id=1947184250 instance=ExtResource("15_lmiyd")]
 layout_mode = 2
-
-[node name="Widget_Status" type="GridContainer" parent="MarginContainer/SingleObject/VBoxContainer2" unique_id=769494974]
-layout_mode = 2
-theme_override_constants/h_separation = 19
-columns = 2
-
-[node name="Node" type="Node" parent="MarginContainer/SingleObject" unique_id=947131525]
 
 [node name="MultiObject" type="GridContainer" parent="MarginContainer" unique_id=1398479506]
 unique_name_in_owner = true

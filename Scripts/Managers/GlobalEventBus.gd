@@ -20,6 +20,7 @@ signal essence_value_changed(new_value: int)
 signal control_value_changed(new_value: int)
 signal resource_inventory_changed(resource: GameResource, new_amount: int)
 
+var embodied_player_state:PlayerState
 
 # -- Movement & Logic --
 # Useful for the UI to know when to update position-based widgets

@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://b7w20d3qgpuk1"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_37b71"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="3_actor"]
+[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkIssuer.gd" id="3_p68fg"]
+[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="4_pxngr"]
+[ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="4_sprite"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_l6w7f"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="7_4bkr8"]
+
+[sub_resource type="Resource" id="Resource_8c1bp"]
+script = ExtResource("3_p68fg")
+metadata/_custom_type_script = "uid://bwinpf3rgsodd"
+
+[sub_resource type="Resource" id="Resource_5jso7"]
+script = ExtResource("7_4bkr8")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[resource]
+script = ExtResource("3_actor")
+actor_name = "Circle of Raising"
+description = "Raises Undead"
+sprite = ExtResource("4_sprite")
+view_offset = Vector2i(16, -16)
+grid_size = Vector2i(2, 2)
+modules = Array[ExtResource("1_cd")]([SubResource("Resource_8c1bp"), SubResource("Resource_5jso7")])
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

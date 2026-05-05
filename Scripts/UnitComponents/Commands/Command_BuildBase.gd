@@ -190,7 +190,7 @@ func _pick_next_stockpile() -> void:
 		return
 	var pool_has_any: bool = false
 	for res in needed:
-		if state.resourceInventory.get(res, 0) > 0:
+		if state.resource_inventory.get(res, 0) > 0:
 			pool_has_any = true
 			break
 	if not pool_has_any:
@@ -250,7 +250,7 @@ func _withdraw_from_stockpile(stockpile_obj: GridObject) -> void:
 	for res in target_requirements.needed_resources():
 		var need: int = target_requirements.remaining_need(res)
 		var unit_room: int = inventory.max_storage_per_entry - inventory.get_stored_qty(res)
-		var pool: int = state.resourceInventory.get(res, 0)
+		var pool: int = state.resource_inventory.get(res, 0)
 		var amount: int = min(need, min(unit_room, pool))
 		if amount > 0:
 			state.remove_resource(res, amount)

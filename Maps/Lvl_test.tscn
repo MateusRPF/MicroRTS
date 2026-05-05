@@ -4,28 +4,29 @@
 [ext_resource type="Resource" uid="uid://cg805kwk31uw5" path="res://Data/CommandDatas/CommandData_Attack.tres" id="3_7h1oy"]
 [ext_resource type="Resource" uid="uid://d2jv22wb71477" path="res://Data/CommandDatas/CommandData_Halt.tres" id="5_v4mhs"]
 [ext_resource type="PackedScene" uid="uid://bx3kv3un2jsmn" path="res://Prefabs/Widgets/Widget_ObjectInspector.tscn" id="8_70dqj"]
-[ext_resource type="Script" uid="uid://cd8yfxqc4yltq" path="res://Scripts/UnitComponents/CWoundable.gd" id="9_mgthj"]
+[ext_resource type="Script" uid="uid://cd8yfxqc4yltq" path="res://Scripts/UnitComponents/CWoundable.gd" id="9_qmu1d"]
 [ext_resource type="Script" uid="uid://c63t7qxi7f0jd" path="res://Scripts/Widgets/Widget_CoordinateView.gd" id="9_upx6b"]
+[ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_7h1oy"]
 [ext_resource type="Resource" uid="uid://b040ygjoar8hg" path="res://Data/CommandDatas/CommandData_Move.tres" id="10_c44cc"]
-[ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_rlgon"]
 [ext_resource type="Resource" uid="uid://cu60k5qe8hr83" path="res://Data/CommandDatas/CommandData_Harvest.tres" id="11_c44cc"]
 [ext_resource type="Script" uid="uid://wyn24v7ygtom" path="res://Scripts/Widgets/Widget_TickControl.gd" id="11_gab08"]
-[ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_jln6d"]
 [ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="11_jp3g8"]
 [ext_resource type="PackedScene" uid="uid://dfvm603euln60" path="res://Prefabs/game_PlayerController.tscn" id="11_rlgon"]
+[ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_v4mhs"]
 [ext_resource type="Texture2D" uid="uid://fx57nse38xm4" path="res://Sprites/UI/UIControls/SPR_UI_Faster.tres" id="12_c44cc"]
-[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="12_jp3g8"]
+[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="12_hx6vc"]
 [ext_resource type="PackedScene" uid="uid://lhy4cor5tj44" path="res://Prefabs/Widgets/Widget_PlayerState.tscn" id="13_1bk3d"]
 [ext_resource type="Texture2D" uid="uid://c7o27giyi5rvf" path="res://Sprites/UI/UIControls/SPR_UI_Pause.tres" id="13_gab08"]
+[ext_resource type="Script" uid="uid://jb2cf1yktrys" path="res://Scripts/UnitComponents/CWorkOrderIssuer.gd" id="13_r4b8g"]
 [ext_resource type="Texture2D" uid="uid://bkpv1hcxnk13c" path="res://Sprites/UI/UIControls/SPR_UI_Slower.tres" id="14_upx6b"]
 [ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="16_gab08"]
 [ext_resource type="PackedScene" uid="uid://ukqepnrxhbvw" path="res://Prefabs/Widgets/Widget_CommandPanel.tscn" id="17_c44cc"]
-[ext_resource type="Script" uid="uid://11xy1cqdryoc" path="res://Scripts/UnitComponents/CUnderConstruction.gd" id="18_cuc"]
-[ext_resource type="Script" uid="uid://c3jbedmwonsab" path="res://Scripts/UnitComponents/CBuildRequirements.gd" id="19_breq"]
 [ext_resource type="PackedScene" uid="uid://c0umrcpgjtmi1" path="res://Maps/Map_Test.tscn" id="22_cc4vf"]
 [ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
 [ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
+[ext_resource type="PackedScene" uid="uid://bpq8to7u51urx" path="res://Prefabs/gridObjectPrefab.tscn" id="24_v4mhs"]
 [ext_resource type="PackedScene" uid="uid://uvwrtjxt2vvd" path="res://Prefabs/VFX/VFX_Miss.tscn" id="25_47m3e"]
+[ext_resource type="Resource" uid="uid://g5fi8fy1iug5" path="res://Data/PlayerState_0.tres" id="25_hx6vc"]
 [ext_resource type="PackedScene" uid="uid://crkjc8t7cw5mx" path="res://Prefabs/VFX/VFX_Projectile.tscn" id="26_1nj4d"]
 [ext_resource type="Resource" uid="uid://bn7x3krawrpf4" path="res://Data/CommandDatas/CommandData_Build.tres" id="lvl_build"]
 
@@ -47,7 +48,7 @@ corner_radius_bottom_left = 3
 corner_detail = 5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w3o1q"]
-size = Vector2(3228, 2277)
+size = Vector2(1276, 722.5)
 
 [node name="CoreGame" type="Control" unique_id=1295566834]
 texture_filter = 1
@@ -76,9 +77,15 @@ alignment = 2
 
 [node name="Widget_Tooltip" parent="PlayerHUDLayer/HUD/VBoxContainer" unique_id=1053873905 instance=ExtResource("1_w3o1q")]
 layout_mode = 2
+size_flags_horizontal = 0
 
-[node name="CommandPanel" parent="PlayerHUDLayer/HUD/VBoxContainer" unique_id=1232269199 node_paths=PackedStringArray("button_command_map") instance=ExtResource("17_c44cc")]
+[node name="HBoxContainer" type="HBoxContainer" parent="PlayerHUDLayer/HUD/VBoxContainer" unique_id=1704164371]
 layout_mode = 2
+
+[node name="CommandPanel" parent="PlayerHUDLayer/HUD/VBoxContainer/HBoxContainer" unique_id=1232269199 node_paths=PackedStringArray("button_command_map") instance=ExtResource("17_c44cc")]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+size_flags_vertical = 1
 button_command_map = {
 NodePath("MarginContainer/GridContainer/Button_AbilityQ"): null,
 NodePath("MarginContainer/GridContainer/Button_AbilityW"): null,
@@ -94,15 +101,15 @@ NodePath("MarginContainer/GridContainer/Button_SwitchDraft"): null,
 NodePath("MarginContainer/GridContainer/Button_Harvest"): ExtResource("11_c44cc")
 }
 
-[node name="Inspector" parent="PlayerHUDLayer/HUD" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
+[node name="Inspector" parent="PlayerHUDLayer/HUD/VBoxContainer/HBoxContainer" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
 layout_mode = 2
+size_flags_vertical = 1
 widget_registry = {
-ExtResource("9_mgthj"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
-ExtResource("10_rlgon"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
-ExtResource("11_jln6d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
-ExtResource("12_jp3g8"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_InventoryView"),
-ExtResource("18_cuc"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ConstructionView"),
-ExtResource("19_breq"): NodePath("MarginContainer/SingleObject/VBoxContainer2/Widget_BuildRequirementsView")
+ExtResource("9_qmu1d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
+ExtResource("10_7h1oy"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
+ExtResource("11_v4mhs"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
+ExtResource("12_hx6vc"): NodePath("MarginContainer/SingleObject/VBoxContainer/HBoxContainer/Widget_InventoryView"),
+ExtResource("13_r4b8g"): NodePath("MarginContainer/SingleObject/Container_WorkOrderView")
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]
@@ -174,11 +181,13 @@ grid_manager = NodePath("../GameLevel")
 camera_bounds = NodePath("../CameraBounds")
 
 [node name="GameLevel" parent="." unique_id=1620061272 instance=ExtResource("22_cc4vf")]
+grid_object_scene = ExtResource("24_v4mhs")
+player_state = ExtResource("25_hx6vc")
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=643080287]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CameraBounds" unique_id=907139458]
-position = Vector2(1614, 1138.5)
+position = Vector2(638, 357.75)
 shape = SubResource("RectangleShape2D_w3o1q")
 debug_color = Color(0, 0.5950001, 0.7, 0)
 

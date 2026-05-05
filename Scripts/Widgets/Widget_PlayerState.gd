@@ -10,7 +10,7 @@ var inventory_entries: Dictionary[GameResource, Node] = {}
 
 func _ready() -> void:
 	if player_state:
-		update_essence(player_state.current_essenceValue)
+		update_essence(player_state.get_resource_value_by_name("Essence"))
 		update_control()
 		populate_inventory()
 		GameplayEvents.essence_value_changed.connect(update_essence)
@@ -29,9 +29,9 @@ func populate_inventory() -> void:
 		child.queue_free()
 	inventory_entries.clear()
 	
-	for res in player_state.resourceInventory:
-		if player_state.resourceInventory[res] > 0:
-			add_or_update_entry(res, player_state.resourceInventory[res])
+	for res in player_state.resource_inventory:
+		if player_state.resource_inventory[res] > 0:
+			add_or_update_entry(res, player_state.resource_inventory[res])
 
 func update_resource(resource: GameResource, amount: int) -> void:
 	if resource.proper_name == "Essence":

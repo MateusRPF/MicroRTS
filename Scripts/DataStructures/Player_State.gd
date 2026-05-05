@@ -4,29 +4,36 @@ class_name PlayerState
 
 var current_controlValue:int = 0
 var max_controlValue:int = 100
-var current_essenceValue:int = 0
 
-var resourceInventory:Dictionary[GameResource, int] = {}
+var resource_inventory:Dictionary[GameResource, int] = {}
 
 
 func _init():
-	resourceInventory.clear()
+	resource_inventory.clear()
+
+func get_resource_value_by_name(rsc_name:String)->int:
+	for rsc:GameResource in resource_inventory:
+		if rsc.proper_name.to_lower() == rsc_name.to_lower():
+			return resource_inventory[rsc]
+	return 0
 
 
-func modify_essence(amount:int):
-	current_essenceValue += amount
-	GameplayEvents.essence_value_changed.emit(current_essenceValue)
+func get_resource_value(rsc:GameResource)->int:
+	if resource_inventory.has(rsc):
+		return resource_inventory[rsc]
+	return 0
 
 func add_resource(resource:GameResource, amount:int):
-	if resource in resourceInventory:
-		resourceInventory[resource] += amount
+
+	if resource in resource_inventory:
+		resource_inventory[resource] += amount
 	else:
-		resourceInventory[resource] = amount
+		resource_inventory[resource] = amount
 		
-	GameplayEvents.resource_inventory_changed.emit(resource, resourceInventory[resource])
+	GameplayEvents.resource_inventory_changed.emit(resource, resource_inventory[resource])
 
 func remove_resource(resource:GameResource, amount:int):
-	if resource in resourceInventory:
-		resourceInventory[resource] = max(0, resourceInventory[resource] - amount)
-		GameplayEvents.resource_inventory_changed.emit(resource, resourceInventory[resource])	
-	GameplayEvents.resource_inventory_changed.emit(resource, resourceInventory[resource])
+	if resource in resource_inventory:
+		resource_inventory[resource] = max(0, resource_inventory[resource] - amount)
+		GameplayEvents.resource_inventory_changed.emit(resource, resource_inventory[resource])	
+	GameplayEvents.resource_inventory_changed.emit(resource, resource_inventory[resource])

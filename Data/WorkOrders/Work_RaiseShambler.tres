@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="WorkOrderData" format=3 uid="uid://bvw6ue5wef7td"]
+
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_puixp"]
+[ext_resource type="Resource" uid="uid://hr7gf5x37cqi" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Shambler.tres" id="2_48t1e"]
+[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="3_48t1e"]
+[ext_resource type="Resource" uid="uid://bafrmfpon3pos" path="res://Data/GameResources/Resource_Essence.tres" id="4_scych"]
+
+[sub_resource type="GDScript" id="GDScript_puixp"]
+
+[resource]
+script = ExtResource("3_48t1e")
+name = "Raise Shambler"
+immediate_cost_value = 20
+work_required = 50
+associated_actorData = ExtResource("2_48t1e")
+metadata/_custom_type_script = "uid://dv7pwfaonhwmj"

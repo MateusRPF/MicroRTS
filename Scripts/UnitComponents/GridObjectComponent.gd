@@ -65,6 +65,6 @@ func _process(_delta: float) -> void:
 	if _debug_proxy:
 		_debug_proxy.queue_redraw()
 
-func on_damaged(opponent:GridObject) -> void:
+func on_damaged(_opponent:GridObject) -> void:
 	# For components that want to react to the owner being damaged.
 	pass

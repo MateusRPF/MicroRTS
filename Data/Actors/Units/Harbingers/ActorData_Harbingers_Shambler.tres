@@ -1,6 +1,7 @@
 [gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://hr7gf5x37cqi"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Resource" uid="uid://car75rl0a54rc" path="res://Data/GameResources/Resource_Carcass.tres" id="2_8xkei"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="2_attrs"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="4_mover"]
@@ -80,7 +81,10 @@ metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
 [resource]
 script = ExtResource("14_actor")
 actor_name = "Risen"
-description = "A corpse, reanimated for some nefarious purpose."
+description = "Shamblers are slow and expensive, but are hardy and useful as laborers."
 sprite = ExtResource("15_sprite")
 modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
+costs = Dictionary[ExtResource("5_qpx54"), int]({
+ExtResource("2_8xkei"): 1
+})
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

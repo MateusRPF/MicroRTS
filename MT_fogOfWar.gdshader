@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 uniform vec2 grid_size = vec2(16.0, 16.0);
-uniform float blur_radius = 3.0;
+uniform float blur_radius = 1;
 uniform float edge_falloff = 0.6;
 uniform float max_alpha = 1;
 

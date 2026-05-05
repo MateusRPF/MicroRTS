@@ -1,7 +1,9 @@
 [gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://prnuj1m30t66"]
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Resource" uid="uid://dudqhrprdnfic" path="res://Data/GameResources/Resource_Bones.tres" id="2_1ft6g"]
 [ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="2_attrs"]
+[ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="3_82s3e"]
 [ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="3_inv"]
 [ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="4_mover"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="5_d3j0j"]
@@ -80,7 +82,11 @@ metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
 [resource]
 script = ExtResource("14_actor")
 actor_name = "Skeleton Archer"
-description = "whar"
+description = "Skeletons given bows. Slight more intelligent than minions, and great military support."
 sprite = ExtResource("15_sprite")
 modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
+costs = Dictionary[ExtResource("5_d3j0j"), int]({
+ExtResource("2_1ft6g"): 100,
+ExtResource("3_82s3e"): 70
+})
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

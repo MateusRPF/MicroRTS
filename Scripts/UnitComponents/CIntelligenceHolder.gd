@@ -3,6 +3,7 @@ class_name CIntelligenceHolder
 
 var executor: CCommandExecutor = null
 var held_intelligence: IntelligenceBase
+var takes_work_orders:bool = true
 var blackboard: Dictionary = {}
 
 

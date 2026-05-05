@@ -24,7 +24,6 @@ func _on_tick_received() -> void:
 	
 	generation_progress += GlobalTicker.tick_rate / generation_interval_seconds
 	if generation_progress >= 1.0:
-		print("After %f seconds, generating %d of resource %s at second %f" % [generation_interval_seconds, amount_per_generation, resource.proper_name	, Time.get_ticks_msec() / 1000.0	])
 		generation_progress -= 1.0
 		if owner_object.player_state:
 			owner_object.player_state.add_resource(resource, amount_per_generation)

@@ -1,0 +1,90 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://cfkrjqg5niogl"]
+
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_j7m7v"]
+[ext_resource type="Resource" uid="uid://car75rl0a54rc" path="res://Data/GameResources/Resource_Carcass.tres" id="2_o00x7"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="3_lfxfq"]
+[ext_resource type="Script" uid="uid://b40p573hfvm6v" path="res://Scripts/DataStructures/ComponentData/ComponentData_AttributeSet.gd" id="4_ukqe7"]
+[ext_resource type="Script" uid="uid://bslstqgk7go7j" path="res://Scripts/DataStructures/ComponentData/ComponentData_Inventory.gd" id="5_ue1yl"]
+[ext_resource type="Script" uid="uid://bmuke1nuwo0qc" path="res://Scripts/DataStructures/ComponentData/ComponentData_Mover.gd" id="6_qm0ni"]
+[ext_resource type="Script" uid="uid://cyj0feijn3m44" path="res://Scripts/DataStructures/ComponentData/ComponentData_Harvester.gd" id="7_jomak"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="8_44m7l"]
+[ext_resource type="Script" uid="uid://40q3s0vdavqw" path="res://Scripts/DataStructures/ComponentData/ComponentData_StateMachine.gd" id="9_rth3b"]
+[ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_m6sk3"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="11_day1x"]
+[ext_resource type="Resource" uid="uid://bppw8r3iwyl24" path="res://Data/CommandDatas/CommandData_Build_Stockpile.tres" id="12_exkrk"]
+[ext_resource type="Script" uid="uid://rt43ydbdv6x4" path="res://Scripts/DataStructures/ComponentData/ComponentData_Builder.gd" id="13_62yvh"]
+[ext_resource type="Script" uid="uid://bkymwg55yft4y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IdleDeposit.gd" id="14_r4gnc"]
+[ext_resource type="Script" uid="uid://7dy3oolv1jl" path="res://Scripts/DataStructures/ComponentData/ComponentData_CarryVisual.gd" id="15_ecfjs"]
+[ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="16_75ire"]
+[ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="17_3csoa"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="18_ha0in"]
+[ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="19_guuaq"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="20_503wn"]
+
+[sub_resource type="Resource" id="Mod_Attrs"]
+script = ExtResource("4_ukqe7")
+attrs = Dictionary[int, int]({
+0: 20,
+1: 2,
+2: 2,
+3: 1,
+4: 10,
+5: 0,
+6: 2,
+7: 25
+})
+metadata/_custom_type_script = "uid://b40p573hfvm6v"
+
+[sub_resource type="Resource" id="Mod_Inv"]
+script = ExtResource("5_ue1yl")
+metadata/_custom_type_script = "uid://bslstqgk7go7j"
+
+[sub_resource type="Resource" id="Mod_Mover"]
+script = ExtResource("6_qm0ni")
+metadata/_custom_type_script = "uid://bmuke1nuwo0qc"
+
+[sub_resource type="Resource" id="Mod_Harv"]
+script = ExtResource("7_jomak")
+metadata/_custom_type_script = "uid://cyj0feijn3m44"
+
+[sub_resource type="Resource" id="Mod_Exec"]
+script = ExtResource("8_44m7l")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[sub_resource type="Resource" id="Mod_SM"]
+script = ExtResource("9_rth3b")
+metadata/_custom_type_script = "uid://40q3s0vdavqw"
+
+[sub_resource type="Resource" id="Mod_Wound"]
+script = ExtResource("10_m6sk3")
+metadata/_custom_type_script = "uid://b75xfdnwu8eig"
+
+[sub_resource type="Resource" id="Mod_Builder"]
+script = ExtResource("13_62yvh")
+buildable = Array[ExtResource("11_day1x")]([ExtResource("12_exkrk")])
+
+[sub_resource type="Resource" id="Mod_IdleDeposit"]
+script = ExtResource("14_r4gnc")
+
+[sub_resource type="Resource" id="Mod_CarryVisual"]
+script = ExtResource("15_ecfjs")
+
+[sub_resource type="Resource" id="Mod_Attacker"]
+script = ExtResource("16_75ire")
+metadata/_custom_type_script = "uid://n0f88etvtcyy"
+
+[sub_resource type="Resource" id="Resource_qua60"]
+script = ExtResource("17_3csoa")
+default_intelligence = 2
+metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
+
+[resource]
+script = ExtResource("18_ha0in")
+actor_name = "Risen"
+description = "A corpse, reanimated for some nefarious purpose."
+sprite = ExtResource("19_guuaq")
+modules = Array[ExtResource("3_lfxfq")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
+costs = Dictionary[ExtResource("1_j7m7v"), int]({
+ExtResource("2_o00x7"): 1
+})
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

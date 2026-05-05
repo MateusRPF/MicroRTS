@@ -39,7 +39,7 @@ func _ready() -> void:
 	visibility_manager = GridVisibility.new()
 	add_child(visibility_manager)
 	visibility_manager.initialize(fog_of_war, grid_size, grid_origin, TILE_SIZE)
-
+	GameplayEvents.embodied_player_state = player_state
 	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL, null)
 	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY, null)
 	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
@@ -221,7 +221,7 @@ func UpdatePosition(object: GridObject, newCoord: Vector2i) -> void:
 		_refresh_astar_for(coord, map_tiles[coord])
 	for coord in new_coords:
 		_refresh_astar_for(coord, map_tiles[coord])
-	if object.player_state == player_state and visibility_manager:
+	if  visibility_manager:
 		visibility_manager.refresh(get_children(), map_tiles, player_state)
 
 func ClearPosition(object: GridObject) -> void:

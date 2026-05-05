@@ -26,4 +26,5 @@ description = "A locked barrier. Attack to destroy it."
 sprite = ExtResource("5_1vclo")
 clearance = 1
 modules = Array[ExtResource("1_dl8ji")]([SubResource("Resource_o6lbb"), SubResource("Resource_s3jkb")])
+blocks_view = true
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

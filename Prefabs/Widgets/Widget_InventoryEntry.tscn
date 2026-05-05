@@ -28,7 +28,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_dnwpq")
 
 [node name="Image_ResourceSprite" type="TextureRect" parent="HBoxContainer/PanelContainer" unique_id=1014928291]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4

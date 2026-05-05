@@ -7,7 +7,7 @@ var grid_size: Vector2i = Vector2i.ZERO
 var grid_origin: Vector2i = Vector2i.ZERO
 var tile_size: int = 32
 
-const VIEW_RANGE: int = 6
+const VIEW_RANGE: int = 8
 const DIRECTIONS: Array[Vector2i] = [
 	Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1),
 	Vector2i(1, 1), Vector2i(-1, 1), Vector2i(1, -1), Vector2i(-1, -1)
@@ -89,8 +89,11 @@ func _mark_viewed_tiles_for_object(object: GridObject, map_tiles:Dictionary, out
 		var tile: GameTile = map_tiles[coord]
 		if tile.tile_type == GameTile.TileType.WALL:
 			continue
-		if tile.has_unit_occupant and tile.unit_occupant and tile.unit_occupant != object:
-			continue
+		if  tile.unit_occupant and tile.unit_occupant != object:
+			if (tile.unit_occupant.data.blocks_view):
+				continue
+			if (distance > VIEW_RANGE -5):
+				continue
 		for dir in DIRECTIONS:
 			var neighbor: Vector2i = coord + dir
 			if visited.has(neighbor):
@@ -125,7 +128,7 @@ func update_fog_mask_texture(player_state: PlayerState) -> void:
 			if current.has(coord):
 				value = Color(1, 0, 0, 1)
 			elif seen.has(coord):
-				value = Color(0.2, 0, 0, 1)
+				value = Color(0.3, 0, 0, 1)
 			image.set_pixel(x, y, value)
 
 	fog_of_war_texture = ImageTexture.create_from_image(image)

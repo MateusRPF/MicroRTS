@@ -6,6 +6,7 @@ signal on_pressed()
 signal on_hovered()
 signal on_released()
 var tooltip_config:TooltipConfiguration
+var enabled:bool = false
 
 # -- Visual States --
 @export var normal_tint: Color = Color(1, 1, 1, 0):
@@ -51,11 +52,13 @@ func _ready() -> void:
 		mouse_exited.connect(_on_mouse_exited)
 
 func disable_button():
+	enabled = false
 	var bg = get_node_or_null("%ColorRect")
 	self.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	if bg: bg.color = disabled_tint
 
 func enable_button():
+	enabled = true
 	var bg = get_node_or_null("%ColorRect")
 	self.mouse_filter = Control.MOUSE_FILTER_STOP
 	if bg: bg.color = normal_tint
@@ -65,14 +68,12 @@ func enable_button():
 func _on_mouse_entered() -> void:
 	var bg = get_node_or_null("%ColorRect")
 	bg.color = hover_tint
-	print("Hovered button")
 	if (tooltip_config):
 		GameplayEvents.UI_tooltip_requested.emit(tooltip_config)
 	on_hovered.emit()
 
 func _on_mouse_exited() -> void:
 	var bg = get_node_or_null("%ColorRect")
-	print("Exited button")
 	if (tooltip_config):
 		GameplayEvents.UI_tooltip_closed.emit()
 	if bg: bg.color = normal_tint
@@ -81,7 +82,6 @@ func _gui_input(event: InputEvent) -> void:
 	if Engine.is_editor_hint(): return
 	
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
-		print("Pressed button")
 		var bg = get_node_or_null("%ColorRect")
 		if event.pressed:
 			if bg: bg.color = pressed_tint

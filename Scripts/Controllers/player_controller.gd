@@ -32,7 +32,6 @@ func _ready() -> void:
 	GameplayEvents.UI_command_requested.connect(on_command_aim_request)
 
 func on_command_aim_request(new_command: CommandData):
-	print("Command was requested! %s" %[new_command.display_name])
 	aiming_command = new_command
 
 	# Clear existing ghosts if any
@@ -45,6 +44,7 @@ func on_command_aim_request(new_command: CommandData):
 		current_state = ControlState.BUILDING
 	elif aiming_command.target_mode == CommandData.Targetting.NONE:
 		# Issue immediately if no targetting needed
+		print("Command request for empty aim")
 		command_controller.issue_aimed_command(selected_objects, aiming_command, Vector2i(-1, -1))
 		aiming_command = null
 		current_state = ControlState.IDLE

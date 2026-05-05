@@ -6,7 +6,7 @@ var command_entries: Array[CommandPanelEntry]
 var command_controller: CommandController
 @export var key_command_map: Dictionary[CommandData, Key]
 
-var _current_object: GridObject = null
+var _current_objects: Array[GridObject]
 var _in_submenu: bool = false
 
 
@@ -48,9 +48,14 @@ func _input(event):
 func _refresh_button_chrome(entry: CommandPanelEntry):
 	if entry.data:
 		entry.button.icon = entry.data.icon
+		
+		if (entry.data is CommandData_IssueWorkOrder):	
+			entry.button.tooltip_config = entry.data.order.get_tooltip_config()
+			return
 		entry.button.tooltip_config = TooltipConfiguration.new()
 		entry.button.tooltip_config.title = entry.data.display_name
 		entry.button.tooltip_config.description = entry.data.description
+
 	else:
 		entry.button.icon = null
 		entry.button.tooltip_config = null
@@ -63,17 +68,42 @@ func _on_button_pressed(entry: CommandPanelEntry):
 		_enter_submenu(entry.data)
 		return
 	var was_submenu := _in_submenu
-	GameplayEvents.UI_command_requested.emit(entry.data)
-	if was_submenu:
-		_reset_to_root_menu()
-		if _current_object:
-			_enable_buttons_for_actor(_current_object)
+
+	if validate_request(entry.data):
+		GameplayEvents.UI_command_requested.emit(entry.data)
+		if was_submenu:
+			_reset_to_root_menu()
+	else:
+		do_fail(entry)
+	
+
+
+
+func validate_request(command_data:CommandData)->bool:
+	for object in _current_objects:
+		if command_controller.actor_can_issue(object,command_data):
+			return true
+	return false
+
+
+
+
+func do_fail(entry: CommandPanelEntry):
+
+	entry.button.self_modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	entry.button.self_modulate = Color.WHITE
+	await get_tree().create_timer(0.1).timeout
+	entry.button.self_modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	entry.button.self_modulate = Color.WHITE
+	pass
 
 
 func _enter_submenu(root: CommandData):
-	if not _current_object:
+	if _current_objects.size() == 0:
 		return
-	var builder: CBuilder = _current_object.get_component(CBuilder)
+	var builder: CBuilder = _current_objects[0].get_component(CBuilder)
 	var sublist: Array[CommandData]
 	if builder:
 		sublist = builder.buildable
@@ -94,9 +124,7 @@ func _enter_submenu(root: CommandData):
 
 func _reset_to_root_menu():
 	_in_submenu = false
-	for entry in command_entries:
-		entry.data = button_command_map[entry.button]
-		_refresh_button_chrome(entry)
+	reset_view()
 
 
 func _enable_buttons_for_actor(object: GridObject):
@@ -107,10 +135,30 @@ func _enable_buttons_for_actor(object: GridObject):
 			if entry.data == available_command:
 				entry.button.enable_button()
 
+	var work_issuer:CWorkOrderIssuer = object.get_component(CWorkOrderIssuer)
+	if (work_issuer):
+		print("Enabling commands for an issuer.")
+		var available_work_orders:Array[WorkOrderData] = work_issuer.available_work_orders
+
+		for i in range(min(command_entries.size(), available_work_orders.size())):
+			var entry =  command_entries[i]
+			if entry.button.enabled == false:
+				var work_order = available_work_orders[i]
+				entry.data = CommandData_IssueWorkOrder.new()
+				entry.data.display_name = work_order.name
+				entry.data.icon = work_order.icon
+				entry.data.command_script = Command_IssueWorkOrder
+				entry.data.order = work_order
+				if (work_order.type == WorkOrderData.WorkOrderType.RECRUIT or work_order.type == WorkOrderData.WorkOrderType.UPGRADE):
+					entry.data.icon = work_order.associated_actorData.sprite
+					entry.data.description = work_order.associated_actorData.description
+				
+				entry.button.enable_button()
+				_refresh_button_chrome(entry)
 
 func _clear_view() -> void:
 	self.visible = false
-	_current_object = null
+	_current_objects.clear()
 	_in_submenu = false
 
 
@@ -118,15 +166,22 @@ func _disable_all_buttons():
 	for button in button_command_map:
 		button.disable_button()
 
+func reset_view():
+	if _current_objects.size() == 1:
+		_single_object_view(_current_objects[0])
+	if _current_objects.size() > 1:
+		_multiple_object_view(_current_objects)
+
 
 func _single_object_view(object: GridObject) -> void:
-	_current_object = object
-	_reset_to_root_menu()
+	_current_objects.clear()
+	_current_objects.append(object)
+	_in_submenu = false
 	_enable_buttons_for_actor(object)
 
 
 func _multiple_object_view(objects: Array[GridObject]) -> void:
-	_current_object = null
+	_current_objects.clear()
 	_reset_to_root_menu()
 	_disable_all_buttons()
 	self.visible = true

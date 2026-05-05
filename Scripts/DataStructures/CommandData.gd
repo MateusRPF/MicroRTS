@@ -5,7 +5,7 @@ class_name CommandData
 @export var display_name: String = "Move"
 @export var description: String = "Move"
 @export var icon: Texture2D
-@export var target_mode: Targetting = Targetting.EMPTY_TILE
+@export var target_mode: Targetting = Targetting.NONE
 @export var priority = 1 #when two commands apply, choose the one with highest priority.
 @export var required_components: Array[Script]
 @export var command_script:Script

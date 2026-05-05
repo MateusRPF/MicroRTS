@@ -13,6 +13,7 @@ class_name ActorData
 @export var modules: Array[ComponentData]
 @export var tags:Array[ActorTag]
 @export var costs: Dictionary[GameResource, int]
+@export var blocks_view:bool = false
 
 @export var spawn_on_death: ActorData
 

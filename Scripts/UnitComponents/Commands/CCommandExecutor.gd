@@ -13,6 +13,8 @@ var tick_count:int = 0
 func initialize_component(actor: GridObject) -> void:
 	super.initialize_component(actor)
 
+
+
 func queue_command(newCommand: Command, force:bool = true) -> void:
 	newCommand.owner_executor = self
 	if force:

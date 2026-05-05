@@ -1,6 +1,7 @@
 extends RefCounted
 class_name IntelligenceBase
 
+
 func on_tick(_owner: GridObject, _holder: CIntelligenceHolder) -> void:
 	# To be overridden by subclasses
 	pass
