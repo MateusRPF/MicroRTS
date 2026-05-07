@@ -7,7 +7,6 @@ var harvester: CHarvester = null
 var state_machine: CStateMachine = null
 
 var ideal_resource:GameResource
-var cached_path: Array[Vector2i] = []
 
 const SEARCH_RADIUS = 20
 
@@ -37,11 +36,11 @@ func tick() -> void:
 		HarvestSteps.FINDING_RESOURCE:
 			if (target_resource):
 				current_step = HarvestSteps.APPROACHING
-				return
 			if get_next_node():
 				current_step = HarvestSteps.APPROACHING
 			else:
 				finish_command()
+				
 		HarvestSteps.APPROACHING:
 			if is_instance_valid(target_resource) and is_instance_valid(target_resource.owner_object):
 				if harvester.can_harvest(target_resource):

@@ -206,6 +206,7 @@ func play_interaction_with(target: GridObject, shake_target: bool = true, durati
 	_interact_tween.tween_property(pivot, "position", Vector2.ZERO, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
+
 func play_shake() -> void:
 	var sprite: Node2D = get_node_or_null("%Sprite")
 	if not sprite:
@@ -238,3 +239,22 @@ func _play_flash(color: Color) -> void:
 	sprite.modulate = color
 	_hit_flash_tween = sprite.create_tween()
 	_hit_flash_tween.tween_property(sprite, "modulate", Color(1, 1, 1), HIT_FLASH_DURATION)
+
+
+func get_perimeter() -> Array[Vector2i]:
+	var footprint_set: Dictionary = {}
+	
+	for coord in get_covered_coords():
+		footprint_set[coord] = true
+	var perimeter: Array[Vector2i] = []
+	var seen: Dictionary = {}
+	for coord in get_covered_coords():
+		for direction in GridManager.DIRECTIONS:
+			var neighbor: Vector2i = coord + direction
+			if footprint_set.has(neighbor):
+				continue
+			if seen.has(neighbor):
+				continue
+			seen[neighbor] = true
+			perimeter.append(neighbor)
+	return perimeter

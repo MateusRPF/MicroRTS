@@ -113,7 +113,6 @@ ExtResource("13_r4b8g"): NodePath("MarginContainer/SingleObject/Container_WorkOr
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]
-visible = false
 offset_left = 447.0
 offset_top = 552.0
 offset_right = 488.0

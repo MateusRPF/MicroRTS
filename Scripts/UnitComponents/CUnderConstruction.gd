@@ -54,19 +54,3 @@ func _refresh_visual() -> void:
 	bar.value = current_progress
 	bar.visible = not is_complete()
 
-
-func shake() -> void:
-	if not owner_object:
-		return
-	var sprite: Node2D = owner_object.get_node_or_null("%Sprite")
-	if not sprite:
-		return
-	if _shake_tween and _shake_tween.is_running():
-		_shake_tween.kill()
-	sprite.position.x = 0
-	_shake_tween = sprite.create_tween()
-	var step: float = SHAKE_DURATION * 0.25
-	_shake_tween.tween_property(sprite, "position:x", SHAKE_MAGNITUDE, step)
-	_shake_tween.tween_property(sprite, "position:x", -SHAKE_MAGNITUDE, step)
-	_shake_tween.tween_property(sprite, "position:x", SHAKE_MAGNITUDE * 0.5, step)
-	_shake_tween.tween_property(sprite, "position:x", 0.0, step)

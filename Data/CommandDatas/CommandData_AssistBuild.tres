@@ -1,15 +1,13 @@
-[gd_resource type="Resource" script_class="CommandData" format=3]
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://h866iiqkgrhb"]
 
-[ext_resource type="Script" path="res://Scripts/DataStructures/CommandData.gd" id="1_cd"]
-[ext_resource type="Texture2D" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/CBuilder.gd" id="3_builder"]
-[ext_resource type="Script" path="res://Scripts/UnitComponents/Commands/Command_AssistBuild.gd" id="4_cmd"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://bxch5wvyj520v" path="res://Scripts/UnitComponents/CBuilder.gd" id="3_builder"]
+[ext_resource type="Script" uid="uid://3s3va7nfrt22" path="res://Scripts/UnitComponents/Commands/Command_AssistBuild.gd" id="4_cmd"]
 
 [resource]
 script = ExtResource("1_cd")
 display_name = "Assist Build"
 description = "Help finish a construction site."
-icon = ExtResource("2_icon")
 target_mode = 7
 priority = 2
 required_components = Array[Script]([ExtResource("3_builder")])

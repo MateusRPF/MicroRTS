@@ -84,14 +84,40 @@ func perform_payload(workIssuer: GridObject) -> void:
 		# 	perform_research(workIssuer)
 	pass
 
-func perform_recruit(_workIssuer: GridObject) -> void:
-	pass
+func perform_recruit(work_issuer: GridObject) -> void:
+	print("Performing Recruit unit!")
+	var available_placements:Array[Vector2i] = work_issuer.get_perimeter()
+	var found_placement:bool = false
+	var placement:Vector2i
+	for coord in available_placements:
+		print("Checking placement at %s"% [coord])
+		var tile: GameTile =  work_issuer.grid_manager.map_tiles[coord]
+		if (tile.tile_type != GameTile.TileType.FLOOR):
+			print("Checking placement at %s: Not a floor."% [coord])
+			continue
+		if tile.has_unit_occupant:
+			print("Checking placement at %s: Has unit, called %s"% [coord,tile.unit_occupant.data.actor_name])
+			continue
+		
+		placement = coord
+		found_placement = true
+		break
+
+	if (found_placement):
+		print("Spawning unit!")
+		work_issuer.grid_manager.spawn_grid_object(associated_actorData,placement,work_issuer.side,work_issuer.player_state)
+	else:
+		push_error("Wah! no placement!")
+
+
+
+
 
 func perform_upgrade(_workIssuer: GridObject) -> void:
-	pass
+	push_error("UPGRADED!!")
 
 func perform_research(_workIssuer: GridObject) -> void:
-	pass	
+	push_error("RESEARCHED!!")	
 
 
 class Requirement:

@@ -13,6 +13,7 @@ var current_work_received:int = 0
 var assigned_workers:Array[GridObject] = []
 var work_order_status:WorkOrderStatus = WorkOrderStatus.NONE
 
+
 enum WorkOrderStatus {
 	NONE,
 	DELIVERY,
@@ -23,7 +24,19 @@ enum WorkOrderStatus {
 func initialize_component(actor: GridObject) -> void:
 	super.initialize_component(actor)
 
-# func deliver_resource()
+func get_missing_resources()-> Dictionary[GameResource, int]:
+	var result:Dictionary[GameResource,int]
+	if (current_work_order):
+		for res in current_work_order.get_resource_costs():
+			var have:int = 0
+			if (delivered_resources.has(res)):
+				have = delivered_resources[res]
+			var need:int = current_work_order.get_resource_costs()[res]
+			if (have < need):
+				result[res] = need - have
+			
+	return result
+
 
 func validate_work_order(work_order:WorkOrderData)->bool:
 	print("validating work order " + work_order.name)
@@ -53,6 +66,7 @@ func start_work_order(new_work:WorkOrderData):
 	print("Start work order: " + new_work.name)
 	current_work_order = new_work
 	current_work_received = 0
+	delivered_resources.clear()
 	work_order_status = WorkOrderStatus.DELIVERY
 
 func cancel_work_order_at_index(index:int):
@@ -85,6 +99,7 @@ func _process(_delta: float) -> void:
 	
 	if work_order_status == WorkOrderStatus.DELIVERY:
 		if _check_delivery_complete():
+			print("PASSING TO WORKING")
 			work_order_status = WorkOrderStatus.WORKING
 
 	elif work_order_status == WorkOrderStatus.WORKING:
@@ -94,34 +109,35 @@ func _process(_delta: float) -> void:
 
 func _check_delivery_complete() -> bool:
 	if (current_work_order):
-		return false
-		# var costDict = current_work_order.get_resource_costs()
-		# for cost in costDict:
-		# 	if inventory.get_stored_qty(cost)  < costDict[cost]:
-		# 		return false;
+		return get_missing_resources().size()<=0
 	return true
 
 func _on_work_order_completed():
 	current_work_order.perform_payload(self.owner_object)
+	current_work_order = null
 	trigger_next_order()
 
+func receive_work_from_unit(_unit:GridObject):
+	current_work_received+=1
 
 
 
-# func deposit_from_unit(unit: GridObject, res: GameResource) -> int:
-# 	var inventory: CInventory = unit.get_component(CInventory)
-# 	if not inventory:
-# 		return 0
-# 	var need: int = remaining_need(res)
-# 	if need <= 0:
-# 		return 0
-# 	var available: int = inventory.get_stored_qty(res)
-# 	var amount: int = min(need, available)
-# 	if amount <= 0:
-# 		return 0
-# 	var withdrawn: int = inventory.withdrawal(res, amount)
-# 	if withdrawn <= 0:
-# 		return 0
-# 	delivered[res] = delivered.get(res, 0) + withdrawn
-# 	_refresh_icons()
-# 	return withdrawn
+
+func deposit_from_unit(unit: GridObject, res: GameResource) -> int:
+	var inventory: CInventory = unit.get_component(CInventory)
+	if not inventory:
+		return 0
+	var need: int = get_missing_resources()[res]
+	if need <= 0:
+		return 0
+	var available: int = inventory.get_stored_qty(res)
+	var amount: int = min(need, available)
+	if amount <= 0:
+		return 0
+	var withdrawn: int = inventory.withdrawal(res, amount)
+	if withdrawn <= 0:
+		return 0
+	delivered_resources[res] = delivered_resources.get(res, 0) + withdrawn
+
+	# _refresh_icons()
+	return withdrawn

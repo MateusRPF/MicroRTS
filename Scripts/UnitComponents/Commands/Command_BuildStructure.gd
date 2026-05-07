@@ -9,7 +9,7 @@ func finish_cache() -> void:
 	build_data = data as CommandData_BuildStructure
 	var grid: GridManager = owner_executor.owner_object.grid_manager
 	footprint_coords = grid.get_footprint_coords(target_coord, build_data.get_footprint_size())
-	perimeter_coords = _compute_perimeter()
+	perimeter_coords = target_actor.get_perimeter()
 
 
 func start_command() -> bool:

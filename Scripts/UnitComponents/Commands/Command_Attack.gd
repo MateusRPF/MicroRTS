@@ -5,7 +5,7 @@ var attacker: CAttacker = null
 var state_machine: CStateMachine = null
 var mover: CMover = null
 var current_step: AttackSteps = AttackSteps.FINDING_ENEMY
-var cached_path: Array[Vector2i] = []
+
 
 enum AttackSteps
 {
@@ -116,25 +116,6 @@ func _request_move_state(target_tile: Vector2i) -> void:
 		params["cached_path"] = cached_path
 	state_machine.request_state(CStateMachine.StateID.MOVE, params)
 
-func _get_best_coord_to_enact(target: GridObject) -> Vector2i:
-	if not target or not is_instance_valid(target):
-		cached_path = []
-		return Vector2i(-1, -1)
-
-	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target, attacker.get_attack_range())
-	if candidates.is_empty():
-		cached_path = []
-		return Vector2i(-1, -1)
-
-	var actor: GridObject = owner_executor.owner_object
-	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
-	if result.is_empty() or not result.has("best_goal"):
-		cached_path = []
-		print("Command_Attack: No path found to any candidate attack position.")
-		return Vector2i(-1, -1)
-
-	cached_path = result["path"] if result.has("path") else []
-	return result["best_goal"]
 
 func get_descriptor() -> String:
 	match current_step:

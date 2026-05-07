@@ -36,25 +36,9 @@ func _bind_to_site(new_site: GridObject) -> void:
 	target_construction = new_site.get_component(CUnderConstruction)
 	target_requirements = new_site.get_component(CBuildRequirements)
 	footprint_coords = new_site.get_covered_coords()
-	perimeter_coords = _compute_perimeter()
+	perimeter_coords = new_site.get_perimeter()
 
 
-func _compute_perimeter() -> Array[Vector2i]:
-	var footprint_set: Dictionary = {}
-	for coord in footprint_coords:
-		footprint_set[coord] = true
-	var perimeter: Array[Vector2i] = []
-	var seen: Dictionary = {}
-	for coord in footprint_coords:
-		for direction in GridManager.DIRECTIONS:
-			var neighbor: Vector2i = coord + direction
-			if footprint_set.has(neighbor):
-				continue
-			if seen.has(neighbor):
-				continue
-			seen[neighbor] = true
-			perimeter.append(neighbor)
-	return perimeter
 
 
 func tick() -> void:
@@ -126,8 +110,8 @@ func _tick_building() -> void:
 				return
 			state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": adjacent})
 		return
-	_play_punch()
-	target_construction.shake()
+	owner_executor.owner_object.play_interaction_with(target_construction.owner_object)
+	target_construction.owner_object.shake()
 	if target_construction.add_progress(1):
 		current_step = BuildSteps.COMPLETED
 		finish_command()
@@ -259,23 +243,6 @@ func _withdraw_from_stockpile(stockpile_obj: GridObject) -> void:
 	if any_withdrawn:
 		owner_executor.owner_object.play_interaction_with(stockpile_obj)
 	_target_stockpile = null
-
-
-func _play_punch() -> void:
-	var actor: GridObject = owner_executor.owner_object
-	var pivot: Node2D = actor.get_node_or_null("%ViewPivot")
-	if not pivot or not is_instance_valid(site):
-		return
-	var delta: Vector2 = Vector2(site.current_coord - actor.current_coord)
-	if delta.length_squared() == 0:
-		return
-	if _punch_tween and _punch_tween.is_running():
-		_punch_tween.kill()
-	var punch_offset: Vector2 = delta.normalized() * PUNCH_DISTANCE
-	pivot.position = Vector2.ZERO
-	_punch_tween = pivot.create_tween()
-	_punch_tween.tween_property(pivot, "position", punch_offset, PUNCH_DURATION * 0.4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	_punch_tween.tween_property(pivot, "position", Vector2.ZERO, PUNCH_DURATION * 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
 func get_status() -> int:

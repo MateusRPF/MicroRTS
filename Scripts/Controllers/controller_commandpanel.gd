@@ -136,6 +136,10 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 			CommandData.Targetting.CONSTRUCTION_SITE:
 				if hovered_object and hovered_object.get_component(CUnderConstruction):
 					return true
+			CommandData.Targetting.WORK_ORDER:
+				if hovered_object and hovered_object.get_component(CWorkOrderIssuer):
+					if hovered_object.get_component(CWorkOrderIssuer).current_work_order != null:
+						return true
 	return false
 
 

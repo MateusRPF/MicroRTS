@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CommandData" format=3 uid="uid://ulenvcwybe7o"]
+
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b8lgt1nilqfum" path="res://Scripts/UnitComponents/Commands/Command_FulfillWorkOrder.gd" id="1_rx6ik"]
+[ext_resource type="Texture2D" uid="uid://2jm2vong2tqx" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="2_icon"]
+[ext_resource type="Script" uid="uid://dm2ly44wwf48c" path="res://Scripts/UnitComponents/CMover.gd" id="3_rx6ik"]
+[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="4_482kh"]
+
+[resource]
+script = ExtResource("1_cd")
+display_name = "Fulfill Work Order"
+description = "Work Order"
+icon = ExtResource("2_icon")
+target_mode = 8
+priority = 2
+required_components = Array[Script]([ExtResource("3_rx6ik"), ExtResource("4_482kh")])
+command_script = ExtResource("1_rx6ik")
