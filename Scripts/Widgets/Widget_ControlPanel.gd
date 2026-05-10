@@ -59,14 +59,13 @@ func _input(event):
 		_on_hotkey_pressed(event.keycode)
 
 func configure_entry(entry: CommandPanelEntry, data:CommandData):
+	print("Configuring Entry for " + data.display_name)
 	if data:
 		panel_entries.append(entry)
 		entry.button = find_button_for_data(data)
 		entry.hotkey = button_keys[entry.button]
 
 		entry.data = data
-		
-
 		if (entry.data is CommandData_IssueWorkOrder):	
 			entry.button.tooltip_config = entry.data.order.get_tooltip_config()
 			
@@ -102,14 +101,15 @@ func _on_button_pressed(entry: CommandPanelEntry):
 	if not entry.data:
 		return
 	if entry.data.target_mode == CommandData.Targetting.SUBMENU:
-		return
+		_enter_submenu(entry.data)
 
-	if validate_request(entry.data):
-		GameplayEvents.UI_command_requested.emit(entry.data)
-		reset_view()
-		entry.button.do_sucess()
-	else:
-		entry.button.do_fail()
+	else: 
+		if validate_request(entry.data):
+			GameplayEvents.UI_command_requested.emit(entry.data)
+			reset_view()
+			entry.button.do_sucess()
+		else:
+			entry.button.do_fail()
 
 func validate_request(command_data:CommandData)->bool:
 	for object in _current_objects:
@@ -119,16 +119,19 @@ func validate_request(command_data:CommandData)->bool:
 
 
 
-func _enter_submenu(root: CommandData):
-	_in_submenu = true
+func _enter_submenu(_root: CommandData):
 	panel_entries.clear()
+	_disable_all_buttons()
+	_in_submenu = true
+	print("Entering sub menu. Panels are clear.")
 	if _current_objects.size() == 0:
 		return
 	var builder: CBuilder = _current_objects[0].get_component(CBuilder)
 	var sublist: Array[CommandData]
 	if builder:
 		sublist = builder.buildable
-		_create_entries_for_commands(sublist)
+		print("Its a builder!.")
+		_create_entries_for_builds(sublist)
 	
 	
 func _reset_to_root_menu():
@@ -163,6 +166,12 @@ func _create_entries_for_commands(commandDatas:Array[CommandData]):
 		var newEntry = CommandPanelEntry.new()	
 		if data.preferred_hotkey != Key.KEY_NONE:
 			configure_entry(newEntry,data)
+
+func _create_entries_for_builds(commandDatas:Array[CommandData]):
+	for data in commandDatas:
+		var newEntry = CommandPanelEntry.new()	
+		data.preferred_hotkey = Key.KEY_0
+		configure_entry(newEntry,data)
 
 
 func _clear_view() -> void:
