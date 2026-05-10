@@ -2,13 +2,30 @@
 
 [ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_587nh"]
 [ext_resource type="Script" uid="uid://c86o3fbo5gs2j" path="res://Scripts/Widgets/Widget_BaseButton.gd" id="2_4qpxt"]
+[ext_resource type="Texture2D" uid="uid://cdraw5xuf51tb" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Recruit.tres" id="3_2t0ud"]
 [ext_resource type="Texture2D" uid="uid://2jm2vong2tqx" path="res://Sprites/UI/CommandIcons/SPR_Command_Build.tres" id="3_587nh"]
+[ext_resource type="Texture2D" uid="uid://c5n1wfdd2sro6" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Build.tres" id="4_3pykl"]
+[ext_resource type="Texture2D" uid="uid://ddg78qylgqnmh" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Upgrade.tres" id="5_jxeye"]
+[ext_resource type="Texture2D" uid="uid://d1s6haxtmafnq" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Idle.tres" id="6_11dxc"]
+[ext_resource type="Texture2D" uid="uid://dan7rb4g0ieb8" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Move.tres" id="7_3pykl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3i6f"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
 
 [node name="BaseButton" type="PanelContainer" unique_id=1077922482]
 texture_filter = 1
 custom_minimum_size = Vector2(48, 48)
 theme = ExtResource("1_587nh")
 script = ExtResource("2_4qpxt")
+sub_icon_map = Dictionary[int, Texture2D]({
+0: ExtResource("3_2t0ud"),
+1: ExtResource("4_3pykl"),
+2: ExtResource("6_11dxc"),
+3: ExtResource("7_3pykl"),
+4: ExtResource("5_jxeye")
+})
 normal_tint = Color(0.5722162, 0.00023747713, 0.5722121, 0)
 pressed_tint = Color(0, 0, 0, 0.77254903)
 hover_tint = Color(0, 0, 0, 0.5764706)
@@ -20,6 +37,24 @@ unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("3_587nh")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Container_SubIcon" type="PanelContainer" parent="." unique_id=103421525]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_x3i6f")
+
+[node name="SubIcon" type="TextureRect" parent="Container_SubIcon" unique_id=392386004]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
 expand_mode = 2
 stretch_mode = 5
 

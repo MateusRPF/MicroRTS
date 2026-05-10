@@ -9,6 +9,7 @@ class_name CommandData
 @export var priority = 1 #when two commands apply, choose the one with highest priority.
 @export var required_components: Array[Script]
 @export var command_script:Script
+@export var preferred_hotkey:Key = Key.KEY_NONE
 
 ## If this is a SUBMENU mode, these are the commands inside it
 @export var sub_commands: Array[CommandData] = []

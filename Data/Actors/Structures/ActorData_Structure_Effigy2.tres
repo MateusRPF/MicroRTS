@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://cj8br1deesyp3"]
+
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="1_va2q2"]
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="2_h28b2"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="6_0vkiv"]
+[ext_resource type="Texture2D" uid="uid://26dslcw6vr1h" path="res://Sprites/Structures/SPR_Effigy_02.tres" id="7_va2q2"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="8_03ndw"]
+
+[resource]
+script = ExtResource("6_0vkiv")
+actor_name = "Effigy of the Horned Shadow (lv2)"
+description = "Binder of the Great Soul"
+sprite = ExtResource("7_va2q2")
+view_offset = Vector2i(32, -32)
+grid_size = Vector2i(3, 3)
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

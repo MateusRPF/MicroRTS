@@ -24,14 +24,6 @@ const STATE_MAP = {
 	StateID.COMBAT: preload("res://Scripts/UnitComponents/States/State_Combat.gd")
 }
 
-const STATE_SPRITE = {
-	StateID.NONE: preload("res://Sprites/UI/StateDraw/SPR_StateDraw_Idle.tres"),
-	StateID.IDLE: preload("res://Sprites/UI/StateDraw/SPR_StateDraw_Idle.tres"),
-	StateID.MOVE: preload("res://Sprites/UI/StateDraw/SPR_StateDraw_Move.tres"),
-	StateID.HARVEST: preload("res://Sprites/UI/StateDraw/SPR_StateDraw_Harvest.tres"),
-	StateID.COMBAT: preload("res://Sprites/UI/StateDraw/SPR_StateDraw_Attack.tres")
-}
-
 func _on_tick_received() -> void:
 	if current_state:
 		current_state.tick_state()

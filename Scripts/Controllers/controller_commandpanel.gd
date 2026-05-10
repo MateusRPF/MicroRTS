@@ -71,7 +71,7 @@ func actor_can_issue(actor: GridObject, commandData: CommandData) -> bool:
 			print("Validating CommandData_IssueWorkOrder - Immediate Cost failed.")
 			return false
 
-		var issuer:CWorkOrderIssuer = actor.get_component(CWorkOrderIssuer)
+		var issuer:CWorkStation = actor.get_component(CWorkStation)
 		if (issuer and issuer.validate_work_order(commandData.order)):
 			print("Validating CommandData_IssueWorkOrder - accepted Issuer")
 			return true
@@ -137,8 +137,8 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 				if hovered_object and hovered_object.get_component(CUnderConstruction):
 					return true
 			CommandData.Targetting.WORK_ORDER:
-				if hovered_object and hovered_object.get_component(CWorkOrderIssuer):
-					if hovered_object.get_component(CWorkOrderIssuer).current_work_order != null:
+				if hovered_object and hovered_object.get_component(CWorkStation):
+					if hovered_object.get_component(CWorkStation).current_work_order != null:
 						return true
 	return false
 

@@ -1,12 +1,12 @@
 extends Command
 class_name Command_IssueWorkOrder
 
-var issuer:CWorkOrderIssuer
+var issuer:CWorkStation
 var work_data:WorkOrderData
 
 
 func finish_cache() -> void:
-	issuer = owner_executor.owner_object.get_component(CWorkOrderIssuer)
+	issuer = owner_executor.owner_object.get_component(CWorkStation)
 	var originaL_data = data as CommandData_IssueWorkOrder
 	work_data = originaL_data.order
 

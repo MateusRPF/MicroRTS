@@ -2,7 +2,7 @@ extends Command
 class_name Command_FulfillWorkOrder
 
 
-var issuer:CWorkOrderIssuer
+var issuer:CWorkStation
 var current_step:FulfillSteps = FulfillSteps.DELIVERING
 var work_order:WorkOrderData
 var mover:CMover
@@ -15,7 +15,7 @@ enum FulfillSteps{DELIVERING, WORKING, COMPLETED}
 
 
 func finish_cache() -> void:
-	issuer = target_actor.get_component(CWorkOrderIssuer)
+	issuer = target_actor.get_component(CWorkStation)
 	mover = owner_executor.owner_object.get_component(CMover)
 	state_machine = owner_executor.owner_object.get_component(CStateMachine)
 	inventory = owner_executor.owner_object.get_component(CInventory)
@@ -51,7 +51,7 @@ func tick() -> void:
 	match current_step:
 		FulfillSteps.DELIVERING:
 			print("Delivering")
-			if issuer.work_order_status == CWorkOrderIssuer.WorkOrderStatus.DELIVERY:
+			if issuer.work_order_status == CWorkStation.WorkOrderStatus.DELIVERY:
 				_tick_delivery()
 				return
 			else:
@@ -60,7 +60,7 @@ func tick() -> void:
 
 		FulfillSteps.WORKING:
 			print("Working")
-			if issuer.work_order_status == CWorkOrderIssuer.WorkOrderStatus.WORKING:
+			if issuer.work_order_status == CWorkStation.WorkOrderStatus.WORKING:
 				_tick_work()
 				return
 			else:
@@ -186,7 +186,7 @@ func _tick_work():
 	if not (work_order) or not (issuer):
 		finish_command()
 		return
-	if	issuer.work_order_status != CWorkOrderIssuer.WorkOrderStatus.WORKING:
+	if	issuer.work_order_status != CWorkStation.WorkOrderStatus.WORKING:
 		current_step = FulfillSteps.DELIVERING
 		return
 

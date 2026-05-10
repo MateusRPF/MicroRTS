@@ -17,7 +17,7 @@ func _show_tooltip(config:TooltipConfiguration) -> void:
 	#hotkey
 	if (config.hotkey):
 		%Label_Hotkey.visible = true
-		%Label_Hotkey.text = OS.get_keycode_string(config.hotkey)
+		%Label_Hotkey.text = "[%s] " % [OS.get_keycode_string(config.hotkey)]
 	else:
 		%Label_Hotkey.visible = false
 

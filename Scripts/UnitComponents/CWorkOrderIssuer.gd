@@ -1,5 +1,5 @@
 extends GridObjectComponent
-class_name CWorkOrderIssuer
+class_name CWorkStation
 
 
 @export var available_work_orders:Array[WorkOrderData] = []

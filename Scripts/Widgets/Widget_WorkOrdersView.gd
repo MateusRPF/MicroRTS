@@ -4,7 +4,7 @@ class_name Widget_WorkOrdersView
 var entry_prefab = preload("res://Prefabs/Widgets/Widget_InventoryEntry.tscn")
 @onready var container_requirements = %Requirement_Container 
 
-var issuer:CWorkOrderIssuer
+var issuer:CWorkStation
 var buttons:Array[BasicButton]
 
 func _ready() -> void:
@@ -25,7 +25,7 @@ func on_button_pressed(index:int):
 
 
 func _load_view():
-	issuer = viewing_component as CWorkOrderIssuer
+	issuer = viewing_component as CWorkStation
 	clean_buttons()
 
 func update_view():

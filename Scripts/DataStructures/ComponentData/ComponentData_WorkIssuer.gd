@@ -5,7 +5,7 @@ class_name ComponentData_WorkIssuer
 
 
 func assemble_component(actor:GridObject) -> GridObjectComponent:
-	var newComponent = CWorkOrderIssuer.new()
+	var newComponent = CWorkStation.new()
 	newComponent.available_work_orders = work_orders
 	actor.add_child(newComponent)
 	newComponent.initialize_component(actor)

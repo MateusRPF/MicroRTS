@@ -13,7 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://hfnkep1c0tcc" path="res://Prefabs/Widgets/Widget_ExecutorView.tscn" id="6_353ih"]
 [ext_resource type="Script" uid="uid://jb2cf1yktrys" path="res://Scripts/UnitComponents/CWorkOrderIssuer.gd" id="8_olpi4"]
 [ext_resource type="PackedScene" uid="uid://b2r18xvsp8g7d" path="res://Prefabs/Widgets/Widget_ActorView_Redux.tscn" id="12_ow81a"]
+[ext_resource type="Texture2D" uid="uid://c5n1wfdd2sro6" path="res://Sprites/UI/StateDraw/SPR_StateDraw_Build.tres" id="14_f67xw"]
 [ext_resource type="PackedScene" uid="uid://cqu3pm2hy2row" path="res://Prefabs/Widgets/Widget_WorkOrdersView.tscn" id="15_lmiyd"]
+[ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="16_74pjk"]
+[ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="17_0dec6"]
+[ext_resource type="Texture2D" uid="uid://bk0ys2l2r2xd8" path="res://Sprites/Units/SPR_SkeletalMinion.tres" id="18_00xcj"]
+[ext_resource type="Script" uid="uid://wgid2whqhbey" path="res://Scripts/Widgets/Inspector Widgets/Widget_InventoryEntry.gd" id="19_0x2t4"]
+[ext_resource type="Texture2D" uid="uid://dr2pyf66yku84" path="res://Sprites/UI/SPR_Essence.tres" id="20_j305x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jp3g8"]
 bg_color = Color(0.064521596, 0.07770417, 0.1297485, 1)
@@ -23,6 +29,13 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dnwpq"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="Inspector" type="PanelContainer" unique_id=454653937 node_paths=PackedStringArray("widget_registry")]
 show_behind_parent = true
@@ -89,7 +102,126 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
+[node name="Container_Workers" type="PanelContainer" parent="MarginContainer/SingleObject/VBoxContainer" unique_id=858874674]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers" unique_id=863953331]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=1938578804]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_CurrentWork" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/HBoxContainer" unique_id=1932011913]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "Workers"
+horizontal_alignment = 1
+
+[node name="Container_CurrentWorkers" type="HBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=632168122]
+layout_mode = 2
+alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=1718755900]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Button_Worker01" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=1106705392 instance=ExtResource("16_74pjk")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("17_0dec6")
+
+[node name="Button_Worker02" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=1077922482 instance=ExtResource("16_74pjk")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("18_00xcj")
+
+[node name="Button_Worker03" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=779193517 instance=ExtResource("16_74pjk")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = null
+
+[node name="Control2" type="Control" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=1239939707]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=556872382]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers/HBoxContainer" unique_id=189778109]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("14_f67xw")
+
+[node name="Label_CurrentWork3" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers/HBoxContainer" unique_id=1377223939]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 16
+text = "9"
+horizontal_alignment = 2
+
+[node name="Label_CurrentWork3" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Container_CurrentWorkers" unique_id=869214954]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
+theme_override_font_sizes/font_size = 14
+text = "Work
+6"
+horizontal_alignment = 1
+
+[node name="Label_CurrentWork2" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=598541368]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
+theme_override_font_sizes/font_size = 16
+text = "Ritualist Required"
+horizontal_alignment = 1
+
+[node name="Widget_InventoryEntry" type="PanelContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=1236962088]
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+script = ExtResource("19_0x2t4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Widget_InventoryEntry" unique_id=418798824]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Widget_InventoryEntry/HBoxContainer" unique_id=842436878]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme = ExtResource("1_cyf21")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dnwpq")
+
+[node name="Image_ResourceSprite" type="TextureRect" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Widget_InventoryEntry/HBoxContainer/PanelContainer" unique_id=1014928291]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("20_j305x")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label_Value" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer/Widget_InventoryEntry/HBoxContainer" unique_id=1146684254]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_cyf21")
+theme_override_font_sizes/font_size = 16
+text = "+2/s"
+
 [node name="VSeparator" type="VSeparator" parent="MarginContainer/SingleObject" unique_id=898644431]
+layout_mode = 2
+
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/SingleObject" unique_id=818260683]
+visible = false
 layout_mode = 2
 
 [node name="Container_WorkOrderView" parent="MarginContainer/SingleObject" unique_id=1947184250 instance=ExtResource("15_lmiyd")]

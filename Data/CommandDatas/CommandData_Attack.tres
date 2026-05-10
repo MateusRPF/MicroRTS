@@ -14,4 +14,5 @@ target_mode = 3
 priority = 3
 required_components = Array[Script]([ExtResource("2_62h00")])
 command_script = ExtResource("1_488p4")
+preferred_hotkey = 65
 metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

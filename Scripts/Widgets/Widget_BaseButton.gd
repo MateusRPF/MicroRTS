@@ -8,6 +8,10 @@ signal on_released()
 var tooltip_config:TooltipConfiguration
 var enabled:bool = false
 
+@export var sub_icon_map:Dictionary[SubIcons,Texture2D]
+
+enum SubIcons {RECRUIT, BUILD, RESEARCH, EJECT, UPGRADE,NONE}
+
 # -- Visual States --
 @export var normal_tint: Color = Color(1, 1, 1, 0):
 	set(value):
@@ -27,6 +31,14 @@ var enabled:bool = false
 		icon = value
 		var tex = get_node_or_null("%TextureRect")
 		if tex: tex.texture = icon
+
+func set_sub_icon(key:SubIcons):
+	if (key == SubIcons.NONE):
+		%Container_SubIcon.visible = false
+	
+	%Container_SubIcon.visible = true
+	%SubIcon.texture = sub_icon_map[key]
+
 
 @export var text: String = "":
 	set(value):
@@ -84,8 +96,42 @@ func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		var bg = get_node_or_null("%ColorRect")
 		if event.pressed:
-			if bg: bg.color = pressed_tint
+			do_sucess()
 			on_pressed.emit()
 		else:
 			if bg: bg.color = hover_tint 
 			on_released.emit()
+
+
+func do_fail():
+	shake_button()
+	self_modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	self_modulate = Color.WHITE
+	await get_tree().create_timer(0.1).timeout
+	self_modulate = Color.RED
+	await get_tree().create_timer(0.1).timeout
+	self_modulate = Color.WHITE
+	pass
+
+func do_sucess():
+	shake_button()
+	modulate = Color.GRAY
+	await get_tree().create_timer(0.2).timeout
+	self.scale = Vector2.ONE
+	modulate = Color.WHITE
+	pass
+
+func shake_button(duration:float = 0.2, intensity: float = 5.0):
+	var tween = create_tween()
+	var original_pos = position
+	
+	# We chain a series of quick offsets
+	# Fast duration (0.04s) makes it feel "vibrational" rather than "sliding"
+	tween.tween_property(self, "position", original_pos + Vector2(-intensity, 0), duration/5)
+	tween.tween_property(self, "position", original_pos + Vector2(intensity, 0), duration/5)
+	tween.tween_property(self, "position", original_pos + Vector2(-intensity * 0.5, 0), duration/5)
+	tween.tween_property(self, "position", original_pos + Vector2(intensity * 0.5, 0), duration/5)
+	
+	# Always end by snapping back to the exact original position
+	tween.tween_property(self, "position", original_pos, duration/5)

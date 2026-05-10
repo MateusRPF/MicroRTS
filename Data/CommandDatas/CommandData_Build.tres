@@ -11,4 +11,5 @@ description = "Show available structures to build."
 icon = ExtResource("2_icon")
 target_mode = 6
 required_components = Array[Script]([ExtResource("3_builder")])
+preferred_hotkey = 90
 metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"

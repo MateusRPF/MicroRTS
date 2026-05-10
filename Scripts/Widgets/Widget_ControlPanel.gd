@@ -1,13 +1,13 @@
 extends PanelContainer
 class_name CommandPanel
 
-var command_entries: Array[CommandPanelEntry]
-@export var button_command_map: Dictionary[BasicButton, CommandData]
+var panel_entries: Array[CommandPanelEntry]
+@export var button_keys:Dictionary[BasicButton,Key]
 var command_controller: CommandController
-@export var key_command_map: Dictionary[CommandData, Key]
 
 var _current_objects: Array[GridObject]
-var _in_submenu: bool = false
+
+var _in_submenu
 
 
 func _ready() -> void:
@@ -16,68 +16,100 @@ func _ready() -> void:
 	GameplayEvents.multiple_objects_selected.connect(_multiple_object_view)
 	GameplayEvents.selection_cleared.connect(_clear_view)
 	_clear_view()
-	_configure_panels()
 
 
 func on_controller_ready(newController: PlayerController):
 	command_controller = newController.command_controller
 
 
-func _configure_panels():
-	for button in button_command_map:
-		var newEntry = CommandPanelEntry.new()
-		newEntry.button = button
-		newEntry.data = button_command_map[button]
-		command_entries.append(newEntry)
+func find_button_for_data(data:CommandData)->BasicButton:
+# 1. Gather buttons already assigned to an entry in this current view
+	var occupied_buttons: Array[BasicButton] = []
+	for entry in panel_entries:
+		if entry.button:
+			occupied_buttons.append(entry.button)
 
-	for command_entry in command_entries:
-		command_entry.button.on_pressed.connect(_on_button_pressed.bind(command_entry))
-		_refresh_button_chrome(command_entry)
+	# 2. Strategy A: Check the Preferred Hotkey
+	if data.preferred_hotkey != KEY_NONE:
+		for button in button_keys:
+			# Check if this button is mapped to the preferred key
+			if button_keys[button] == data.preferred_hotkey:
+				# If it's not taken, we found our match
+				if not button in occupied_buttons:
+					return button
+	
+	# 3. Strategy B: Fallback to the next available button
+	for button in button_keys:
+		if not button in occupied_buttons:
+			return button
+			
+	# 4. Fail State
+	push_error("CommandPanel: No free buttons for command: %s" % data.display_name)
+	return null
+
 
 func _on_hotkey_pressed(key: Key):
-	for commandEntry:CommandPanelEntry in command_entries:
-		if commandEntry.data and key_command_map.get(commandEntry.data, null) == key:
-			_on_button_pressed(commandEntry)
+	for entry:CommandPanelEntry in panel_entries:
+		if entry.data and entry.hotkey == key:
+			_on_button_pressed(entry)
 			break
-
 
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		_on_hotkey_pressed(event.keycode)
 
-func _refresh_button_chrome(entry: CommandPanelEntry):
-	if entry.data:
-		entry.button.icon = entry.data.icon
+func configure_entry(entry: CommandPanelEntry, data:CommandData):
+	if data:
+		panel_entries.append(entry)
+		entry.button = find_button_for_data(data)
+		entry.hotkey = button_keys[entry.button]
+
+		entry.data = data
 		
+
 		if (entry.data is CommandData_IssueWorkOrder):	
 			entry.button.tooltip_config = entry.data.order.get_tooltip_config()
-			return
-		entry.button.tooltip_config = TooltipConfiguration.new()
-		entry.button.tooltip_config.title = entry.data.display_name
-		entry.button.tooltip_config.description = entry.data.description
+			
+			var work_order = data.order
+			entry.data.display_name = work_order.name
+			entry.data.icon = work_order.icon
+			entry.data.command_script = Command_IssueWorkOrder
 
+			if (work_order.type == WorkOrderData.WorkOrderType.RECRUIT or work_order.type == WorkOrderData.WorkOrderType.UPGRADE):
+				entry.data.icon = work_order.associated_actorData.sprite
+				entry.data.description = work_order.associated_actorData.description
+				match work_order.type:
+					WorkOrderData.WorkOrderType.RECRUIT:
+						entry.button.set_sub_icon(BasicButton.SubIcons.RECRUIT)
+					WorkOrderData.WorkOrderType.UPGRADE:
+						entry.button.set_sub_icon(BasicButton.SubIcons.UPGRADE)
+		else:
+			entry.button.tooltip_config = TooltipConfiguration.new()
+			entry.button.tooltip_config.title = entry.data.display_name
+			entry.button.tooltip_config.description = entry.data.description
+
+		entry.button.icon = entry.data.icon
+		entry.button.tooltip_config.hotkey = entry.hotkey
+		entry.button.enable_button()		
 	else:
 		entry.button.icon = null
-		entry.button.tooltip_config = null
+		entry.button.set_sub_icon(BasicButton.SubIcons.NONE)
+
+
 
 
 func _on_button_pressed(entry: CommandPanelEntry):
 	if not entry.data:
 		return
 	if entry.data.target_mode == CommandData.Targetting.SUBMENU:
-		_enter_submenu(entry.data)
 		return
-	var was_submenu := _in_submenu
 
 	if validate_request(entry.data):
 		GameplayEvents.UI_command_requested.emit(entry.data)
-		if was_submenu:
-			_reset_to_root_menu()
+		reset_view()
+		entry.button.do_sucess()
 	else:
-		do_fail(entry)
-	
-
-
+		entry.button.do_fail()
 
 func validate_request(command_data:CommandData)->bool:
 	for object in _current_objects:
@@ -87,83 +119,59 @@ func validate_request(command_data:CommandData)->bool:
 
 
 
-
-func do_fail(entry: CommandPanelEntry):
-
-	entry.button.self_modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	entry.button.self_modulate = Color.WHITE
-	await get_tree().create_timer(0.1).timeout
-	entry.button.self_modulate = Color.RED
-	await get_tree().create_timer(0.1).timeout
-	entry.button.self_modulate = Color.WHITE
-	pass
-
-
 func _enter_submenu(root: CommandData):
+	_in_submenu = true
+	panel_entries.clear()
 	if _current_objects.size() == 0:
 		return
 	var builder: CBuilder = _current_objects[0].get_component(CBuilder)
 	var sublist: Array[CommandData]
 	if builder:
 		sublist = builder.buildable
-	else:
-		sublist = root.sub_commands
-	_in_submenu = true
-	for entry in command_entries:
-		entry.data = null
-	for i in range(min(sublist.size(), command_entries.size())):
-		command_entries[i].data = sublist[i]
-	for entry in command_entries:
-		_refresh_button_chrome(entry)
-		if entry.data:
-			entry.button.enable_button()
-		else:
-			entry.button.disable_button()
-
-
+		_create_entries_for_commands(sublist)
+	
+	
 func _reset_to_root_menu():
+	print("Resetting to root")
 	_in_submenu = false
-	reset_view()
 
 
 func _enable_buttons_for_actor(object: GridObject):
+	panel_entries.clear()
 	_disable_all_buttons()
 	self.visible = true
-	for available_command in command_controller.get_enabled_commands_for_actor(object):
-		for entry in command_entries:
-			if entry.data == available_command:
-				entry.button.enable_button()
+	if not _in_submenu:
+		_create_entries_for_commands(command_controller.get_enabled_commands_for_actor(object))
 
-	var work_issuer:CWorkOrderIssuer = object.get_component(CWorkOrderIssuer)
+	var work_issuer:CWorkStation = object.get_component(CWorkStation)
 	if (work_issuer):
-		print("Enabling commands for an issuer.")
 		var available_work_orders:Array[WorkOrderData] = work_issuer.available_work_orders
+		_create_entries_for_work_orders(available_work_orders)
 
-		for i in range(min(command_entries.size(), available_work_orders.size())):
-			var entry =  command_entries[i]
-			if entry.button.enabled == false:
-				var work_order = available_work_orders[i]
-				entry.data = CommandData_IssueWorkOrder.new()
-				entry.data.display_name = work_order.name
-				entry.data.icon = work_order.icon
-				entry.data.command_script = Command_IssueWorkOrder
-				entry.data.order = work_order
-				if (work_order.type == WorkOrderData.WorkOrderType.RECRUIT or work_order.type == WorkOrderData.WorkOrderType.UPGRADE):
-					entry.data.icon = work_order.associated_actorData.sprite
-					entry.data.description = work_order.associated_actorData.description
-				
-				entry.button.enable_button()
-				_refresh_button_chrome(entry)
+
+func _create_entries_for_work_orders(orders:Array[WorkOrderData]):
+	for work_order in orders:
+		var newEntry = CommandPanelEntry.new()	
+		var data = CommandData_IssueWorkOrder.new()
+		data.preferred_hotkey = Key.KEY_0
+		data.order = work_order
+		configure_entry(newEntry,data)
+
+
+func _create_entries_for_commands(commandDatas:Array[CommandData]):
+	for data in commandDatas:
+		var newEntry = CommandPanelEntry.new()	
+		if data.preferred_hotkey != Key.KEY_NONE:
+			configure_entry(newEntry,data)
+
 
 func _clear_view() -> void:
 	self.visible = false
 	_current_objects.clear()
-	_in_submenu = false
 
 
 func _disable_all_buttons():
-	for button in button_command_map:
+	for button in button_keys:
 		button.disable_button()
 
 func reset_view():
@@ -174,15 +182,16 @@ func reset_view():
 
 
 func _single_object_view(object: GridObject) -> void:
+	print("starting single object view")
+	_reset_to_root_menu()
 	_current_objects.clear()
 	_current_objects.append(object)
-	_in_submenu = false
 	_enable_buttons_for_actor(object)
 
 
 func _multiple_object_view(objects: Array[GridObject]) -> void:
-	_current_objects.clear()
 	_reset_to_root_menu()
+	_current_objects.clear()
 	_disable_all_buttons()
 	self.visible = true
 	if objects.is_empty():
@@ -192,7 +201,7 @@ func _multiple_object_view(objects: Array[GridObject]) -> void:
 		var actor_commands = command_controller.get_enabled_commands_for_actor(objects[i])
 		common_commands = common_commands.filter(func(cmd): return cmd in actor_commands)
 	for cmd in common_commands:
-		for entry in command_entries:
+		for entry in panel_entries:
 			if entry.data == cmd:
 				entry.button.enable_button()
 

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="WorkOrderData" format=3 uid="uid://db6vn8bpspjk"]
+
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_wnydi"]
+[ext_resource type="Texture2D" uid="uid://26dslcw6vr1h" path="res://Sprites/Structures/SPR_Effigy_02.tres" id="2_ib01r"]
+[ext_resource type="Resource" uid="uid://cj8br1deesyp3" path="res://Data/Actors/Structures/ActorData_Structure_Effigy2.tres" id="2_t8aoq"]
+[ext_resource type="Resource" uid="uid://bafrmfpon3pos" path="res://Data/GameResources/Resource_Essence.tres" id="2_vilt2"]
+[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="3_ib01r"]
+
+[sub_resource type="GDScript" id="GDScript_vilt2"]
+
+[resource]
+script = ExtResource("3_ib01r")
+type = 1
+name = "Empower Effigy"
+immediate_cost_value = 50
+icon = ExtResource("2_ib01r")
+work_required = 300
+associated_actorData = ExtResource("2_t8aoq")
+metadata/_custom_type_script = "uid://dv7pwfaonhwmj"

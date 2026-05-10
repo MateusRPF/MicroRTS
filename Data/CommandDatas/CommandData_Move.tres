@@ -12,4 +12,5 @@ icon = ExtResource("1_qrn5f")
 target_mode = 1
 required_components = Array[Script]([ExtResource("2_62h00")])
 command_script = ExtResource("1_ygndn")
+preferred_hotkey = 83
 metadata/_custom_type_script = "uid://c8pc0tvbc0mf2"
