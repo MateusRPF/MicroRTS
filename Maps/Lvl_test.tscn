@@ -18,6 +18,7 @@
 [ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="16_gab08"]
 [ext_resource type="PackedScene" uid="uid://ukqepnrxhbvw" path="res://Prefabs/Widgets/Widget_CommandPanel.tscn" id="17_c44cc"]
 [ext_resource type="PackedScene" uid="uid://dnjtyy621pr58" path="res://Maps/Map_PrototypeLevel.tscn" id="18_cc4vf"]
+[ext_resource type="PackedScene" uid="uid://defm375w3n3tu" path="res://Prefabs/VFX/VFX_Spawn.tscn" id="23_1vwrj"]
 [ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
 [ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
 [ext_resource type="PackedScene" uid="uid://uvwrtjxt2vvd" path="res://Prefabs/VFX/VFX_Miss.tscn" id="25_47m3e"]
@@ -79,7 +80,20 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 180)
 layout_mode = 2
 size_flags_vertical = 1
-button_keys = {}
+button_keys = {
+NodePath("MarginContainer/GridContainer/Button_Q"): 81,
+NodePath("MarginContainer/GridContainer/Button_W"): 87,
+NodePath("MarginContainer/GridContainer/Button_E"): 69,
+NodePath("MarginContainer/GridContainer/Button_R"): 82,
+NodePath("MarginContainer/GridContainer/Button_A"): 65,
+NodePath("MarginContainer/GridContainer/Button_S"): 83,
+NodePath("MarginContainer/GridContainer/Button_D"): 68,
+NodePath("MarginContainer/GridContainer/Button_F"): 70,
+NodePath("MarginContainer/GridContainer/Button_Z"): 90,
+NodePath("MarginContainer/GridContainer/Button_X"): 88,
+NodePath("MarginContainer/GridContainer/Button_C"): 67,
+NodePath("MarginContainer/GridContainer/Button_V"): 86
+}
 
 [node name="Inspector" parent="PlayerHUDLayer/HUD/VBoxContainer/HBoxContainer" unique_id=454653937 node_paths=PackedStringArray("widget_registry") instance=ExtResource("8_70dqj")]
 layout_mode = 2
@@ -173,7 +187,9 @@ debug_color = Color(0, 0.5950001, 0.7, 0)
 script = ExtResource("23_8ch73")
 grid = NodePath("../GameLevel")
 vfxRegistry = Dictionary[String, PackedScene]({
+"Death": ExtResource("23_1vwrj"),
 "Miss": ExtResource("25_47m3e"),
 "Projectile": ExtResource("26_1nj4d"),
-"Slash": ExtResource("24_1vwrj")
+"Slash": ExtResource("24_1vwrj"),
+"Spawn": ExtResource("23_1vwrj")
 })

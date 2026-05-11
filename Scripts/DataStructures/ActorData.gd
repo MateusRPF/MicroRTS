@@ -17,6 +17,9 @@ class_name ActorData
 
 @export var spawn_on_death: ActorData
 
+@export var VFX_Spawn:String = "Spawn"
+@export var VFX_Death:String = "Death"
+
 enum Layer { UNIT, PROP }
 enum Sides { PLAYER, NEUTRAL, ALLY, ENEMY }
 

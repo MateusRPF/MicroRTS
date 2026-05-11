@@ -8,8 +8,7 @@ func _ready() -> void:
 	GameplayEvents.VFX_requested.connect(_on_vfx_requested)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _on_vfx_requested(vfx_name:String, coord_origin:Vector2i,coord_target) -> void:
+func _on_vfx_requested(vfx_name:String, coord_origin:Vector2i,coord_target:Vector2i) -> void:
 	if not vfxRegistry.has(vfx_name):
 		return
 	var vfx_scene: PackedScene = vfxRegistry[vfx_name]

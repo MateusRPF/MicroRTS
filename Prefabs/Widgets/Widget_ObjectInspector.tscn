@@ -177,6 +177,23 @@ horizontal_alignment = 1
 
 [node name="Label_CurrentWork2" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=598541368]
 unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
+theme_override_font_sizes/font_size = 16
+text = "Ritualist Required"
+horizontal_alignment = 1
+
+[node name="Label_CurrentWork3" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=816951846]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
+theme_override_font_sizes/font_size = 16
+text = "Ritualist Required"
+horizontal_alignment = 1
+
+[node name="Label_CurrentWork4" type="Label" parent="MarginContainer/SingleObject/VBoxContainer/Container_Workers/VBoxContainer" unique_id=818824749]
+visible = false
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
 theme_override_font_sizes/font_size = 16

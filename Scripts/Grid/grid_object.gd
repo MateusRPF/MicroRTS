@@ -49,6 +49,8 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, 
 	grid_manager.UpdatePosition(self, current_coord)
 
 	settle_position()
+	if (data.VFX_Spawn != ""):
+		GameplayEvents.VFX_requested.emit(data.VFX_Spawn,current_coord,current_coord)
 
 
 func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, target_data: ActorData, cost: Dictionary[GameResource, int], state: PlayerState) -> void:
@@ -173,6 +175,8 @@ func get_component_by_name(script_name:String) -> GridObjectComponent:
 
 func destroy_object():
 	grid_manager.ClearPosition(self)
+	if (data.VFX_Death != ""):
+		GameplayEvents.VFX_requested.emit(data.VFX_Death,current_coord,current_coord)
 	if (data and data.spawn_on_death):
 		var newObj: GridObject = grid_manager.spawn_grid_object(data.spawn_on_death, current_coord, side, player_state)
 		newObj.play_shake()

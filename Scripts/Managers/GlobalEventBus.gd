@@ -14,7 +14,7 @@ signal UI_tile_hovered(controller:PlayerController, coord:Vector2i)
 signal UI_tooltip_requested(config:TooltipConfiguration)
 signal UI_tooltip_closed()
 
-signal VFX_requested(vfx_name: String, coord: Vector2i)
+signal VFX_requested(vfx_name: String, coord: Vector2i,optional_target:Vector2i)
 
 signal essence_value_changed(new_value: int)
 signal control_value_changed(new_value: int)

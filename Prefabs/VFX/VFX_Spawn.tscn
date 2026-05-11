@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://defm375w3n3tu"]
+
+[ext_resource type="Script" uid="uid://dpq2tukd4hu5c" path="res://Scripts/FX_Control.gd" id="1_iw2xy"]
+[ext_resource type="Texture2D" uid="uid://cl2h40idvnidu" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_01.tres" id="2_c22a7"]
+[ext_resource type="Texture2D" uid="uid://qe807qk0n6m4" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_02.tres" id="3_42tdq"]
+[ext_resource type="Texture2D" uid="uid://kfp2l5cb8wga" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_03.tres" id="4_d66m4"]
+[ext_resource type="Texture2D" uid="uid://bj5s5vuov2yn7" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_04.tres" id="5_ips60"]
+[ext_resource type="Texture2D" uid="uid://dna3cqsy0r1yw" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_05.tres" id="6_mrfaa"]
+[ext_resource type="Texture2D" uid="uid://cl03ccyj3otmb" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_06.tres" id="7_lhqxs"]
+[ext_resource type="Texture2D" uid="uid://d1kxfcw6hv436" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_07.tres" id="8_5md46"]
+[ext_resource type="Texture2D" uid="uid://cu7bevoyjslri" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_08.tres" id="9_k077w"]
+[ext_resource type="Texture2D" uid="uid://bvavjmlc80n2d" path="res://Sprites/VFX/VFX_Spawn/VFX_Spawn_09.tres" id="10_53ay0"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ud6b7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_c22a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_42tdq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_d66m4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ips60")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mrfaa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_lhqxs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5md46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_k077w")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_53ay0")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[node name="VFX_Spawn" type="Node2D" unique_id=1436368628]
+script = ExtResource("1_iw2xy")
+play_mode = 2
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1604330342]
+z_index = 30
+sprite_frames = SubResource("SpriteFrames_ud6b7")
+frame = 8
+frame_progress = 1.0
