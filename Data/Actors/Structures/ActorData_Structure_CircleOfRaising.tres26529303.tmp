@@ -9,14 +9,9 @@
 [ext_resource type="Script" uid="uid://cy7idrwrtt3ps" path="res://Scripts/DataStructures/ComponentData/ComponentData_Garrison.gd" id="4_5jso7"]
 [ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="4_sprite"]
 [ext_resource type="Script" uid="uid://b2gwb8xpkht3d" path="res://Scripts/DataStructures/GarrisonSlot.gd" id="5_fgo0n"]
-[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkStation.gd" id="6_8c1bp"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_l6w7f"]
 [ext_resource type="Resource" uid="uid://bgayxasalampw" path="res://Data/ActorTags/ActorTag_Ritualist.tres" id="6_txrgq"]
-[ext_resource type="Resource" uid="uid://bvw6ue5wef7td" path="res://Data/WorkOrders/Work_RaiseShambler.tres" id="8_8c1bp"]
-[ext_resource type="Resource" uid="uid://d3ucpg21bryru" path="res://Data/WorkOrders/Work_RaiseSkeletonArcher.tres" id="9_txrgq"]
 [ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_s08kf"]
-[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="11_kr0lw"]
-[ext_resource type="Resource" uid="uid://cpa4d30j63stj" path="res://Data/WorkOrders/Work_RaiseSkeletonMinion.tres" id="14_g4osw"]
 
 [sub_resource type="Resource" id="Resource_s08kf"]
 script = ExtResource("3_4bkr8")
@@ -42,11 +37,6 @@ metadata/_custom_type_script = "uid://cy7idrwrtt3ps"
 script = ExtResource("10_s08kf")
 metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 
-[sub_resource type="Resource" id="Resource_yhe4w"]
-script = ExtResource("6_8c1bp")
-work_orders = Array[ExtResource("11_kr0lw")]([ExtResource("8_8c1bp"), ExtResource("9_txrgq"), ExtResource("14_g4osw")])
-metadata/_custom_type_script = "uid://bwinpf3rgsodd"
-
 [resource]
 script = ExtResource("3_actor")
 actor_name = "Circle of Raising"
@@ -55,7 +45,7 @@ sprite = ExtResource("4_sprite")
 view_offset = Vector2i(16, -16)
 grid_size = Vector2i(2, 2)
 clearance = 1
-modules = Array[ExtResource("1_cd")]([SubResource("Resource_s08kf"), SubResource("Resource_xljbx"), SubResource("Resource_g4osw"), SubResource("Resource_yhe4w")])
+modules = Array[ExtResource("1_cd")]([SubResource("Resource_s08kf"), SubResource("Resource_xljbx"), SubResource("Resource_g4osw")])
 costs = Dictionary[ExtResource("2_37b71"), int]({
 ExtResource("2_s08kf"): 80,
 ExtResource("3_xljbx"): 20

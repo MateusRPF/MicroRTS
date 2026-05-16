@@ -41,7 +41,7 @@ func tick_state() -> void:
 		return
 
 	var mover_check: CMover = attacker.get_component(CMover)
-	if mover_check and mover_check.is_hop_animating():
+	if mover_check and attacker.mid_tween():
 		return
 	frame_counter += 1
 	var will_fire: bool = frame_counter >= attack_interval

@@ -1,0 +1,191 @@
+[gd_resource type="Resource" script_class="ActorData" format=3 uid="uid://b7w20d3qgpuk1"]
+
+[ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
+[ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_37b71"]
+[ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="2_s08kf"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="3_4bkr8"]
+[ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="3_actor"]
+[ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="3_xljbx"]
+[ext_resource type="Script" uid="uid://cy7idrwrtt3ps" path="res://Scripts/DataStructures/ComponentData/ComponentData_Garrison.gd" id="4_5jso7"]
+[ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="4_sprite"]
+[ext_resource type="Script" uid="uid://b2gwb8xpkht3d" path="res://Scripts/DataStructures/GarrisonSlot.gd" id="5_fgo0n"]
+[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkStation.gd" id="6_8c1bp"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_l6w7f"]
+[ext_resource type="Resource" uid="uid://bgayxasalampw" path="res://Data/ActorTags/ActorTag_Ritualist.tres" id="6_txrgq"]
+[ext_resource type="Resource" uid="uid://bvw6ue5wef7td" path="res://Data/WorkOrders/Work_RaiseShambler.tres" id="8_8c1bp"]
+[ext_resource type="Resource" uid="uid://d3ucpg21bryru" path="res://Data/WorkOrders/Work_RaiseSkeletonArcher.tres" id="9_txrgq"]
+[ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_s08kf"]
+[ext_resource type="Resource" uid="uid://cpa4d30j63stj" path="res://Data/WorkOrders/Work_RaiseSkeletonMinion.tres" id="12_xljbx"]
+
+[sub_resource type="Resource" id="Resource_s08kf"]
+script = ExtResource("3_4bkr8")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[sub_resource type="Resource" id="Resource_guiuf"]
+script = ExtResource("5_fgo0n")
+is_required = true
+accepted_tag = ExtResource("6_txrgq")
+metadata/_custom_type_script = "uid://b2gwb8xpkht3d"
+
+[sub_resource type="Resource" id="Resource_svv6h"]
+script = ExtResource("5_fgo0n")
+accepts_any = true
+metadata/_custom_type_script = "uid://b2gwb8xpkht3d"
+
+[sub_resource type="Resource" id="Resource_xljbx"]
+script = ExtResource("4_5jso7")
+slot_configs = Array[ExtResource("5_fgo0n")]([SubResource("Resource_guiuf"), SubResource("Resource_svv6h")])
+metadata/_custom_type_script = "uid://cy7idrwrtt3ps"
+
+[sub_resource type="GDScript" id="GDScript_s08kf"]
+script/source = "extends Resource
+class_name WorkOrderData
+
+
+enum WorkOrderType { RECRUIT, UPGRADE, CONVERT_RESOURCE } #RESEARCH }
+
+@export var type: WorkOrderType
+@export var name: String
+@export var immediate_cost:GameResource = preload(\"res://Data/GameResources/Resource_Essence.tres\")
+@export var immediate_cost_value: int
+@export var description: String
+@export var icon: Texture2D
+@export var work_required:int
+@export var associated_actorID: String
+@export var requirements: Array[WorkOrderData.Requirement]
+#@export var associated_tech: TechnologyData
+
+
+func get_resource_costs() -> Dictionary[GameResource, int]:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
+	match type:
+		WorkOrderType.RECRUIT:
+			return data.costs
+		WorkOrderType.UPGRADE:
+			return data.costs
+	
+	return {} 
+
+func can_initiate(player_state: PlayerState) -> bool:
+	# Check essence cost
+	if player_state.get_resource_value(immediate_cost) < immediate_cost_value:
+		return false
+
+	#add checks for tech requirements here if we add tech
+
+	return true
+
+func get_tooltip_config() -> TooltipConfiguration:
+	var tooltip = TooltipConfiguration.new()
+	tooltip.title = name
+	tooltip.description = get_description()
+	tooltip.costs.clear()
+
+	if (self.immediate_cost_value):
+		var essenceTip = TooltipConfiguration.TooltipCost.new()
+		essenceTip.cost_resource = immediate_cost
+		essenceTip.cost_amount = self.immediate_cost_value
+		essenceTip.validate_on_wallet = true
+		tooltip.immediate_cost = essenceTip
+
+	for res in get_resource_costs():
+		var cost = TooltipConfiguration.TooltipCost.new()
+		cost.cost_resource = res
+		cost.cost_amount = get_resource_costs()[res]
+		tooltip.costs.append(cost)
+
+	return tooltip
+
+func get_icon()->Texture2D:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
+	match type:
+		WorkOrderType.RECRUIT:
+			return data.sprite
+		WorkOrderType.UPGRADE:
+			return data.sprite
+	return icon
+
+
+func get_description() ->String:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
+	match type:
+		WorkOrderType.RECRUIT:
+			return data.description
+		WorkOrderType.UPGRADE:
+			return data.description
+	return description
+
+func perform_payload(workIssuer: GridObject) -> void:
+	match type:
+		WorkOrderType.RECRUIT:
+			perform_recruit(workIssuer)
+		WorkOrderType.UPGRADE:
+			perform_upgrade(workIssuer)
+		# WorkOrderType.RESEARCH:
+		# 	perform_research(workIssuer)
+	pass
+
+func perform_recruit(work_issuer: GridObject) -> void:
+	print(\"Performing Recruit unit!\")
+	var available_placements:Array[Vector2i] = work_issuer.get_perimeter()
+	var found_placement:bool = false
+	var placement:Vector2i
+	for coord in available_placements:
+		var tile: GameTile =  work_issuer.grid_manager.map_tiles[coord]
+		if (tile.tile_type != GameTile.TileType.FLOOR):
+			continue
+		if tile.has_unit_occupant:
+			continue
+		
+		placement = coord
+		found_placement = true
+		break
+
+	if (found_placement):
+		work_issuer.grid_manager.spawn_grid_object(associated_actorID,placement,work_issuer.side,work_issuer.player_state)
+	else:
+		push_error(\"Wah! no placement!\")
+
+
+
+
+
+func perform_upgrade(_workIssuer: GridObject) -> void:
+	push_error(\"UPGRADED!!\")
+
+func perform_research(_workIssuer: GridObject) -> void:
+	push_error(\"RESEARCHED!!\")	
+
+
+class Requirement:
+	extends Resource
+	enum RequirementType {TECHNOLOGY, NEARBY}
+
+	var type:RequirementType = RequirementType.TECHNOLOGY
+	var required_actor:ActorData
+	#var required_tech:Technology
+"
+
+[sub_resource type="Resource" id="Resource_kr0lw"]
+script = ExtResource("6_8c1bp")
+work_orders = Array[SubResource("GDScript_s08kf")]([ExtResource("8_8c1bp"), ExtResource("9_txrgq"), ExtResource("12_xljbx")])
+metadata/_custom_type_script = "uid://bwinpf3rgsodd"
+
+[sub_resource type="Resource" id="Resource_g4osw"]
+script = ExtResource("10_s08kf")
+metadata/_custom_type_script = "uid://b75xfdnwu8eig"
+
+[resource]
+script = ExtResource("3_actor")
+actor_name = "Circle of Raising"
+description = "Raises Undead"
+sprite = ExtResource("4_sprite")
+view_offset = Vector2i(16, -16)
+grid_size = Vector2i(2, 2)
+clearance = 1
+modules = Array[ExtResource("1_cd")]([SubResource("Resource_s08kf"), SubResource("Resource_xljbx"), SubResource("Resource_kr0lw"), SubResource("Resource_g4osw")])
+costs = Dictionary[ExtResource("2_37b71"), int]({
+ExtResource("2_s08kf"): 80,
+ExtResource("3_xljbx"): 20
+})
+metadata/_custom_type_script = "uid://co4gucr75dqkf"

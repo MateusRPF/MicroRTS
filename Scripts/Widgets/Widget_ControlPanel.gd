@@ -84,8 +84,9 @@ func configure_entry(entry: CommandPanelEntry, data:CommandData):
 			entry.data.command_script = Command_IssueWorkOrder
 
 			if (work_order.type == WorkOrderData.WorkOrderType.RECRUIT or work_order.type == WorkOrderData.WorkOrderType.UPGRADE):
-				entry.data.icon = work_order.associated_actorData.sprite
-				entry.data.description = work_order.associated_actorData.description
+				var actorData:ActorData = Database.get_actor_data(work_order.associated_actorID)
+				entry.data.icon = actorData.sprite
+				entry.data.description = actorData.description
 				match work_order.type:
 					WorkOrderData.WorkOrderType.RECRUIT:
 						entry.button.set_sub_icon(BasicButton.SubIcons.RECRUIT)
