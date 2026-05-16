@@ -32,7 +32,7 @@
 [ext_resource type="Resource" uid="uid://237c5tjdmj50" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Tree.tres" id="30_1c322"]
 [ext_resource type="Resource" uid="uid://wbbn3fufqf8g" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Underpriest.tres" id="31_7qp0s"]
 [ext_resource type="Resource" uid="uid://blpmdfsc42o0b" path="res://Data/Actors/Units/Animals/ActorData_Animals_Wolf.tres" id="32_meug7"]
-[ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="33_c0ded"]
+[ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/Database_Manager.gd" id="33_c0ded"]
 
 [node name="GameLevel" type="Node2D" unique_id=753972093]
 texture_filter = 1
@@ -61,7 +61,7 @@ rendering_quadrant_size = 32
 [node name="Spawnables_Player" type="TileMapLayer" parent="." unique_id=1536935244]
 unique_name_in_owner = true
 modulate = Color(0, 0.10000014, 1, 1)
-tile_map_data = PackedByteArray("AAAYAAQACwAGAAEAAAAWAAMACgAEAAQAAAAVAAQACgAEAAQAAAAaAAMACgAEAAQAAAAbAAQACgAEAAQAAAAZACEAAQAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAAYACAAAQAAAAIAAAAWACQACgAEAAQAAAAbACUACgAEAAQAAAAdAB8ACgAEAAQAAAAWAB0ACgAEAAQAAAAaACMACwAGAAEAAAA=")
 tile_set = ExtResource("5_y4hd1")
 
 [node name="Spawnables_Enemy" type="TileMapLayer" parent="." unique_id=1637972208]

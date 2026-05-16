@@ -10,6 +10,7 @@ script = ExtResource("3_c4xie")
 display_name = "Halt"
 description = "Immediatelly stops the unit. It won't attack or pick up orders until issued another command."
 icon = ExtResource("1_e8ie8")
+priority = 0
 required_components = Array[Script]([ExtResource("3_drcp6")])
 command_script = ExtResource("1_drcp6")
 preferred_hotkey = 68

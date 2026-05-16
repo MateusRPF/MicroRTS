@@ -1,9 +1,9 @@
 extends Command
-class_name Command_FulfillWorkOrder
+class_name Command_FetchToWorkStation
 
 
 var issuer:CWorkStation
-var current_step:FulfillSteps = FulfillSteps.DELIVERING
+var current_step:FulfillSteps = FulfillSteps.FETCHING
 var work_order:WorkOrderData
 var mover:CMover
 var inventory:CInventory
@@ -11,7 +11,7 @@ var state_machine: CStateMachine = null
 var tiles_to_work_from:Array[Vector2i]
 var _target_stockpile:CStockpile
 
-enum FulfillSteps{DELIVERING, WORKING, COMPLETED}
+enum FulfillSteps{FETCHING,RETURNING}
 
 
 func finish_cache() -> void:
@@ -27,18 +27,15 @@ func get_descriptor() -> String:
 	var base_string:String
 	if target_actor and target_actor.data:
 		match current_step:
-			FulfillSteps.DELIVERING:
-				base_string ="Deliver to"
-			FulfillSteps.WORKING:
-				base_string = "Working in "
+			FulfillSteps.FETCHING:
+				base_string ="Getting resources"
+			FulfillSteps.RETURNING:
+				base_string = "Delivering resources "
 		return base_string + target_actor.data.actor_name
 	return base_string
 
 func get_status() -> int:
-	if current_step == FulfillSteps.COMPLETED:
-		return command_states.COMPLETED
-	else:
-		return command_states.EXECUTING
+	return command_states.EXECUTING
 
 func tick() -> void:
 	super.tick()
@@ -47,28 +44,16 @@ func tick() -> void:
 		print("No issuer. Finishing")
 		finish_command()
 		return
+	if issuer.check_delivery_complete() or _has_needed_resource_in_inventory():
+		if (current_step == FulfillSteps.FETCHING):
+			mover.stop_move()
+		current_step = FulfillSteps.RETURNING
 
 	match current_step:
-		FulfillSteps.DELIVERING:
-			print("Delivering")
-			if issuer.work_order_status == CWorkStation.WorkOrderStatus.DELIVERY:
-				_tick_delivery()
-				return
-			else:
-				current_step = FulfillSteps.WORKING
-				return
-
-		FulfillSteps.WORKING:
-			print("Working")
-			if issuer.work_order_status == CWorkStation.WorkOrderStatus.WORKING:
-				_tick_work()
-				return
-			else:
-				current_step = FulfillSteps.COMPLETED
-				return
-	print("Fulfill step is Completed.")
-	finish_command()
-
+		FulfillSteps.FETCHING:
+			_tick_fetching()
+		FulfillSteps.RETURNING:
+			_tick_delivery()
 
 
 func _has_needed_resource_in_inventory() -> bool:
@@ -93,30 +78,13 @@ func _deposit_at_site() -> void:
 			if issuer.deposit_from_unit(owner_executor.owner_object, res) > 0:
 				any_deposited = true
 	if any_deposited and is_instance_valid(issuer):
-		owner_executor.owner_object.play_interaction_with(issuer.owner_object)
+		pass
+		# owner_executor.owner_object.play_interaction_with(issuer.owner_object)
 
-
-func _tick_delivery() -> void:
-	#Deliver to work site
-	if _has_needed_resource_in_inventory():
-		if _can_work_at_current_coord():
-			_deposit_at_site()
-			_pick_next_stockpile()
-			return
-		if not mover.is_moving(): #Move to deliver to Work site.
-			var best_coord: Vector2i = _get_best_coord_to_enact(issuer.owner_object)
-			if best_coord == Vector2i(-1, -1):
-				current_step = FulfillSteps.COMPLETED
-				finish_command()
-				return
-			state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": best_coord})
-		return
-	
-	#Get to the nearest Stockpile
+func _tick_fetching():
 	if not is_instance_valid(_target_stockpile): #
 		_pick_next_stockpile()
 		if not is_instance_valid(_target_stockpile):
-			current_step = FulfillSteps.COMPLETED
 			finish_command()
 			return
 	if _at_stockpile_deliverable(_target_stockpile.owner_object):
@@ -129,6 +97,26 @@ func _tick_delivery() -> void:
 			return
 		state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": coord})
 
+
+func _tick_delivery() -> void:
+		if _can_work_at_current_coord():
+			_deposit_at_site()
+			if not issuer.check_delivery_complete():
+				current_step = FulfillSteps.FETCHING
+			else:
+				_enter_site()
+		if not mover.is_moving(): #Move to deliver to Work site.
+			var best_coord: Vector2i = _get_best_coord_to_enact(issuer.owner_object)
+			if best_coord == Vector2i(-1, -1):
+				finish_command()
+				return
+			state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": best_coord})
+		return
+	
+	
+func _enter_site():
+	var garrison:CGarrison = issuer.owner_object.get_component(CGarrison)
+	garrison.enter_garrison(owner_executor.owner_object)
 
 
 func _pick_next_stockpile() -> void:
@@ -179,29 +167,3 @@ func _withdraw_from_stockpile(stockpile: CStockpile) -> void:
 	if any_withdrawn:
 		owner_executor.owner_object.play_interaction_with(stockpile.owner_object)
 	_target_stockpile = null
-
-
-
-func _tick_work():
-	if not (work_order) or not (issuer):
-		finish_command()
-		return
-	if	issuer.work_order_status != CWorkStation.WorkOrderStatus.WORKING:
-		current_step = FulfillSteps.DELIVERING
-		return
-
-	if not _can_work_at_current_coord():
-		if not mover.is_moving(): #Move to deliver to Work site.
-			var best_coord: Vector2i = _get_best_coord_to_enact(issuer.owner_object)
-			if best_coord == Vector2i(-1, -1):
-				current_step = FulfillSteps.COMPLETED
-				finish_command()
-				return
-			state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": best_coord})
-		return
-	else:
-		owner_executor.owner_object.play_interaction_with(issuer.owner_object)
-		issuer.receive_work_from_unit(owner_executor.owner_object)
-		if (issuer.current_work_received >= work_order.work_required):
-			current_step = FulfillSteps.COMPLETED
-			finish_command()

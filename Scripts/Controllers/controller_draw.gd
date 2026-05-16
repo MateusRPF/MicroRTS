@@ -102,7 +102,6 @@ func _draw_clearance_overlay() -> void:
 			draw_rect(get_rect_for_tile(coord), fill, true)
 
 func _process(_delta: float) -> void:
-	
 	queue_redraw()  # Request redraw every frame to update hover and selection visuals
 
 func _draw_selection_ui() -> void:

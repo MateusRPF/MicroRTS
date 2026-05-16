@@ -14,7 +14,6 @@
 [ext_resource type="Script" uid="uid://n0f88etvtcyy" path="res://Scripts/DataStructures/ComponentData/ComponentData_Attacker.gd" id="11_attacker"]
 [ext_resource type="Script" uid="uid://cs0afmpg2ub3y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IntelligenceHolder.gd" id="11_eqn8a"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="13_eqn8a"]
-[ext_resource type="Resource" uid="uid://blshyw17h00qo" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Corpse.tres" id="13_gde6r"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
@@ -70,5 +69,4 @@ actor_name = "Tombkeeper"
 description = "Guardian of the dead"
 sprite = ExtResource("10_sprite")
 modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
-spawn_on_death = ExtResource("13_gde6r")
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

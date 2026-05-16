@@ -65,7 +65,16 @@ func configure_entry(entry: CommandPanelEntry, data:CommandData):
 		entry.button = find_button_for_data(data)
 		entry.hotkey = button_keys[entry.button]
 
+
+		entry.button.on_pressed.connect(_on_button_pressed.bind(entry))	
+
 		entry.data = data
+
+		if (entry.data is CommandData_BuildStructure):
+			var actorData = Database.get_actor_data(entry.data.buildable_id)
+			if (actorData):
+				entry.data.icon = actorData.sprite	
+
 		if (entry.data is CommandData_IssueWorkOrder):	
 			entry.button.tooltip_config = entry.data.order.get_tooltip_config()
 			
@@ -89,11 +98,10 @@ func configure_entry(entry: CommandPanelEntry, data:CommandData):
 
 		entry.button.icon = entry.data.icon
 		entry.button.tooltip_config.hotkey = entry.hotkey
-		entry.button.enable_button()		
+		entry.button.enable_button()	
 	else:
 		entry.button.icon = null
 		entry.button.set_sub_icon(BasicButton.SubIcons.NONE)
-
 
 
 
@@ -182,6 +190,8 @@ func _clear_view() -> void:
 func _disable_all_buttons():
 	for button in button_keys:
 		button.disable_button()
+		for connection in button.on_pressed.get_connections():
+			button.on_pressed.disconnect(connection.callable)
 
 func reset_view():
 	if _current_objects.size() == 1:

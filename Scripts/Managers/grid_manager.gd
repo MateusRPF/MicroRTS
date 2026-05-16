@@ -26,7 +26,6 @@ var grid_origin: Vector2i = Vector2i.ZERO
 
 
 var astar_grid: AStarGrid2D = null
-@onready var asset_loader: GridAssetLoader = %AssetLoader
 var visibility_manager: GridVisibility
 @onready var fog_of_war: TextureRect = %FogOfWar
 
@@ -35,11 +34,13 @@ var visibility_manager: GridVisibility
 
 
 func _ready() -> void:
+
 	LoadFromTileSet()
 	visibility_manager = GridVisibility.new()
 	add_child(visibility_manager)
 	visibility_manager.initialize(fog_of_war, grid_size, grid_origin, TILE_SIZE)
 	GameplayEvents.embodied_player_state = player_state
+	GameplayEvents.current_grid = self
 	initialize_spawnables(%Spawnables_SideNeutral, ActorData.Sides.NEUTRAL, null)
 	initialize_spawnables(%Spawnables_Enemy, ActorData.Sides.ENEMY, null)
 	initialize_spawnables(%Spawnables_Player, ActorData.Sides.PLAYER, player_state)
@@ -118,21 +119,20 @@ func initialize_spawnables(tileset:TileMapLayer, side:ActorData.Sides,newState:P
 		if data == null:
 			continue
 		var resourceName:String = data.get_custom_data("DataEntry")
-		var actorData: ActorData = null
-
-		actorData = asset_loader.find_actor_data_by_name(resourceName)
-		if not actorData:
-			push_warning("GridManager: no actor mapped or found for '%s'" % resourceName)
-			continue
-		spawn_grid_object(actorData, tile, side, newState)
+		spawn_grid_object(resourceName, tile, side, newState)
 
 	tileset.clear()
 
-func spawn_grid_object(actorData: ActorData, coord: Vector2i, side: ActorData.Sides, newState: PlayerState) -> GridObject:
-	var newActor = grid_object_scene.instantiate() as GridObject
-	add_child(newActor)
-	newActor.Initialize(self, coord, side, newState, actorData)
-	return newActor
+func spawn_grid_object(actorID:String, coord: Vector2i, side: ActorData.Sides, newState: PlayerState) -> GridObject:
+	var actorData = Database.get_actor_data(actorID)
+	if (actorData):
+		var newActor = grid_object_scene.instantiate() as GridObject
+		add_child(newActor)
+		newActor.Initialize(self, coord, side, newState, actorData)
+		return newActor
+	else:
+		push_error("No Actor data with ID %s" %[actorID])
+		return null
 
 
 

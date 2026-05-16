@@ -7,7 +7,6 @@
 [ext_resource type="Resource" uid="uid://dudqhrprdnfic" path="res://Data/GameResources/Resource_Bones.tres" id="4_bones"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="5_actor"]
 [ext_resource type="Texture2D" uid="uid://cof43fynpakyf" path="res://Sprites/ResourceNodes/SPR_Sarcophagus.tres" id="6_sprite"]
-[ext_resource type="Resource" uid="uid://cdu6gpu8gfxx5" path="res://Data/Actors/ResourceNodes/ActorData_Resource_OpenSarcophagus.tres" id="6_yiely"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="7_of86o"]
 
 [sub_resource type="Resource" id="Mod_Inventory"]
@@ -27,5 +26,4 @@ actor_name = "Sarcophagus"
 description = "Full of bones and made of stone."
 sprite = ExtResource("6_sprite")
 modules = Array[ExtResource("1_cd")]([SubResource("Mod_Inventory"), SubResource("Mod_ResourceNode")])
-spawn_on_death = ExtResource("6_yiely")
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

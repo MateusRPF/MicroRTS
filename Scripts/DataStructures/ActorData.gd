@@ -15,7 +15,7 @@ class_name ActorData
 @export var costs: Dictionary[GameResource, int]
 @export var blocks_view:bool = false
 
-@export var spawn_on_death: ActorData
+@export var spawn_on_death: String
 
 @export var VFX_Spawn:String = "Spawn"
 @export var VFX_Death:String = "Death"

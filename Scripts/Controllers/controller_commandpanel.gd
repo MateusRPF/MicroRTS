@@ -136,9 +136,9 @@ func validate_command_on_coord(_executor:CCommandExecutor, target_coord:Vector2i
 			CommandData.Targetting.CONSTRUCTION_SITE:
 				if hovered_object and hovered_object.get_component(CUnderConstruction):
 					return true
-			CommandData.Targetting.WORK_ORDER:
-				if hovered_object and hovered_object.get_component(CWorkStation):
-					if hovered_object.get_component(CWorkStation).current_work_order != null:
+			CommandData.Targetting.GARRISON:
+				if hovered_object and hovered_object.get_component(CGarrison):
+					if hovered_object.get_component(CGarrison).can_enter(_executor.owner_object):
 						return true
 	return false
 
@@ -161,7 +161,6 @@ func find_appropriate_command(executor:CCommandExecutor)-> CommandData:
 			valid_commands_for_target.append(command)
 
 	valid_commands_for_target.sort_custom(sort_commands)
-	print("found %s commands. %s were valid. " % [applicable_commands.size(),valid_commands_for_target.size()])
 
 	if (valid_commands_for_target.size() >0):
 		return valid_commands_for_target[0]

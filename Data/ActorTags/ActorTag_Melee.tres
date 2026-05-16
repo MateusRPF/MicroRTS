@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorTag" format=3 uid="uid://8o6spxd3yvp3"]
+
+[ext_resource type="Texture2D" uid="uid://coavdl61xii7p" path="res://Sprites/UI/CommandIcons/SPR_Command_Attack.tres" id="1_bhmgk"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_y2wkf"]
+
+[resource]
+script = ExtResource("1_y2wkf")
+tag_name = "Combatant - Melee"
+icon = ExtResource("1_bhmgk")
+metadata/_custom_type_script = "uid://6avybfyvspvv"

@@ -2,24 +2,49 @@
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_cd"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_37b71"]
+[ext_resource type="Resource" uid="uid://du1foa3j0e2tk" path="res://Data/GameResources/Resource_Stone.tres" id="2_s08kf"]
+[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="3_4bkr8"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="3_actor"]
-[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkIssuer.gd" id="3_p68fg"]
-[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="4_5jso7"]
+[ext_resource type="Resource" uid="uid://cmsru4uv2c2e0" path="res://Data/GameResources/Resource_Wood.tres" id="3_xljbx"]
+[ext_resource type="Script" uid="uid://cy7idrwrtt3ps" path="res://Scripts/DataStructures/ComponentData/ComponentData_Garrison.gd" id="4_5jso7"]
 [ext_resource type="Texture2D" uid="uid://d2rhnyhkm0id4" path="res://Sprites/Structures/SPR_CircleOfRaising.tres" id="4_sprite"]
-[ext_resource type="Resource" uid="uid://bvw6ue5wef7td" path="res://Data/WorkOrders/Work_RaiseShambler.tres" id="5_5jso7"]
-[ext_resource type="Resource" uid="uid://d3ucpg21bryru" path="res://Data/WorkOrders/Work_RaiseSkeletonArcher.tres" id="6_5jso7"]
+[ext_resource type="Script" uid="uid://b2gwb8xpkht3d" path="res://Scripts/DataStructures/GarrisonSlot.gd" id="5_fgo0n"]
+[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkStation.gd" id="6_8c1bp"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_l6w7f"]
-[ext_resource type="Script" uid="uid://b55uwkn44eef2" path="res://Scripts/DataStructures/ComponentData/ComponentData_Executor.gd" id="7_4bkr8"]
-[ext_resource type="Resource" uid="uid://cpa4d30j63stj" path="res://Data/WorkOrders/Work_RaiseSkeletonMinion.tres" id="7_fgo0n"]
+[ext_resource type="Resource" uid="uid://bgayxasalampw" path="res://Data/ActorTags/ActorTag_Ritualist.tres" id="6_txrgq"]
+[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="7_txrgq"]
+[ext_resource type="Resource" uid="uid://bvw6ue5wef7td" path="res://Data/WorkOrders/Work_RaiseShambler.tres" id="8_8c1bp"]
+[ext_resource type="Resource" uid="uid://d3ucpg21bryru" path="res://Data/WorkOrders/Work_RaiseSkeletonArcher.tres" id="9_txrgq"]
+[ext_resource type="Script" uid="uid://b75xfdnwu8eig" path="res://Scripts/DataStructures/ComponentData/ComponentData_Woundable.gd" id="10_s08kf"]
 
-[sub_resource type="Resource" id="Resource_8c1bp"]
-script = ExtResource("3_p68fg")
-work_orders = Array[ExtResource("4_5jso7")]([ExtResource("5_5jso7"), ExtResource("6_5jso7"), ExtResource("7_fgo0n")])
+[sub_resource type="Resource" id="Resource_s08kf"]
+script = ExtResource("3_4bkr8")
+metadata/_custom_type_script = "uid://b55uwkn44eef2"
+
+[sub_resource type="Resource" id="Resource_guiuf"]
+script = ExtResource("5_fgo0n")
+is_required = true
+accepted_tag = ExtResource("6_txrgq")
+metadata/_custom_type_script = "uid://b2gwb8xpkht3d"
+
+[sub_resource type="Resource" id="Resource_svv6h"]
+script = ExtResource("5_fgo0n")
+accepts_any = true
+metadata/_custom_type_script = "uid://b2gwb8xpkht3d"
+
+[sub_resource type="Resource" id="Resource_xljbx"]
+script = ExtResource("4_5jso7")
+slot_configs = Array[ExtResource("5_fgo0n")]([SubResource("Resource_guiuf"), SubResource("Resource_svv6h")])
+metadata/_custom_type_script = "uid://cy7idrwrtt3ps"
+
+[sub_resource type="Resource" id="Resource_kr0lw"]
+script = ExtResource("6_8c1bp")
+work_orders = Array[ExtResource("7_txrgq")]([ExtResource("8_8c1bp"), ExtResource("9_txrgq")])
 metadata/_custom_type_script = "uid://bwinpf3rgsodd"
 
-[sub_resource type="Resource" id="Resource_5jso7"]
-script = ExtResource("7_4bkr8")
-metadata/_custom_type_script = "uid://b55uwkn44eef2"
+[sub_resource type="Resource" id="Resource_g4osw"]
+script = ExtResource("10_s08kf")
+metadata/_custom_type_script = "uid://b75xfdnwu8eig"
 
 [resource]
 script = ExtResource("3_actor")
@@ -28,5 +53,10 @@ description = "Raises Undead"
 sprite = ExtResource("4_sprite")
 view_offset = Vector2i(16, -16)
 grid_size = Vector2i(2, 2)
-modules = Array[ExtResource("1_cd")]([SubResource("Resource_8c1bp"), SubResource("Resource_5jso7")])
+clearance = 1
+modules = Array[ExtResource("1_cd")]([SubResource("Resource_s08kf"), SubResource("Resource_xljbx"), SubResource("Resource_kr0lw"), SubResource("Resource_g4osw")])
+costs = Dictionary[ExtResource("2_37b71"), int]({
+ExtResource("2_s08kf"): 80,
+ExtResource("3_xljbx"): 100
+})
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

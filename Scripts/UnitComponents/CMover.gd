@@ -14,11 +14,6 @@ var blocker_object:GridObject = null
 
 var default_speed: int = 1
 
-const HOP_HEIGHT: float = 10.0
-const HOP_LEAN: float = 0.22
-
-var _pos_tween: Tween = null
-var _rot_tween: Tween = null
 
 
 func is_moving() -> bool:
@@ -37,9 +32,6 @@ func stop_move() -> void:
 	current_step = 0
 	tick_counter = 0
 
-
-func is_hop_animating() -> bool:
-	return _pos_tween != null and _pos_tween.is_running()
 
 
 func start_move(target_coord: Vector2i) -> bool:
@@ -71,7 +63,7 @@ func _on_tick_received() -> void:
 	if (attribute_set):
 		var speed_attr = attribute_set.get_attr(CAttributeSet.ATTR_ID.ATTR_MOVE_SPEED)
 		if (speed_attr > 0):
-			ticks_per_step = ceili(60 / speed_attr)
+			ticks_per_step = ceili(60.0 / speed_attr as float)
 		else:
 			stop_move()
 			return
@@ -118,10 +110,8 @@ func _advance_move_step() -> bool:
 
 func perform_move(from_coord: Vector2i, to_coord: Vector2i) -> bool:
 	if not owner_object or not owner_object.grid_manager:
-		push_error("CMover: Cannot perform move without grid_manager")
 		return false
 	if not owner_object.grid_manager.map_tiles.has(to_coord):
-		DebugSettings.debug_print("Mover", "Target tile %s is invalid" % to_coord)
 		return false
 
 	if not can_move_to(to_coord):
@@ -129,43 +119,26 @@ func perform_move(from_coord: Vector2i, to_coord: Vector2i) -> bool:
 
 	var grid = owner_object.grid_manager
 	var pivot: Node2D = owner_object.get_node_or_null("%ViewPivot")
+	
+	# 1. Save visual world pos before logic moves
 	var pivot_world_pos: Vector2 = pivot.global_position if pivot else Vector2.ZERO
+	
+	# 2. Update logic and snap the parent object FIRST
 	grid.UpdatePosition(owner_object, to_coord)
 	owner_object.settle_position()
+	
+	# 3. Anchor the visual pivot back to the previous tile
 	if pivot:
 		pivot.global_position = pivot_world_pos
-	_play_hop(to_coord - from_coord)
+		
+	# 4. NOW play the animation. The transforms are stable, 
+	# and the tween will cleanly animate from the offset back to Vector2.ZERO.
+	owner_object.play_hop((to_coord - from_coord), GlobalTicker.tick_rate * ticks_per_step)
+	
 	return true
 
 
-func _play_hop(direction: Vector2i) -> void:
-	var pivot: Node2D = owner_object.get_node_or_null("%ViewPivot")
-	if not pivot:
-		return
-	if _pos_tween and _pos_tween.is_running():
-		_pos_tween.kill()
-	if _rot_tween and _rot_tween.is_running():
-		_rot_tween.kill()
 
-	var duration: float = GlobalTicker.tick_rate * ticks_per_step
-	var half: float = duration * 0.5
-	var start_y: float = pivot.position.y
-
-	_pos_tween = pivot.create_tween().set_parallel(true)
-	_pos_tween.tween_property(pivot, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)
-	_pos_tween.tween_method(
-		func(t: float) -> void:
-			pivot.position.y = lerp(start_y, 0.0, t) - HOP_HEIGHT * sin(t * PI),
-		0.0, 1.0, duration
-	)
-
-	if direction.x != 0:
-		var lean: float = -sign(direction.x) * HOP_LEAN
-		_rot_tween = pivot.create_tween()
-		_rot_tween.tween_property(pivot, "rotation", lean, half).set_trans(Tween.TRANS_SINE)
-		_rot_tween.tween_property(pivot, "rotation", 0.0, half).set_trans(Tween.TRANS_SINE)
-	else:
-		pivot.rotation = 0.0
 
 func can_move_to(target_coord: Vector2i) -> bool:
 	if not owner_object or not owner_object.grid_manager:

@@ -7,9 +7,7 @@ var build_data: CommandData_BuildStructure = null
 func finish_cache() -> void:
 	super.finish_cache()
 	build_data = data as CommandData_BuildStructure
-	var grid: GridManager = owner_executor.owner_object.grid_manager
-	footprint_coords = grid.get_footprint_coords(target_coord, build_data.get_footprint_size())
-	perimeter_coords = target_actor.get_perimeter()
+
 
 
 func start_command() -> bool:
@@ -24,14 +22,17 @@ func start_command() -> bool:
 
 
 func _spawn_structure() -> void:
-	if not build_data or not build_data.target_actor:
+	if not build_data or not build_data.buildable_id:
 		return
 	var grid: GridManager = owner_executor.owner_object.grid_manager
 	if not grid.can_place_with_clearance(target_coord, build_data.get_footprint_size(), build_data.get_clearance()):
 		return
 	var new_structure: GridObject = grid.grid_object_scene.instantiate() as GridObject
 	grid.add_child(new_structure)
-	new_structure.initialize_as_construction_site(grid, target_coord, ActorData.Sides.PLAYER, build_data.target_actor, build_data.cost, owner_executor.owner_object.player_state)
+	new_structure.initialize_as_construction_site(grid, target_coord, ActorData.Sides.PLAYER, build_data.buildable_id, owner_executor.owner_object.player_state)
+	target_actor = new_structure
+	footprint_coords = grid.get_footprint_coords(target_coord, build_data.get_footprint_size())
+	perimeter_coords = target_actor.get_perimeter()
 	_bind_to_site(new_structure)
 
 

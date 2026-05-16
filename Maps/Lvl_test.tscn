@@ -2,27 +2,23 @@
 
 [ext_resource type="PackedScene" uid="uid://b032i84bq7lu8" path="res://Prefabs/Widgets/Widget_Tooltip.tscn" id="1_w3o1q"]
 [ext_resource type="PackedScene" uid="uid://bx3kv3un2jsmn" path="res://Prefabs/Widgets/Widget_ObjectInspector.tscn" id="8_70dqj"]
-[ext_resource type="Script" uid="uid://cd8yfxqc4yltq" path="res://Scripts/UnitComponents/CWoundable.gd" id="9_qmu1d"]
+[ext_resource type="Script" uid="uid://cd8yfxqc4yltq" path="res://Scripts/UnitComponents/CWoundable.gd" id="9_1nj4d"]
 [ext_resource type="Script" uid="uid://c63t7qxi7f0jd" path="res://Scripts/Widgets/Widget_CoordinateView.gd" id="9_upx6b"]
-[ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_7h1oy"]
+[ext_resource type="Script" uid="uid://cwkglspweq2rf" path="res://Scripts/UnitComponents/CAttributeSet.gd" id="10_qmu1d"]
+[ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_7h1oy"]
 [ext_resource type="Script" uid="uid://wyn24v7ygtom" path="res://Scripts/Widgets/Widget_TickControl.gd" id="11_gab08"]
 [ext_resource type="PackedScene" uid="uid://bc1qg1rd6prpb" path="res://Prefabs/Widgets/Widget_BasicButton.tscn" id="11_jp3g8"]
 [ext_resource type="PackedScene" uid="uid://dfvm603euln60" path="res://Prefabs/game_PlayerController.tscn" id="11_rlgon"]
-[ext_resource type="Script" uid="uid://d30ltivdhe6vr" path="res://Scripts/UnitComponents/Commands/CCommandExecutor.gd" id="11_v4mhs"]
 [ext_resource type="Texture2D" uid="uid://fx57nse38xm4" path="res://Sprites/UI/UIControls/SPR_UI_Faster.tres" id="12_c44cc"]
-[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="12_hx6vc"]
+[ext_resource type="Script" uid="uid://ceafvlieahs35" path="res://Scripts/UnitComponents/CInventory.gd" id="12_v4mhs"]
 [ext_resource type="PackedScene" uid="uid://lhy4cor5tj44" path="res://Prefabs/Widgets/Widget_PlayerState.tscn" id="13_1bk3d"]
 [ext_resource type="Texture2D" uid="uid://c7o27giyi5rvf" path="res://Sprites/UI/UIControls/SPR_UI_Pause.tres" id="13_gab08"]
-[ext_resource type="Script" uid="uid://jb2cf1yktrys" path="res://Scripts/UnitComponents/CWorkOrderIssuer.gd" id="13_r4b8g"]
+[ext_resource type="Script" uid="uid://jb2cf1yktrys" path="res://Scripts/UnitComponents/CWorkStation.gd" id="13_hx6vc"]
+[ext_resource type="Script" uid="uid://dv3hnvt1pch8k" path="res://Scripts/UnitComponents/CGarrison.gd" id="14_r4b8g"]
 [ext_resource type="Texture2D" uid="uid://bkpv1hcxnk13c" path="res://Sprites/UI/UIControls/SPR_UI_Slower.tres" id="14_upx6b"]
 [ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="16_gab08"]
 [ext_resource type="PackedScene" uid="uid://ukqepnrxhbvw" path="res://Prefabs/Widgets/Widget_CommandPanel.tscn" id="17_c44cc"]
-[ext_resource type="PackedScene" uid="uid://dnjtyy621pr58" path="res://Maps/Map_PrototypeLevel.tscn" id="18_cc4vf"]
-[ext_resource type="PackedScene" uid="uid://defm375w3n3tu" path="res://Prefabs/VFX/VFX_Spawn.tscn" id="23_1vwrj"]
-[ext_resource type="Script" uid="uid://c7lfqfewi816n" path="res://Scripts/Managers/VFXManager.gd" id="23_8ch73"]
-[ext_resource type="PackedScene" uid="uid://bhtfu4b8i3ugp" path="res://Prefabs/VFX/VFX_MeleeHit.tscn" id="24_1vwrj"]
-[ext_resource type="PackedScene" uid="uid://uvwrtjxt2vvd" path="res://Prefabs/VFX/VFX_Miss.tscn" id="25_47m3e"]
-[ext_resource type="PackedScene" uid="uid://crkjc8t7cw5mx" path="res://Prefabs/VFX/VFX_Projectile.tscn" id="26_1nj4d"]
+[ext_resource type="PackedScene" uid="uid://dnjtyy621pr58" path="res://Maps/Map_PrototypeLevel.tscn" id="24_47m3e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v8ofk"]
 content_margin_left = 0.0
@@ -99,11 +95,12 @@ NodePath("MarginContainer/GridContainer/Button_V"): 86
 layout_mode = 2
 size_flags_vertical = 1
 widget_registry = {
-ExtResource("9_qmu1d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
-ExtResource("10_7h1oy"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
-ExtResource("11_v4mhs"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
-ExtResource("12_hx6vc"): NodePath("MarginContainer/SingleObject/VBoxContainer/HBoxContainer/Widget_InventoryView"),
-ExtResource("13_r4b8g"): NodePath("MarginContainer/SingleObject/Container_WorkOrderView")
+ExtResource("9_1nj4d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_WoundView"),
+ExtResource("10_qmu1d"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_AttributeView"),
+ExtResource("11_7h1oy"): NodePath("MarginContainer/SingleObject/VBoxContainer/Widget_ExecutorView"),
+ExtResource("12_v4mhs"): NodePath("MarginContainer/SingleObject/VBoxContainer/HBoxContainer/Widget_InventoryView"),
+ExtResource("13_hx6vc"): NodePath("MarginContainer/SingleObject/Container_WorkStationView"),
+ExtResource("14_r4b8g"): NodePath("MarginContainer/SingleObject/Container_Garrison")
 }
 
 [node name="CoordinateLabel" type="Label" parent="PlayerHUDLayer" unique_id=1740694992]
@@ -170,11 +167,13 @@ theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 12
 text = "x1"
 
-[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("grid_manager", "camera_bounds") instance=ExtResource("11_rlgon")]
-grid_manager = NodePath("../GameLevel")
-camera_bounds = NodePath("../CameraBounds")
+[node name="GameLevel" parent="." unique_id=753972093 instance=ExtResource("24_47m3e")]
+z_as_relative = false
 
-[node name="GameLevel" parent="." unique_id=753972093 instance=ExtResource("18_cc4vf")]
+[node name="PlayerController" parent="." unique_id=863427110 node_paths=PackedStringArray("camera_bounds") instance=ExtResource("11_rlgon")]
+z_index = 4096
+position = Vector2(817, 1105)
+camera_bounds = NodePath("../CameraBounds")
 
 [node name="CameraBounds" type="Area2D" parent="." unique_id=643080287]
 
@@ -182,14 +181,3 @@ camera_bounds = NodePath("../CameraBounds")
 position = Vector2(1599, 1592.75)
 shape = SubResource("RectangleShape2D_w3o1q")
 debug_color = Color(0, 0.5950001, 0.7, 0)
-
-[node name="VFXManager" type="Node" parent="." unique_id=1082738693 node_paths=PackedStringArray("grid")]
-script = ExtResource("23_8ch73")
-grid = NodePath("../GameLevel")
-vfxRegistry = Dictionary[String, PackedScene]({
-"Death": ExtResource("23_1vwrj"),
-"Miss": ExtResource("25_47m3e"),
-"Projectile": ExtResource("26_1nj4d"),
-"Slash": ExtResource("24_1vwrj"),
-"Spawn": ExtResource("23_1vwrj")
-})

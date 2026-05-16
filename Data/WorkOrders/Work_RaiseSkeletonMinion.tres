@@ -1,16 +1,13 @@
 [gd_resource type="Resource" script_class="WorkOrderData" format=3 uid="uid://cpa4d30j63stj"]
 
-[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_34l8r"]
-[ext_resource type="Resource" uid="uid://e6sqeljf21ug" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonMinion.tres" id="2_34l8r"]
 [ext_resource type="Resource" uid="uid://bafrmfpon3pos" path="res://Data/GameResources/Resource_Essence.tres" id="3_l5aqc"]
 [ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="3_plfib"]
 
-[sub_resource type="GDScript" id="GDScript_34l8r"]
+[sub_resource type="GDScript" id="GDScript_4wj5j"]
 
 [resource]
 script = ExtResource("3_plfib")
-name = "Raise Skeletal Minion"
-immediate_cost_value = 2
-work_required = 30
-associated_actorData = ExtResource("2_34l8r")
+immediate_cost_value = 20
+work_required = 1000
+associated_actorID = "SkeletonMinion"
 metadata/_custom_type_script = "uid://dv7pwfaonhwmj"

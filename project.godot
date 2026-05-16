@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 DebugSettings="*res://Scripts/debug_settings.gd"
 GameplayEvents="*uid://b2sjbtgf8cbx7"
 GlobalTicker="*uid://b5etmfsipauey"
-IntelligenceDB="*uid://cblt8bnvtd8kv"
+Database="*uid://c7lfqfewi816n"
 
 [debug]
 

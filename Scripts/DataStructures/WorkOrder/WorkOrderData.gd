@@ -11,19 +11,18 @@ enum WorkOrderType { RECRUIT, UPGRADE, CONVERT_RESOURCE } #RESEARCH }
 @export var description: String
 @export var icon: Texture2D
 @export var work_required:int
-@export var accepted_tags: Array[ActorTag]
-
-@export var associated_actorData: ActorData
+@export var associated_actorID: String
 @export var requirements: Array[WorkOrderData.Requirement]
 #@export var associated_tech: TechnologyData
 
 
 func get_resource_costs() -> Dictionary[GameResource, int]:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
 	match type:
 		WorkOrderType.RECRUIT:
-			return associated_actorData.costs
+			return data.costs
 		WorkOrderType.UPGRADE:
-			return associated_actorData.costs
+			return data.costs
 	
 	return {} 
 
@@ -58,20 +57,22 @@ func get_tooltip_config() -> TooltipConfiguration:
 	return tooltip
 
 func get_icon()->Texture2D:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
 	match type:
 		WorkOrderType.RECRUIT:
-			return associated_actorData.sprite
+			return data.sprite
 		WorkOrderType.UPGRADE:
-			return associated_actorData.sprite
+			return data.sprite
 	return icon
 
 
 func get_description() ->String:
+	var data:ActorData = Database.get_actor_data(associated_actorID)
 	match type:
 		WorkOrderType.RECRUIT:
-			return associated_actorData.description
+			return data.description
 		WorkOrderType.UPGRADE:
-			return associated_actorData.description
+			return data.description
 	return description
 
 func perform_payload(workIssuer: GridObject) -> void:
@@ -90,13 +91,10 @@ func perform_recruit(work_issuer: GridObject) -> void:
 	var found_placement:bool = false
 	var placement:Vector2i
 	for coord in available_placements:
-		print("Checking placement at %s"% [coord])
 		var tile: GameTile =  work_issuer.grid_manager.map_tiles[coord]
 		if (tile.tile_type != GameTile.TileType.FLOOR):
-			print("Checking placement at %s: Not a floor."% [coord])
 			continue
 		if tile.has_unit_occupant:
-			print("Checking placement at %s: Has unit, called %s"% [coord,tile.unit_occupant.data.actor_name])
 			continue
 		
 		placement = coord
@@ -104,8 +102,7 @@ func perform_recruit(work_issuer: GridObject) -> void:
 		break
 
 	if (found_placement):
-		print("Spawning unit!")
-		work_issuer.grid_manager.spawn_grid_object(associated_actorData,placement,work_issuer.side,work_issuer.player_state)
+		work_issuer.grid_manager.spawn_grid_object(associated_actorID,placement,work_issuer.side,work_issuer.player_state)
 	else:
 		push_error("Wah! no placement!")
 

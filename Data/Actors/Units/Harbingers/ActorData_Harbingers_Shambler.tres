@@ -14,6 +14,7 @@
 [ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="10_cmddata"]
 [ext_resource type="Resource" uid="uid://bppw8r3iwyl24" path="res://Data/CommandDatas/CommandData_Build_Stockpile.tres" id="11_buildstockpile"]
 [ext_resource type="Script" uid="uid://bkymwg55yft4y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IdleDeposit.gd" id="12_idle"]
+[ext_resource type="Resource" uid="uid://bvte42l84p2dr" path="res://Data/CommandDatas/CommandData_Build_Circle.tres" id="13_4uds1"]
 [ext_resource type="Script" uid="uid://7dy3oolv1jl" path="res://Scripts/DataStructures/ComponentData/ComponentData_CarryVisual.gd" id="13_carry"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="14_actor"]
 [ext_resource type="Texture2D" uid="uid://c5imvxfthepbx" path="res://Sprites/Units/SPR_Shambler.tres" id="15_sprite"]
@@ -24,14 +25,14 @@
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
 attrs = Dictionary[int, int]({
-0: 20,
-1: 2,
-2: 2,
+0: 30,
+1: 1,
+2: 1,
 3: 1,
-4: 10,
-5: 0,
-6: 2,
-7: 25
+4: 15,
+5: 5,
+6: 3,
+7: 10
 })
 metadata/_custom_type_script = "uid://b40p573hfvm6v"
 
@@ -78,12 +79,17 @@ script = ExtResource("16_uwfmb")
 default_intelligence = 2
 metadata/_custom_type_script = "uid://cs0afmpg2ub3y"
 
+[sub_resource type="Resource" id="Resource_ipk6s"]
+script = ExtResource("9_builder")
+buildable = Array[ExtResource("10_cmddata")]([ExtResource("13_4uds1"), ExtResource("11_buildstockpile")])
+metadata/_custom_type_script = "uid://rt43ydbdv6x4"
+
 [resource]
 script = ExtResource("14_actor")
 actor_name = "Risen"
 description = "Shamblers are slow and expensive, but are hardy and useful as laborers."
 sprite = ExtResource("15_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Mod_Builder"), SubResource("Mod_IdleDeposit"), SubResource("Mod_CarryVisual"), SubResource("Mod_Attacker"), SubResource("Resource_qua60"), SubResource("Resource_ipk6s")])
 costs = Dictionary[ExtResource("5_qpx54"), int]({
 ExtResource("2_8xkei"): 1
 })

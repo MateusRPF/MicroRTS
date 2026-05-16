@@ -115,7 +115,7 @@ func do_fail():
 	pass
 
 func do_sucess():
-	shake_button()
+	# shake_button()
 	modulate = Color.GRAY
 	await get_tree().create_timer(0.2).timeout
 	self.scale = Vector2.ONE

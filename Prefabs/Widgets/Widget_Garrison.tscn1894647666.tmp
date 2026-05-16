@@ -1,0 +1,62 @@
+[gd_scene format=3 uid="uid://cs2cs2soexpy1"]
+
+[ext_resource type="Theme" uid="uid://ccd2tkrpe0pi1" path="res://UI/Theme_HorrorBase.tres" id="1_4cet0"]
+[ext_resource type="Script" uid="uid://bvlmvfw28hky6" path="res://Scripts/Widgets/Widget_GarrisonView.gd" id="1_a4a5x"]
+[ext_resource type="PackedScene" uid="uid://uouppclsnfr1" path="res://Prefabs/Widgets/Widget_StationEntry.tscn" id="3_l1wtn"]
+
+[node name="Container_Garrison" type="PanelContainer" unique_id=2023688797]
+self_modulate = Color(1, 1, 1, 0)
+script = ExtResource("1_a4a5x")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1843507319]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1934868094]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_CurrentWork" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1546541446]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_4cet0")
+theme_override_font_sizes/font_size = 16
+text = "Worker Stations"
+horizontal_alignment = 1
+
+[node name="Container_CurrentWorkers" type="HBoxContainer" parent="VBoxContainer" unique_id=151605307]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+
+[node name="Station_Entry" parent="VBoxContainer/Container_CurrentWorkers" unique_id=1389724705 instance=ExtResource("3_l1wtn")]
+layout_mode = 2
+
+[node name="Station_Entry2" parent="VBoxContainer/Container_CurrentWorkers" unique_id=1018524665 instance=ExtResource("3_l1wtn")]
+layout_mode = 2
+
+[node name="Station_Entry3" parent="VBoxContainer/Container_CurrentWorkers" unique_id=277765505 instance=ExtResource("3_l1wtn")]
+layout_mode = 2
+
+[node name="Control2" type="Control" parent="VBoxContainer/Container_CurrentWorkers" unique_id=175746180]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=906367688]
+layout_mode = 2
+alignment = 1
+
+[node name="Label_workpower" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=911917881]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_4cet0")
+theme_override_colors/font_color = Color(1, 1, 1, 0.3372549)
+theme_override_font_sizes/font_size = 14
+text = "Work Power:"
+horizontal_alignment = 1
+
+[node name="Label_TotalWorkValue" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=999164237]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_4cet0")
+text = "09"
+horizontal_alignment = 1

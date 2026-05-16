@@ -8,7 +8,6 @@ const SHAKE_DURATION: float = 0.26
 
 var max_progress: int = 0
 var current_progress: int = 0
-var _shake_tween: Tween = null
 
 signal progress_changed(component: CUnderConstruction)
 
@@ -18,8 +17,8 @@ func initialize_component(actor: GridObject) -> void:
 	_refresh_visual()
 
 
-func init_from_cost(cost_sum: int) -> void:
-	max_progress = cost_sum * HITS_PER_RESOURCE
+func init_from_cost(_cost_sum: int) -> void:
+	max_progress = 100
 	current_progress = 0
 	_refresh_visual()
 

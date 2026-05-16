@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorTag" format=3 uid="uid://ibtqw4bmpa02"]
+
+[ext_resource type="Texture2D" uid="uid://57x4pesosw1d" path="res://Sprites/UI/SPR_Carcass.tres" id="1_35vox"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_stsl1"]
+
+[resource]
+script = ExtResource("1_stsl1")
+tag_name = "Undead"
+icon = ExtResource("1_35vox")
+metadata/_custom_type_script = "uid://6avybfyvspvv"

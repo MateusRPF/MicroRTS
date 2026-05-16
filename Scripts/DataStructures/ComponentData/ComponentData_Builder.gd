@@ -1,7 +1,7 @@
 extends ComponentData
 class_name ComponentData_Builder
 
-@export var buildable: Array[CommandData]
+@export var buildable:Array[CommandData]
 
 func assemble_component(actor: GridObject) -> GridObjectComponent:
 	var newComponent := CBuilder.new()

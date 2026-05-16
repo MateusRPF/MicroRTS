@@ -16,13 +16,17 @@
 [ext_resource type="Resource" uid="uid://bafrmfpon3pos" path="res://Data/GameResources/Resource_Essence.tres" id="12_5crgb"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="12_58xhc"]
 [ext_resource type="Script" uid="uid://cb8couropcdsk" path="res://Scripts/DataStructures/ComponentData/ComponentData_ResourceGen.gd" id="12_mwv05"]
+[ext_resource type="Script" uid="uid://7dy3oolv1jl" path="res://Scripts/DataStructures/ComponentData/ComponentData_CarryVisual.gd" id="14_8imfg"]
+[ext_resource type="Script" uid="uid://bkymwg55yft4y" path="res://Scripts/DataStructures/ComponentData/ComponentData_IdleDeposit.gd" id="15_nm0nn"]
+[ext_resource type="Resource" uid="uid://bgayxasalampw" path="res://Data/ActorTags/ActorTag_Ritualist.tres" id="17_njvd1"]
+[ext_resource type="Resource" uid="uid://bwbleb1pfbriy" path="res://Data/ActorTags/ActorTag_Ranged.tres" id="18_8imfg"]
 
 [sub_resource type="Resource" id="Mod_Attrs"]
 script = ExtResource("2_attrs")
 attrs = Dictionary[int, int]({
 0: 30,
 1: 0,
-2: 0,
+2: 4,
 3: 3,
 4: 50,
 5: 20,
@@ -70,10 +74,17 @@ script = ExtResource("12_mwv05")
 resource = ExtResource("12_5crgb")
 generation_interval_seconds = 2.0
 
+[sub_resource type="Resource" id="Mod_CarryVisual"]
+script = ExtResource("14_8imfg")
+
+[sub_resource type="Resource" id="Mod_IdleDeposit"]
+script = ExtResource("15_nm0nn")
+
 [resource]
 script = ExtResource("9_actor")
 actor_name = "Underpriest"
 description = "Trained member of the Harbingers, able to conduct basic magic."
 sprite = ExtResource("10_sprite")
-modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Resource_qua60"), SubResource("Mod_Attacker"), SubResource("Resource_5crgb")])
+modules = Array[ExtResource("1_cd")]([SubResource("Mod_Attrs"), SubResource("Mod_Inv"), SubResource("Mod_Mover"), SubResource("Mod_Harv"), SubResource("Mod_Exec"), SubResource("Mod_SM"), SubResource("Mod_Wound"), SubResource("Resource_qua60"), SubResource("Mod_Attacker"), SubResource("Resource_5crgb"), SubResource("Mod_CarryVisual"), SubResource("Mod_IdleDeposit")])
+tags = Array[ExtResource("12_58xhc")]([ExtResource("17_njvd1"), ExtResource("18_8imfg")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

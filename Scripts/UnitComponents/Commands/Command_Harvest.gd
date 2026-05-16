@@ -23,10 +23,12 @@ func finish_cache():
 	target_resource = target_actor.get_component(CResourceNode)
 	harvester = owner_executor.owner_object.get_component(CHarvester)
 	state_machine = owner_executor.owner_object.get_component(CStateMachine)
+	harvester.currently_harvesting_resource = target_resource.resource
 
 
 func start_command() -> bool:
 	emit_signal("command_started", self)
+	tick()
 	return true
 
 
@@ -49,7 +51,7 @@ func tick() -> void:
 					return
 
 				if not owner_executor.owner_object.get_component(CMover).is_moving():
-					var target_interact_coord: Vector2i = get_best_coord_to_enact(target_resource.owner_object)
+					var target_interact_coord: Vector2i = _get_best_coord_to_enact(target_resource.owner_object)
 					if target_interact_coord == Vector2i(-1, -1):
 						target_resource = null
 						cached_path = []
@@ -76,7 +78,7 @@ func tick() -> void:
 					current_step = HarvestSteps.FINDING_RESOURCE
 				else:
 					if not owner_executor.owner_object.get_component(CMover).is_moving():
-						var delivery_coord = get_best_coord_to_enact(target_delivery_stockpile.owner_object)
+						var delivery_coord = _get_best_coord_to_enact(target_delivery_stockpile.owner_object)
 						if delivery_coord == Vector2i(-1, -1):
 							cached_path = []
 							return
@@ -94,29 +96,9 @@ func _request_move_state(target_tile: Vector2i) -> void:
 	state_machine.request_state(CStateMachine.StateID.MOVE, params)
 
 
-func get_best_coord_to_enact(target: GridObject) -> Vector2i:
-	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target)
-	if candidates.is_empty():
-		cached_path = []
-		return Vector2i(-1, -1)
-
-	var actor: GridObject = owner_executor.owner_object
-	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
-	if result.is_empty():
-		cached_path = []
-		return Vector2i(-1, -1)
-
-	cached_path = result["path"]
-	return result["best_goal"]
 
 
-func can_path_to_target(target: GridObject) -> bool:
-	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target)
-	if candidates.is_empty():
-		return false
-	var actor: GridObject = owner_executor.owner_object
-	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
-	return not result.is_empty()
+
 
 
 func get_status() -> int:
@@ -150,14 +132,28 @@ func get_descriptor() -> String:
 
 
 func get_next_node() -> bool:
-	var nearby_resource = owner_executor.owner_object.grid_manager.find_closest_reachable_component(owner_executor.owner_object, SEARCH_RADIUS, CResourceNode)
 	
-	if not nearby_resource:
+	var nearby_possibles:Array[GridObject] = owner_executor.owner_object.grid_manager.get_objects_in_radius(owner_executor.owner_object.current_coord,SEARCH_RADIUS,CResourceNode)
+	nearby_possibles.sort_custom(sort_distance)
+
+	var best_resource:CResourceNode
+	for object in nearby_possibles:
+		var node:CResourceNode = object.get_component(CResourceNode)
+		if node.resource == harvester.currently_harvesting_resource:
+			best_resource = node
+			break
+	
+	if not best_resource:
 		return false
 	else:
-		target_resource = nearby_resource
+		target_resource = best_resource
 		return true
 
+func sort_distance(a:GridObject, b:GridObject):
+	var current_coord:Vector2i = owner_executor.owner_object.current_coord
+	var distance_a = current_coord.distance_squared_to(a.current_coord)
+	var distance_b = current_coord.distance_squared_to(b.current_coord)
+	return distance_a < distance_b
 
 func get_next_stockpile()->bool:
 	if target_delivery_stockpile:

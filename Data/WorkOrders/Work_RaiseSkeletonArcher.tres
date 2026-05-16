@@ -1,16 +1,14 @@
 [gd_resource type="Resource" script_class="WorkOrderData" format=3 uid="uid://d3ucpg21bryru"]
 
-[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_cv7cm"]
-[ext_resource type="Resource" uid="uid://prnuj1m30t66" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonArcher.tres" id="2_jw81t"]
 [ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="3_buox7"]
 [ext_resource type="Resource" uid="uid://bafrmfpon3pos" path="res://Data/GameResources/Resource_Essence.tres" id="3_jw81t"]
 
-[sub_resource type="GDScript" id="GDScript_puixp"]
+[sub_resource type="GDScript" id="GDScript_4wj5j"]
 
 [resource]
 script = ExtResource("3_buox7")
 name = "Raise Skeleton Archer"
-immediate_cost_value = 20
-work_required = 30
-associated_actorData = ExtResource("2_jw81t")
+immediate_cost_value = 50
+work_required = 5000
+associated_actorID = "SkeletonArcher"
 metadata/_custom_type_script = "uid://dv7pwfaonhwmj"

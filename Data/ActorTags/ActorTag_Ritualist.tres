@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ActorTag" format=3 uid="uid://bgayxasalampw"]
+
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_qg58p"]
+
+[resource]
+script = ExtResource("1_qg58p")
+tag_name = "Ritualist"
+metadata/_custom_type_script = "uid://6avybfyvspvv"

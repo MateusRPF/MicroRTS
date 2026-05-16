@@ -1,12 +1,11 @@
 extends ComponentData
-class_name ComponentData_WorkIssuer
-
-@export var work_orders:Array[WorkOrderData]
+class_name ComponentData_Garrison
+@export var slot_configs:Array[GarrisonSlot]
 
 
 func assemble_component(actor:GridObject) -> GridObjectComponent:
-	var newComponent = CWorkStation.new()
-	newComponent.available_work_orders = work_orders
+	var newComponent = CGarrison.new()
+	newComponent.slot_configurations = slot_configs
 	actor.add_child(newComponent)
 	newComponent.initialize_component(actor)
 

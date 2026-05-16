@@ -77,3 +77,12 @@ func _get_best_coord_to_enact(target: GridObject,interact_range:int =1) -> Vecto
 
 	cached_path = result["path"] if result.has("path") else []
 	return result["best_goal"]
+
+
+func can_path_to_target(target: GridObject) -> bool:
+	var candidates: Array[Vector2i] = get_valid_coords_to_enact(target)
+	if candidates.is_empty():
+		return false
+	var actor: GridObject = owner_executor.owner_object
+	var result: Dictionary = actor.grid_manager.dijkstra_to_any(actor.current_coord, candidates, actor)
+	return not result.is_empty()

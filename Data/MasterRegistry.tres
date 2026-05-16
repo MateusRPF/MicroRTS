@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="Registry" format=3 uid="uid://bl315b73ms5pv"]
+
+[ext_resource type="Script" uid="uid://wmd4meoltur3" path="res://Scripts/DataStructures/Registry.gd" id="2_2e5v7"]
+[ext_resource type="Resource" uid="uid://il12os3x1a14" path="res://Data/Actors/Misc/ActorData_Misc_Door.tres" id="2_khpm3"]
+[ext_resource type="Resource" uid="uid://bh60fq2nxe4wd" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Boulder.tres" id="3_r0lik"]
+[ext_resource type="Resource" uid="uid://blshyw17h00qo" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Corpse.tres" id="4_4a5uy"]
+[ext_resource type="Resource" uid="uid://cdu6gpu8gfxx5" path="res://Data/Actors/ResourceNodes/ActorData_Resource_OpenSarcophagus.tres" id="5_ytjot"]
+[ext_resource type="Resource" uid="uid://b8wjdwh2r0yfe" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Sarcophagus.tres" id="6_eeew1"]
+[ext_resource type="Resource" uid="uid://237c5tjdmj50" path="res://Data/Actors/ResourceNodes/ActorData_Resource_Tree.tres" id="7_8fxvf"]
+[ext_resource type="Resource" uid="uid://b0jstpiq0qffm" path="res://Data/Actors/Structures/ActorData_Structure_AltarOfHorns.tres" id="8_6kmhi"]
+[ext_resource type="Resource" uid="uid://cuukl1t1bo4ig" path="res://Data/Actors/Structures/ActorData_Structure_BoneCarver.tres" id="9_o0fdx"]
+[ext_resource type="Resource" uid="uid://b7w20d3qgpuk1" path="res://Data/Actors/Structures/ActorData_Structure_CircleOfRaising.tres" id="10_ggfmg"]
+[ext_resource type="Resource" uid="uid://shqteeit57b7" path="res://Data/Actors/Structures/ActorData_Structure_Effigy1.tres" id="11_2irc7"]
+[ext_resource type="Resource" uid="uid://cj8br1deesyp3" path="res://Data/Actors/Structures/ActorData_Structure_Effigy2.tres" id="12_c7uas"]
+[ext_resource type="Resource" uid="uid://djix74065hwkl" path="res://Data/Actors/Structures/ActorData_Structure_Slaughterhouse.tres" id="13_sja0m"]
+[ext_resource type="Resource" uid="uid://b2kmdacu0pt33" path="res://Data/Actors/Structures/ActorData_Structure_Stockpile.tres" id="14_vr0ld"]
+[ext_resource type="Resource" uid="uid://b2h0cg8c6fa2h" path="res://Data/Actors/Units/Animals/ActorData_Animals_BlackBear.tres" id="15_8v448"]
+[ext_resource type="Resource" uid="uid://gdi7mei8kyp2" path="res://Data/Actors/Units/Animals/ActorData_Animals_BrownBear.tres" id="16_d0dj5"]
+[ext_resource type="Resource" uid="uid://3j4jjq07fffs" path="res://Data/Actors/Units/Animals/ActorData_Animals_Llama.tres" id="17_4d8r0"]
+[ext_resource type="Resource" uid="uid://blpmdfsc42o0b" path="res://Data/Actors/Units/Animals/ActorData_Animals_Wolf.tres" id="18_miane"]
+[ext_resource type="Resource" uid="uid://bsxlacch5vbo5" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Balestrier.tres" id="19_ymlxc"]
+[ext_resource type="Resource" uid="uid://j6yqw0pj86ho" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Soldier.tres" id="20_2fn32"]
+[ext_resource type="Resource" uid="uid://dspvq8v15o0lf" path="res://Data/Actors/Units/Consectors/ActorData_Consector_Tombkeeper.tres" id="21_db1h1"]
+[ext_resource type="Resource" uid="uid://cwpqmxa8gsyfh" path="res://Data/Actors/Units/Grovelings/ActorData_Grovelings_Dryad.tres" id="22_luvsm"]
+[ext_resource type="Resource" uid="uid://hr7gf5x37cqi" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Shambler.tres" id="23_fdb1p"]
+[ext_resource type="Resource" uid="uid://cfkrjqg5niogl" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Skeleton.tres" id="24_dkvcy"]
+[ext_resource type="Resource" uid="uid://prnuj1m30t66" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonArcher.tres" id="25_n37jc"]
+[ext_resource type="Resource" uid="uid://e6sqeljf21ug" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_SkeletonMinion.tres" id="26_qaclk"]
+[ext_resource type="Resource" uid="uid://wbbn3fufqf8g" path="res://Data/Actors/Units/Harbingers/ActorData_Harbingers_Underpriest.tres" id="27_3dn87"]
+
+[resource]
+script = ExtResource("2_2e5v7")
+actor_data_map = {
+"AltarOfHorns": ExtResource("8_6kmhi"),
+"Balestrier": ExtResource("19_ymlxc"),
+"BlackBear": ExtResource("15_8v448"),
+"BoneCarver": ExtResource("9_o0fdx"),
+"Boulder": ExtResource("3_r0lik"),
+"BrownBear": ExtResource("16_d0dj5"),
+"CircleOfRaising": ExtResource("10_ggfmg"),
+"Corpse": ExtResource("4_4a5uy"),
+"Door": ExtResource("2_khpm3"),
+"Dryad": ExtResource("22_luvsm"),
+"Effigy1": ExtResource("11_2irc7"),
+"Effigy2": ExtResource("12_c7uas"),
+"Llama": ExtResource("17_4d8r0"),
+"OpenSarcophagus": ExtResource("5_ytjot"),
+"Sarcophagus": ExtResource("6_eeew1"),
+"Shambler": ExtResource("23_fdb1p"),
+"Skeleton": ExtResource("24_dkvcy"),
+"SkeletonArcher": ExtResource("25_n37jc"),
+"SkeletonMinion": ExtResource("26_qaclk"),
+"Slaughterhouse": ExtResource("13_sja0m"),
+"Soldier": ExtResource("20_2fn32"),
+"Stockpile": ExtResource("14_vr0ld"),
+"Tombkeeper": ExtResource("21_db1h1"),
+"Tree": ExtResource("7_8fxvf"),
+"Underpriest": ExtResource("27_3dn87"),
+"Wolf": ExtResource("18_miane")
+}
+metadata/_custom_type_script = "uid://wmd4meoltur3"

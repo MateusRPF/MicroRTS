@@ -7,11 +7,12 @@ var command_queue: Array = []
 var current_command = null
 var idling: bool = true
 
-@onready var behavioral_frequency:int = randi_range(3,5)
+@onready var behavioral_frequency:int = randi_range(1,2)
 var tick_count:int = 0
 
 func initialize_component(actor: GridObject) -> void:
 	super.initialize_component(actor)
+	actor.OnUnitReset.connect(clear_commands)
 
 
 
@@ -51,3 +52,8 @@ func _trigger_next_command() -> void:
 func on_damaged(opponent:GridObject) -> void:
 	if current_command != null:
 		current_command.on_damaged(opponent)
+
+func clear_commands():
+	command_queue.clear()
+	current_command = null
+	became_idle.emit(self)

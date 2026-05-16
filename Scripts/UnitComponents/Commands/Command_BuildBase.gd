@@ -111,7 +111,7 @@ func _tick_building() -> void:
 			state_machine.request_state(CStateMachine.StateID.MOVE, {"target_tile": adjacent})
 		return
 	owner_executor.owner_object.play_interaction_with(target_construction.owner_object)
-	target_construction.owner_object.shake()
+	target_construction.owner_object.play_shake()
 	if target_construction.add_progress(1):
 		current_step = BuildSteps.COMPLETED
 		finish_command()

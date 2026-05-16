@@ -16,12 +16,13 @@ signal UI_tooltip_closed()
 
 signal VFX_requested(vfx_name: String, coord: Vector2i,optional_target:Vector2i)
 
+
 signal essence_value_changed(new_value: int)
 signal control_value_changed(new_value: int)
 signal resource_inventory_changed(resource: GameResource, new_amount: int)
 
 var embodied_player_state:PlayerState
-
+var current_grid:GridManager
 # -- Movement & Logic --
 # Useful for the UI to know when to update position-based widgets
 

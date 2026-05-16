@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CommandData_BuildStructure" format=3 uid="uid://bvte42l84p2dr"]
+
+[ext_resource type="Script" uid="uid://dcsgbgr4nk4vt" path="res://Scripts/UnitComponents/Commands/Command_BuildStructure.gd" id="1_p7b3p"]
+[ext_resource type="Script" uid="uid://duon4ud16dmju" path="res://Scripts/DataStructures/CommandData_BuildStructure.gd" id="5_r778b"]
+[ext_resource type="Script" uid="uid://c8pc0tvbc0mf2" path="res://Scripts/DataStructures/CommandData.gd" id="6_itikb"]
+
+[resource]
+script = ExtResource("5_r778b")
+buildable_id = "CircleOfRaising"
+display_name = "Circle of Raising"
+description = "The Circle of Raising can be used to reanimate corpses. Requires a Ritualist."
+target_mode = 5
+command_script = ExtResource("1_p7b3p")

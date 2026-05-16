@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorTag" format=3 uid="uid://dang23k23krpe"]
+
+[ext_resource type="Texture2D" uid="uid://b1x6lwaahurk4" path="res://Sprites/UI/SPR_Stone.tres" id="1_8mh02"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_awy0y"]
+
+[resource]
+script = ExtResource("1_awy0y")
+tag_name = "Laborer"
+icon = ExtResource("1_8mh02")
+metadata/_custom_type_script = "uid://6avybfyvspvv"

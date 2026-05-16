@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ActorTag" format=3 uid="uid://bwbleb1pfbriy"]
+
+[ext_resource type="Texture2D" uid="uid://dohb3w770y10o" path="res://Sprites/UI/CommandIcons/SPR_Command_Move.tres" id="1_0ewn7"]
+[ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="1_web3c"]
+
+[resource]
+script = ExtResource("1_web3c")
+tag_name = "Combatant - Ranged"
+icon = ExtResource("1_0ewn7")
+metadata/_custom_type_script = "uid://6avybfyvspvv"

@@ -15,6 +15,7 @@ var side: ActorData.Sides = ActorData.Sides.NEUTRAL
 
 signal OnDamageReceived(attacker: GridObject)
 
+signal OnUnitReset()
 
 var data:ActorData = null
 
@@ -28,10 +29,18 @@ const INTERACT_SHAKE_MAGNITUDE: float = 2.0
 const INTERACT_SHAKE_DURATION: float = 0.2
 const HIT_FLASH_DURATION: float = 0.5
 
+const HOP_HEIGHT: float = 10.0
+const HOP_LEAN: float = 0.22
+
+var _pos_tween: Tween = null
+var _rot_tween: Tween = null
+
+
 var _interact_tween: Tween = null
 var _shake_tween: Tween = null
 var _hit_flash_tween: Tween = null
 
+var receive_ticks:bool = true
 
 signal OnTickReceived
 
@@ -48,17 +57,20 @@ func Initialize(manager: GridManager, coord: Vector2i, newSide:ActorData.Sides, 
 
 	grid_manager.UpdatePosition(self, current_coord)
 
+	%Centered.position.x += (size.x-1) *16
+	%Centered.position.y += (size.y-1) *-16
+
 	settle_position()
 	if (data.VFX_Spawn != ""):
 		GameplayEvents.VFX_requested.emit(data.VFX_Spawn,current_coord,current_coord)
 
 
-func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, target_data: ActorData, cost: Dictionary[GameResource, int], state: PlayerState) -> void:
+func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newSide: ActorData.Sides, building_id: String, state: PlayerState) -> void:
 	grid_manager = manager
 	current_coord = coord
 	side = newSide
 	player_state = state
-	data = target_data
+	data = Database.get_actor_data(building_id)
 	%Sprite.texture = data.sprite
 	%Sprite.offset = data.view_offset
 	%Sprite.material = null
@@ -66,6 +78,7 @@ func initialize_as_construction_site(manager: GridManager, coord: Vector2i, newS
 
 	GlobalTicker.TickSignal.connect(_on_global_tick)
 
+	var cost = data.costs
 	var requirements := CBuildRequirements.new()
 	add_child(requirements)
 	requirements.initialize_component(self)
@@ -137,7 +150,8 @@ func set_fog_visible(newVis: bool) -> void:
 	visible = newVis
 
 func _on_global_tick() -> void:
-	OnTickReceived.emit()
+	if receive_ticks:
+		OnTickReceived.emit()
 
 func settle_position():
 	if not grid_manager:
@@ -184,6 +198,8 @@ func destroy_object():
 
 
 func play_interaction_with(target: GridObject, shake_target: bool = true, duration: float = INTERACT_DURATION) -> void:
+	if (mid_tween()):
+		return
 	if not is_instance_valid(target):
 		return
 	var pivot: Node2D = get_node_or_null("%ViewPivot")
@@ -210,8 +226,9 @@ func play_interaction_with(target: GridObject, shake_target: bool = true, durati
 	_interact_tween.tween_property(pivot, "position", Vector2.ZERO, third).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
 
 
-
 func play_shake() -> void:
+	if (mid_tween()):
+		return
 	var sprite: Node2D = get_node_or_null("%Sprite")
 	if not sprite:
 		return
@@ -225,6 +242,8 @@ func play_shake() -> void:
 	_shake_tween.tween_property(sprite, "position:x", INTERACT_SHAKE_MAGNITUDE * 0.5, step)
 	_shake_tween.tween_property(sprite, "position:x", 0.0, step)
 
+	await get_tree().create_timer(INTERACT_SHAKE_DURATION).timeout
+
 
 func play_hit_flash() -> void:
 	_play_flash(Color.ORANGE_RED)
@@ -232,6 +251,47 @@ func play_hit_flash() -> void:
 
 func play_white_flash() -> void:
 	_play_flash(Color(2.0, 2.0, 2.0))
+
+
+func mid_tween()-> bool:
+	if _shake_tween and _shake_tween.is_running():
+		return true
+	if _interact_tween and _interact_tween.is_running():
+		return true
+	if _pos_tween and _pos_tween.is_running():
+		return true
+	if _rot_tween and _rot_tween.is_running():
+		return true
+	return false
+
+func play_hop(direction: Vector2i,duration:float) -> void:
+	var pivot: Node2D = get_node_or_null("%ViewPivot")
+	if not pivot:
+		return
+	if _pos_tween and _pos_tween.is_running():
+		_pos_tween.kill()
+	if _rot_tween and _rot_tween.is_running():
+		_rot_tween.kill()
+
+
+	var half: float = duration * 0.5
+	var start_y: float = pivot.position.y
+
+	_pos_tween = pivot.create_tween().set_parallel(true)
+	_pos_tween.tween_property(pivot, "position:x", 0.0, duration).set_trans(Tween.TRANS_LINEAR)
+	_pos_tween.tween_method(
+		func(t: float) -> void:
+			pivot.position.y = lerp(start_y, 0.0, t) - HOP_HEIGHT * sin(t * PI),
+		0.0, 1.0, duration
+	)
+
+	if direction.x != 0:
+		var lean: float = -sign(direction.x) * HOP_LEAN
+		_rot_tween = pivot.create_tween()
+		_rot_tween.tween_property(pivot, "rotation", lean, half).set_trans(Tween.TRANS_SINE)
+		_rot_tween.tween_property(pivot, "rotation", 0.0, half).set_trans(Tween.TRANS_SINE)
+	else:
+		pivot.rotation = 0.0
 
 
 func _play_flash(color: Color) -> void:
@@ -262,3 +322,14 @@ func get_perimeter() -> Array[Vector2i]:
 			seen[neighbor] = true
 			perimeter.append(neighbor)
 	return perimeter
+
+func exit_grid():
+	grid_manager.ClearPosition(self)
+	current_coord = Vector2i(-1,-1)
+	receive_ticks = false
+
+func reenter_grid(coord:Vector2i):
+	current_coord = coord
+	grid_manager.UpdatePosition(self,current_coord)
+	receive_ticks = true
+	OnUnitReset.emit()

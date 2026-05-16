@@ -2,7 +2,7 @@ extends Node2D
 class_name PlayerController
 enum ControlState { IDLE, AIMING, BUILDING }
 
-@export var grid_manager: GridManager
+@onready var grid_manager: GridManager = GameplayEvents.current_grid
 @export var camera_bounds: Area2D
 @onready var draw_node = $ControllerDraw
 @onready var command_controller: CommandController = %CommandController
@@ -30,6 +30,9 @@ var ghost_preview: Node2D = null
 func _ready() -> void:
 	GameplayEvents.UI_controller_ready.emit(self)
 	GameplayEvents.UI_command_requested.connect(on_command_aim_request)
+	var startCameraPos = self.global_position
+	self.global_position = Vector2.ZERO
+	%CameraController.global_position = startCameraPos
 
 func on_command_aim_request(new_command: CommandData):
 	aiming_command = new_command
@@ -53,17 +56,17 @@ func on_command_aim_request(new_command: CommandData):
 	_update_aiming_visual()
 
 func _spawn_ghost_preview(build_data: CommandData_BuildStructure) -> void:
-	if not build_data.target_actor:
+	if not build_data.buildable_id:
 		return
 	var instance := grid_manager.grid_object_scene.instantiate() as GridObject
 	if not instance:
 		return
-	instance.data = build_data.target_actor
+	instance.data = Database.get_actor_data(build_data.buildable_id)
 	add_child(instance)
 	ghost_preview = instance
 	var sprite: Sprite2D = instance.get_node("%Sprite")
-	sprite.texture = build_data.target_actor.sprite
-	sprite.offset = build_data.target_actor.view_offset
+	sprite.texture = instance.data.sprite
+	sprite.offset = instance.data.view_offset
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
