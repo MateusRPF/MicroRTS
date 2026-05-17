@@ -8,14 +8,20 @@
 self_modulate = Color(1, 1, 1, 0)
 script = ExtResource("1_a4a5x")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1843507319]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1885944403]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1934868094]
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer" unique_id=1475950696]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" unique_id=1843507319]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=1934868094]
 layout_mode = 2
 alignment = 1
 
-[node name="Label_CurrentWork" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=1546541446]
+[node name="Label_CurrentWork" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer" unique_id=1546541446]
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_4cet0")
@@ -23,29 +29,29 @@ theme_override_font_sizes/font_size = 16
 text = "Worker Stations"
 horizontal_alignment = 1
 
-[node name="Container_CurrentWorkers" type="HBoxContainer" parent="VBoxContainer" unique_id=151605307]
+[node name="Container_CurrentWorkers" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=151605307]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 
-[node name="Station_Entry" parent="VBoxContainer/Container_CurrentWorkers" unique_id=1389724705 instance=ExtResource("3_l1wtn")]
+[node name="Station_Entry" parent="HBoxContainer/VBoxContainer/Container_CurrentWorkers" unique_id=1389724705 instance=ExtResource("3_l1wtn")]
 layout_mode = 2
 
-[node name="Station_Entry2" parent="VBoxContainer/Container_CurrentWorkers" unique_id=1018524665 instance=ExtResource("3_l1wtn")]
+[node name="Station_Entry2" parent="HBoxContainer/VBoxContainer/Container_CurrentWorkers" unique_id=1018524665 instance=ExtResource("3_l1wtn")]
 layout_mode = 2
 
-[node name="Station_Entry3" parent="VBoxContainer/Container_CurrentWorkers" unique_id=277765505 instance=ExtResource("3_l1wtn")]
+[node name="Station_Entry3" parent="HBoxContainer/VBoxContainer/Container_CurrentWorkers" unique_id=277765505 instance=ExtResource("3_l1wtn")]
 layout_mode = 2
 
-[node name="Control2" type="Control" parent="VBoxContainer/Container_CurrentWorkers" unique_id=175746180]
+[node name="Control2" type="Control" parent="HBoxContainer/VBoxContainer/Container_CurrentWorkers" unique_id=175746180]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer" unique_id=906367688]
+[node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/VBoxContainer" unique_id=906367688]
 layout_mode = 2
 alignment = 1
 
-[node name="Label_workpower" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=911917881]
+[node name="Label_workpower" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=911917881]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_4cet0")
@@ -54,7 +60,7 @@ theme_override_font_sizes/font_size = 14
 text = "Work Power:"
 horizontal_alignment = 1
 
-[node name="Label_TotalWorkValue" type="Label" parent="VBoxContainer/HBoxContainer2" unique_id=999164237]
+[node name="Label_TotalWorkValue" type="Label" parent="HBoxContainer/VBoxContainer/HBoxContainer2" unique_id=999164237]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("1_4cet0")

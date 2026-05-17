@@ -2,15 +2,14 @@
 
 [ext_resource type="Script" uid="uid://ce26amsxyge52" path="res://Scripts/DataStructures/ComponentData/ComponentData.gd" id="1_d8b4d"]
 [ext_resource type="Script" uid="uid://b21ghjgaar2q5" path="res://Scripts/DataStructures/GameResource.gd" id="2_rqkou"]
-[ext_resource type="Script" uid="uid://bwinpf3rgsodd" path="res://Scripts/DataStructures/ComponentData/ComponentData_WorkStation.gd" id="3_k5jvm"]
 [ext_resource type="Script" uid="uid://co4gucr75dqkf" path="res://Scripts/DataStructures/ActorData.gd" id="4_ewkvt"]
-[ext_resource type="Script" uid="uid://dv7pwfaonhwmj" path="res://Scripts/DataStructures/WorkOrder/WorkOrderData.gd" id="4_rqkou"]
 [ext_resource type="Texture2D" uid="uid://c40vk6pfvfgf7" path="res://Sprites/Structures/SPR_Effigy_01.tres" id="5_d8b4d"]
 [ext_resource type="Script" uid="uid://6avybfyvspvv" path="res://Scripts/DataStructures/ActorTags.gd" id="6_miecw"]
+[ext_resource type="Script" uid="uid://b12sbao0o4pnt" path="res://Scripts/DataStructures/ComponentData/ComponentData_Stockpile.gd" id="6_oiqih"]
 
-[sub_resource type="Resource" id="Resource_k5jvm"]
-script = ExtResource("3_k5jvm")
-metadata/_custom_type_script = "uid://bwinpf3rgsodd"
+[sub_resource type="Resource" id="Resource_miecw"]
+script = ExtResource("6_oiqih")
+metadata/_custom_type_script = "uid://b12sbao0o4pnt"
 
 [resource]
 script = ExtResource("4_ewkvt")
@@ -19,5 +18,5 @@ description = "Binder of the Great Soul"
 sprite = ExtResource("5_d8b4d")
 view_offset = Vector2i(32, -32)
 grid_size = Vector2i(3, 3)
-modules = Array[ExtResource("1_d8b4d")]([SubResource("Resource_k5jvm")])
+modules = Array[ExtResource("1_d8b4d")]([SubResource("Resource_miecw")])
 metadata/_custom_type_script = "uid://co4gucr75dqkf"

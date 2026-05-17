@@ -207,6 +207,9 @@ func _single_object_view(object: GridObject) -> void:
 	_current_objects.clear()
 	_current_objects.append(object)
 	_enable_buttons_for_actor(object)
+	visibility_if_enabled()
+
+
 
 
 func _multiple_object_view(objects: Array[GridObject]) -> void:
@@ -224,6 +227,16 @@ func _multiple_object_view(objects: Array[GridObject]) -> void:
 		for entry in panel_entries:
 			if entry.data == cmd:
 				entry.button.enable_button()
+	visibility_if_enabled()
+
+func visibility_if_enabled():
+	var should_show = false
+	for button:BasicButton in button_keys:
+		if button.enabled:
+			should_show = true
+			break
+	self.visible = should_show
+
 
 
 func trigger_command_request(command: CommandData):

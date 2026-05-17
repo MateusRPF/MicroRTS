@@ -22,6 +22,8 @@ func update_view():
 		_:
 			%Label_Command.text = "Neutral"
 			modulate = Color.YELLOW
+
+			
 	var currentCommand:Command = executor.current_command
 	if (currentCommand):
 		%Label_Command.text = currentCommand.get_descriptor()

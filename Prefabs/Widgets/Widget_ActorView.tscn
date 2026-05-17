@@ -25,22 +25,23 @@ theme = ExtResource("1_6q1t3")
 
 [node name="Image_ActorSprite" type="TextureRect" parent="HBoxContainer/PanelContainer" unique_id=1903708621]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("2_siewa")
+expand_mode = 2
 stretch_mode = 5
 
 [node name="Label_Name" type="Label" parent="HBoxContainer" unique_id=1077920290]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(150, 30)
+custom_minimum_size = Vector2(150, 64)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("3_siewa")
 theme_override_font_sizes/font_size = 16
-text = "The Acolyte"
+text = "Effigy of the Undergod"
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 3
 justification_flags = 0

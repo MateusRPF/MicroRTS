@@ -23,6 +23,8 @@ border_blend = true
 [node name="CommandPanel" type="PanelContainer" unique_id=1232269199 node_paths=PackedStringArray("button_keys")]
 show_behind_parent = true
 texture_filter = 1
+offset_right = 224.0
+offset_bottom = 172.0
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_jp3g8")
